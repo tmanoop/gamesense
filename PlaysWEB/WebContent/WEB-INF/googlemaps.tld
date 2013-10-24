@@ -1,0 +1,1828 @@
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+						"http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+					
+<taglib>
+<tlib-version>1.0</tlib-version>
+<jsp-version>1.1</jsp-version>
+<short-name>googlemaps</short-name>
+<uri>/WEB-INF/googlemaps.tld</uri>
+<display-name>GoogleMaps JSP Tag Library</display-name>
+<description>
+<![CDATA[
+<p>A custom tag library to provide general GoogleMaps API capabilities.</p>
+<p><a href="http://www.google.com">Google</a> recently released it's wonderful<br/>
+<a href="http://www.google.com/apis/maps/signup.html">GoogleMaps API</a> to the<br/>
+public. GoogleMaps API is a javascript/AJAX application that provides dynamic,<br/>
+interactive mapping and satellite capabilities for webpages. The possible uses are<br/>
+endless.</p>
+<p>Before using GoogleMaps and the GoogleMaps API JSP Tag Library you should read their<br/>
+<a href="http://www.google.com/apis/maps/terms.html">Terms of Use</a> and you will need to <a href="http://www.google.com/apis/maps/signup.html">Register</a><br/>
+each domain that will use the API.</p>
+<p>While this tag library does not expose all the possibilities of the GoogleMaps API,<br/>
+it provides good functionality without the need to learn the API, advanced Javascript or<br/>
+AJAX, and provides a familiar JSP tag library interface.</p>
+<p>What this tag library provides that GoogleMaps API does <i>not</i> provide is some<br/>
+geolocation capabilities. Geolocation is the practice of converting a physical location<br/>
+to a longitude/latitude pair. The GoogleMaps API JSP Tag Library allows you to specify a location<br/>
+by any of the following, not just Longitude and Latitude pairs:</p>
+<ul>
+<li>Longitude & Latitude</li>
+<li>IP Address</li>
+<li>US Zipcode</li>
+<li>City and State (Province)</li>
+<li>Street Address</li>
+</ul>
+<p>It also provides built-in capabilities to draw circles, boxes and polygons that the standard API
+does not contain.</p>
+<p>The GoogleMaps API JSP Tag Library also provides mousewheel handling that the default<br/>
+GoogleMaps API does not.</p>
+<p>The tags fit into 2 categories: 1) Data tags that provide the data needed to create a map and 2) 
+Display tags that generate the actual HTML, Javascript and AJAX output.</p>
+<p>The following tags make up the data portion of the tag library:
+<ul>
+<li>&lt;googlemaps:map><br/>
+This is the top level tag and is parent to all the other data tags, except the 
+&lt;googlemaps:infowindow> tag which is child to the &lt;googlemaps:marker> tag.</li>
+<ul>
+<li>&lt;googlemaps:key><br/>
+Where you define the GoogleMaps API key for the domain hosting this map. You can 
+register for a key <a href="http://www.google.com/apis/maps/signup.html">here</a></li>
+<li>&lt;googlemaps:point><br/>
+This tag represents a location on the map. It has no output, but is used in all the other tags (except 
+&lt;googlemaps:infowindow>)
+as plotting points.</li>
+<li>&lt;googlemaps:marker><br/>
+This tag displays a marker on the map at the specified point.</li>
+<ul>
+<li>&lt;googlemaps:infowindow><br/>
+This tag defines a cartoon dialog style window that appears over a marker.</li>
+<li>&lt;googlemaps:tabbedInfoWindow><br/>
+This tag defines a cartoon dialog style window that appears over a marker and contains multiple tabs.</li>
+<ul>
+<li>&lt;googlemaps:tab><br/>
+This tag defines a single tab within a tabbedInfoWindow.</li>
+</ul>
+<li>&lt;googlemaps:blowup><br/>
+This tag defines a cartoon dialog style window that contains a map blowup of the marker's position.</li>
+<li>&lt;googlemaps:event><br/>
+This tag defines an action listener for clicks on this marker.</li>
+<li>&lt;googlemaps:icon><br/>
+This tag defines a custom icon for this marker.</li>
+</ul>
+<li>&lt;googlemaps:maptype><br/>
+Defines a custom map type for this map.</li>
+<li>&lt;googlemaps:message><br/>
+Defines a message window that appears on loading and event triggers.</li>
+<li>&lt;googlemaps:circle><br/>
+Draws a circle with a given radius around the specified point.</li>
+<li>&lt;googlemaps:event><br/>
+This tag defines an action listener for clicks, drags, zoom and type changes on this map.</li>
+<li>&lt;googlemaps:polygon><br/>
+Draws a closed polygon using the specified points (in order) as plotting points.</li>
+<li>&lt;googlemaps:polyline><br/>
+Draws a polyline using the specified points (in order) as plotting points.</li>
+<li>&lt;googlemaps:traffic><br/>
+Plots markers that relate to traffic events within the given radius.</li>
+<ul>
+<li>&lt;googlemaps:icon><br/>
+This tag defines a custom icon for events found in given radius.</li>
+</ul>
+<li>&lt;googlemaps:body><br/>
+For future use allowing users to define custom controls.</li>
+<li>&lt;googlemaps:overviewControl><br/>
+Displays a small overview window inside the map.</li>
+<li>&lt;googlemaps:panControl><br/>
+Turns on or off the paning controls on the map.</li>
+<li>&lt;googlemaps:typeControl><br/>
+Turns on or off the map type (map, satelitte or hybrid) controls.</li>
+<li>&lt;googlemaps:wheelControl><br/>
+Turns on or off mousewheel scrolling capabilities. Requires the map version be set to 1.</li>
+<li>&lt;googlemaps:zoomControl><br/>
+Turns on or off the zoom control. If set to large the zoom slider is also displayed.</li>
+</ul>
+</ul>
+</p>
+<p>
+The following tags represent the display portion of the tag library. They must be placed after the 
+&lt;googlemaps:map> tag and have specific places they must be put:
+<ul>
+<li>&lt;googlemaps:scripttag><br/>
+Generate the script tag that imports the GoogleMaps&trade; API. This tag should be in the &lt;head> section,
+anywhere after the &lt;googlemaps:map> tag.</li>
+<li>&lt;googlemaps:javascript><br/>
+Generates the javascript and AJAX portion of the map. This should be in the &lt;head> section, but either way
+must be after the &lt;googlemaps:scripttag> and outside any &lt;table> and other formatting tags to ensure
+compatibility with Internet Explorer.</li>
+<li>&lt;googlemaps:div><br/>
+This is the visual map. This tag can be anywhere in the &lt;body> section, after the
+&lt;googlemaps:javascript> tag.</li>
+<li>&lt;googlemaps:initialize><br/>
+Generates the javascript code that initializes the map and connects the mousewheel (if applicable). This tag
+must be after the &lt;googlemaps:div> tag and should be the very last tag before the closing &lt;/body> tag.
+</ul>
+</p>
+<p>Future versions of this tag library will provide driving directions, course plotting and much more.<br/>
+Stay tuned!</p>
+]]>
+</description>
+
+	<tag>
+		<name>map</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>GoogleMapTag</display-name>
+		<description>
+		<![CDATA[
+		<p>This tag provides the general setup for a GoogleMap. It provides 
+		Geolocation functionality and initialization features, but generates no
+		output. The following tags are children of the &lt;googlemaps:map> tag:</p>
+		]]>
+		</description>
+		<attribute>
+			<name>maxZoom</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>Sets the maximum zoom level that this map will allow. Works on version
+			2 maps only. Default is 17.</description>
+		</attribute>
+		<attribute>
+			<name>minZoom</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>Sets the minimum zoom level that this map will allow. Works on version
+			2 maps only. Default is 0.</description>
+		</attribute>
+		<attribute>
+			<name>bound</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>Sets pan movement bounding on or off. If set to true, users can only pan the map
+			to display the points you've added to the map. If set to false, then can pan anywhere on the
+			globe.</description>
+		</attribute>
+		<attribute>
+			<name>debug</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>Turns debugging on or off. If turned on, version 2 maps will display a small pop-up
+			window with debugging information logged in it. Default is false.</description>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The page unique identifier for this map.]]></description>
+		</attribute>
+		<attribute>
+			<name>version</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The GoogleMaps API version to use. The default value is 1. The current version is 2. Version 2 provides better
+			resolution satellite images, however wheelControl is not supported on version 2.]]></description>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The width (in pixels) for this map.]]></description>
+		</attribute>
+		<attribute>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The height (in pixels) for this map.]]></description>
+		</attribute>
+		<attribute>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Denotes whether to display a street map, satellite image or hybrid styles map. Default is street. Valid values include MAP, SATELLITE and HYBRID.]]></description>
+		</attribute>
+		<attribute>
+			<name>zoom</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description><![CDATA[The starting zoom factor. If not specified, the map will be zoomed to fit the current points and displayed controls.]]></description>
+		</attribute>
+		<attribute>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Page or site. The scope of this MAP tag this refers to. If set to page all the view tags must be on the same page as the &lt;googlemaps:map> tag and the
+			map data is stored in the pageContext using it's id. If set to site, the &lt;googlemaps:map> tag and the display tags can be on separate pages and the map data will be stored in the session using it's id. 
+			This allows you to use a single Google Map definition on multiple pages, and provides a mechanism for servlets to access
+			the map data if they are registered as event listeners.]]></description>
+		</attribute>
+		<attribute>
+			<name>centerLatitude</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>double</type>
+			<description><![CDATA[The initial centerpoint latitude (in decimal format) for the map. If not specified the center point will try to be infered by the added markers, circles, boxes
+			and polylines, unless a child &lt;googlemaps:point> tag has center set to true.]]></description>
+		</attribute>
+		<attribute>
+			<name>centerLongitude</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>double</type>
+			<description><![CDATA[The initial centerpoint longitude (in decinal format) for the map. If not specified the center point will try to be infered by the added markers, circles, boxes
+			and polylines, unless a child &lt;googlemaps:point> tag has center set to true.]]></description>
+		</attribute>
+		<attribute>
+			<name>xml</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Denotes an XML source (file or XML generator) that will provide the map source data for points, overlays and events. This XML file must validate
+			against the PUBLIC dtd http://www.lamatek.com/GoogleMaps/dtds/googlemaps.dtd. Please note that if a map tag contains an XM file attribute AND additional child tags, the
+			XML file will be parsed and processed first, then any child tags will be added. Therefore, IDs must be unique within the XML file and the child tags.]]></description>
+		</attribute>
+		<attribute>
+			<name>headless</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>If set to true,  controls will only be visible when the mouse is inside the map, otherwise the controls are hidden.
+			If set to false, user controls are always visible. Default is false.</description>
+		</attribute>
+		<attribute>
+			<name>language</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+			<![CDATA[
+			The i18n language to use on the map and it's controls. The active list is specified by google. At the time of writing the currently
+			available supported list of languages includes:
+			<ul>
+			<li>Japanese (ja)
+			<li>French (fr)
+			<li>German (de)
+			<li>Italian (it)
+			<li>Spanish (es)
+			<li>Catalan (ca)
+			<li>Basque (eu)
+			<li>Galician (gl)
+			<li>English (en)
+			</ul> 
+			
+			]]></description>
+		</attribute>
+		<attribute>
+			<name>showDaylight</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>Set to true to display current light/dark conditions on your map. Default is false.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>coordinates</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapCoordinatesTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapCoordinatesTag</display-name>
+		<description>
+		<![CDATA[
+		This tag adds a small control to the map that displays the cursor's current longitude and latitude
+		location. Developers can assign style and class attributes, as well as an x and y anchor point.
+		]]>
+		</description>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The CSS style to assign to the div.</description>
+		</attribute>
+		<attribute>
+			<name>css_class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The CSS class name to assign to the div.</description>
+		</attribute>
+		<attribute>
+			<name>x</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The x location to place the upper left hand corner.</description>
+		</attribute>
+		<attribute>
+			<name>y</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The y location to place the upper left hand corner.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>insert</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapInsertTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapInsertTag</display-name>
+		<description>
+		<![CDATA[
+		The insert tag allows you to add an image as an overlay directly on the map. When the map is moved,
+		the image moves. When the map is zoomed, the image zooms. It provides a simple way to provide an overlay
+		onto a map without having to create your own tiles.
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>A map unique identifier for this image insert.</description>
+		</attribute>
+		<attribute>
+			<name>point</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The point id that indicates the centerpoint of where this image should be placed.</description>
+		</attribute>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The url (relative or absolute) to the image file.</description>
+		</attribute>
+		<attribute>
+			<name>baseZoom</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The base zoom level at which this image should be displayed full scale (100%).</description>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The full scale width of the image in pixels.</description>
+		</attribute>
+		<attribute>
+			<name>height</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The full scale height of the image in pixels.</description>
+		</attribute>
+		<attribute>
+			<name>mapTypes</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>A comma separated list of map type names in which this insert
+			should be displayed. If none is specified then all map types are supported.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>label</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapLabelTag</tag-class>
+		<body-content>tagdependent</body-content>
+		<display-name>GoogleMapLabelTag</display-name>
+		<description>
+		<![CDATA[
+		Allows developers to place a label (rather than a marker) on a map. This could be used to label interesting
+		areas, etc. Labels do not accept events, and do not block events. Only works on version 2 maps.
+		]]>
+		</description>
+		<attribute>
+			<name>point</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The point id that indicates where this label should point to.</description>
+		</attribute>
+		<attribute>
+			<name>content</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Allows the user to set this label's displayed content. If this
+			attribute is used, any content between the starting and ending tag is ignored. Developer wishing to
+			provide dynamic label contents, either through JSTL or regular expressions, should use this option.]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The CSS style to apply to this label.</description>
+		</attribute>
+		<attribute>
+			<name>css_class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The CSS class name to apply to this label.</description>
+		</attribute>
+		<attribute>
+			<name>opacity</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>float</type>
+			<description>The opacity level (0-1) for this label.</description>
+		</attribute>
+		<attribute>
+			<name>x_offset</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The offset (in pixels) to move the label from it's original point. Use negative numbers to 
+			move left, positive to move right.</description>
+		</attribute>
+		<attribute>
+			<name>y_offset</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The offset (in pixels) to move the label from it's original point. Use negative numbers to 
+			move up, positive to move down.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>cluster</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapClusterTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>GoogleMapClusterTag</display-name>
+		<description>
+		<![CDATA[
+		Clusters multiple markers into single larger markers, based on the attributes set. This 
+		provides cleaner maps at smaller zoom levels and improves the performance of the map.
+		As the user zooms in, the clustered markers will expand to reveal all the markers in
+		it's cluster. You can define a single &lt;googelmaps:icon> tag as a child to this tag
+		to define the clustered icon (so users can differentiate them from non-clustered icons).
+		]]></description>
+		<attribute>
+			<name>pathToScript</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>This can be a relative or absolute URL path to the Clusterer.js file.</description>
+		</attribute>
+		<attribute>
+			<name>maxVisibleMarkers</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The maximum number of markers (clustered and non-clustered) that can appear on the map. Default is 100.</description>
+		</attribute>
+		<attribute>
+			<name>markersPerCluster</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>This is the minimum number of markers that can be joined into a cluster. Default is 5.</description>
+		</attribute>
+		<attribute>
+			<name>gridSize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>Default is 5.</description>
+		</attribute>
+	</tag>
+		
+	<tag>
+		<name>overviewControl</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapOverviewTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapOverviewTag</display-name>
+		<description>
+		<![CDATA[
+		Displays a smaller overview control map of the specified width and height, at the specified
+		x, y location. Only works with maps of version 2.41 or higher. Maps of earlier versions will be ignored.
+		]]></description>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The desired width (in pixels) of the overview window. Default is 200.</description>
+		</attribute>
+		<attribute>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The desired height (in pixels) of the overview window. Default is 200.</description>
+		</attribute>
+		<attribute>
+			<name>x</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The desired x location (in pixels) of the overview window. Default is 0.</description>
+		</attribute>
+		<attribute>
+			<name>y</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The desired y location (in pixels) of the overview window. Default is 0.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>wms</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapWMSTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GooelMapWMSTag</display-name>
+		<description>
+		<![CDATA[
+		
+		]]></description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>A unique id for this WMS map.</description>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The name that will be displayed on the map type control button.</description>
+		</attribute>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The url to the WMS map server.</description>
+		</attribute>
+		<attribute>
+			<name>layers</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>A comma separated list of available layer names to display.</description>
+		</attribute>
+		<attribute>
+			<name>format</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The content type for the image(s) to retrieve. The default is image/jpeg. This format must be supported by the wms server.</description>
+		</attribute>
+		<attribute>
+			<name>srs</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The srs to use. The default is EPSG:4326.</description>
+		</attribute>
+		<attribute>
+			<name>version</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The wms version to use. Default is 1.1.1.</description>
+		</attribute>
+		<attribute>
+			<name>showOnStartup</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>Denotes whether or not this map type should be initially selected. Default is true.</description>
+		</attribute>
+		<attribute>
+			<name>pathToScript</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The path to the wms.js script.</description>
+		</attribute>
+		<attribute>
+			<name>showOverlay</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>If set to true, street maps will be laid over the wms layers.</description>
+		</attribute>
+		<attribute>
+			<name>copyright</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The copyright for this map.</description>
+		</attribute>
+	</tag>
+		
+	<tag>
+		<name>maptype</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapMapTypeTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapMapTypeTag</display-name>
+		<description>
+		<![CDATA[
+		Allows developers to define custom maps through a custom tile provider. The developer
+		provides a url to a resource that can return map tiles based on x tile number, y tile number
+		and zoom level.
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>A unique id for this map type tag.</description>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The name for this map type. The map type control button will display this value.</description>
+		</attribute>
+		<attribute>
+			<name>copyright</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>Lets you specify copyright information for this map type.</description>
+		</attribute>
+		<attribute>
+			<name>url</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The url to the resource that will provide high zoom (more than half way in) tile images. If not set the default Google Map tiles for the
+			specified map type will be displayed.</description>
+		</attribute>
+		<attribute>
+			<name>lowResUrl</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The url to the resource that will provide low zoom (more than half way out) tile images. If not set the default Google Map tiles for the
+			specified map type will be displayed.</description>
+		</attribute>
+		<attribute>
+			<name>overlayUrl</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The url to the resource that will provide overlay tile images. This is only used if your map
+			extends the hybrid map type. If not set, the default Google Maps overlay tiles will be presented.</description>
+		</attribute>
+		<attribute>
+			<name>maxZoom</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>Denotes the maximum zoom level your map can support. Zoom levels greater than this will result in
+			the Default map tiles being dispayed.</description>
+		</attribute>
+		<attribute>
+			<name>minZoom</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>Denotes the mininum zoom level your map can support. Zoom levels less than this will result in
+			the Default map tiles being dispayed.</description>
+		</attribute>
+		<attribute>
+			<name>upperLeftBound</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>Denotes the point id that represents the upper left bounds of your map's coverage area.</description>
+		</attribute>
+		<attribute>
+			<name>lowerRightBound</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>Denotes the point id that represents the lower right bounds of your map's coverage area.</description>
+		</attribute>
+		<attribute>
+			<name>baseType</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The Google Maps map type that this map is based on. Valid values are
+			map, satellite and hybrid. Default is map.</description>
+		</attribute>
+		<attribute>
+			<name>showOnStartup</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>If set to true, the map will be displayed with this map type selected.</description>
+		</attribute>
+		<attribute>
+			<name>png</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>Set to true if tiles for this map type are .png format. False otherwise. Default is false.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>icon</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapIconTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapIconTag</display-name>
+		<description>
+		<![CDATA[
+		<p>Allows you to specify a custom icon and matching shadow for markers. This tag must be the child of a
+		&lt;googlemaps:marker> tag to work.</p>
+		<p>Note that the images should be .png files, 24 bits. The shadow and the icon images must line up properly
+		from the upper left hand corner.</p>
+		]]>
+		</description>
+		<attribute>
+			<name>icon</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>URL to the icon image. This should be a PNG file, 24 bit with transparency.</description>
+		</attribute>
+		<attribute>
+			<name>shadow</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>URL to the shadow image. This should be a PNG file, 24 bit with transparency.</description>
+		</attribute>
+		<attribute>
+			<name>iconWidth</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The icon image width in pixels.</description>
+		</attribute>
+		<attribute>
+			<name>iconHeight</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The icon image height in pixels.</description>
+		</attribute>
+		<attribute>
+			<name>shadowWidth</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The shadow image width in pixels.</description>
+		</attribute>
+		<attribute>
+			<name>shadowHeight</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The shadow image height in pixels.</description>
+		</attribute>
+		<attribute>
+			<name>anchorX</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The x location of the anchor point.</description>
+		</attribute>
+		<attribute>
+			<name>anchorY</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The y location of the anchor point.</description>
+		</attribute>
+		<attribute>
+			<name>infoWindowAnchorX</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The x location of the infowidnow anchor point.</description>
+		</attribute>
+		<attribute>
+			<name>infoWindowAnchorY</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The y location of the infowindow anchor point.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>imageoverlay</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapImageOverlayTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapImageOverlayTag</display-name>
+		<description><![CDATA[
+		<p>Allows the user to define a fixed image overlay. This can take the form of a button,
+		a logo, whatever. The image can also be assigned a hyperlink that will be triggered
+		if clicked on.
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>A map unique identifier for this image</description>
+		</attribute>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The url to the image to display</description>
+		</attribute>
+		<attribute>
+			<name>opacity</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>float</type>
+			<description>The opacity level (0 to 1) for the image.</description>
+		</attribute>
+		<attribute>
+			<name>link</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The hyperlink url to load if the image is clicked.</description>
+		</attribute>
+		<attribute>
+			<name>x</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The x location for the image (relative to the map).</description>
+		</attribute>
+		<attribute>
+			<name>y</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>The y location for the image (relative to the map).</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>traffic</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapTrafficTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>GoogleMapTrafficTag</display-name>
+		<description>
+		<![CDATA[
+		<p>This tag displays a series of markers that relate to traffic events within a defined
+		radius of a given point. The severity of the events can be selected, and when a traffic
+		event marker is clicked, the details of the event are displayed in an info window.</p>
+		<p>A &lt;googlemaps:traffic> tag can be parent to a &lt;googlemaps:icon> tag to specify
+		unique icons for traffic events.</p>
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>A map unique id for the events found in the target area.</description>
+		</attribute>
+		<attribute>
+			<name>point</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The id of the point tag used as the center of the radius of events. Events within the specified
+			radius of this point will be displayed with markers.</description>
+		</attribute>
+		<attribute>
+			<name>radius</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>double</type>
+			<description>The radius (in miles) from the given point to search for and display events.</description>
+		</attribute>
+		<attribute>
+			<name>severity</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description>Denotes the severity level (1 being lowest and 5 highest) of events
+			to retrieved. All events equalling or exceeding this event level will be displayed. Default is 1 (returns all events).
+			</description>
+		</attribute>
+		<attribute>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The type of events to display. Can be incidents, construction or both.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>event</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapEventTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapEventTag</display-name>
+		<description>
+		<![CDATA[
+		<p>Adds an event listener to the parent tag. This tag can only effectively be a child
+		of a &lt;googlemaps:map> or &lt;googlemaps:marker> tag. If a child of any other tag, this
+		tag will register itself with the next highest instance of &lt;googlemaps:map> or &lt;googlemaps:marker>.
+		When a map or marker with a registered event is triggered, the URL is called additional parameters based upon
+		the parent component type and the event that is triggered. The complete list is as follows:</p>
+		<ul>
+		<li>&lt;googlemaps:box></li>
+		<ul>
+			<li>click<br/>Triggers when the box is clicked on.</li>
+			<ul>
+				<li>component<br/>The box's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'box'.</li>
+			</ul>
+			<li>dblclick<br/>Triggers when the box is double-clicked on.</li>
+			<ul>
+				<li>component<br/>The box's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'box'.</li>
+			</ul>
+		</ul>
+		<li>&lt;googlemaps:circle></li>
+		<ul>
+			<li>click<br/>Triggers when the circle is clicked on.</li>
+			<ul>
+				<li>component<br/>The circle's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'circle'.</li>
+			</ul>
+			<li>dblclick<br/>Triggers when the circle is double-clicked on.</li>
+			<ul>
+				<li>component<br/>The circle's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'circle'.</li>
+			</ul>
+		</ul>
+		<li>&lt;googlemaps:marker></li>
+		<ul>
+			<li>click<br/>Triggers when the marker is clicked on.</li>
+			<ul>
+				<li>component<br/>The marker's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'marker'.</li>
+			</ul>
+			<li>dblclick<br/>Triggers when the marker is double-clicked on.</li>
+			<ul>
+				<li>component<br/>The marker's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'marker'.</li>
+			</ul>
+			<li>dragstart<br/>Triggers when a draggable marker is initially dragged.</li>
+			<ul>
+				<li>component<br/>The marker's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'marker'.</li>
+				<li>longitude<br/>The longitude where the drag was initiated.</li>
+				<li>latitude<br/>The latitude where the drag was initiated.</li>
+			</ul>
+			<li>dragend<br/>Triggers when a draggable marker is dropped.</li>
+			<ul>
+				<li>component<br/>The marker's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'marker'.</li>
+				<li>longitude<br/>The longitude where the marker was dropped.</li>
+				<li>latitude<br/>The latitude where the marker was dropped.</li>
+			</ul>
+		</ul>
+		<li>&lt;googlemaps:polyline></li>
+		<ul>
+			<li>click<br/>Triggers when the polyline is clicked on.</li>
+			<ul>
+				<li>component<br/>The polyline's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'polyline'.</li>
+			</ul>
+			<li>dblclick<br/>Triggers when the polyline is double-clicked on.</li>
+			<ul>
+				<li>component<br/>The polyline's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'polyline'.</li>
+			</ul>
+		</ul>
+		<li>&lt;googlemaps:polygon></li>
+		<ul>
+			<li>click<br/>Triggers when the polygon is clicked on.</li>
+			<ul>
+				<li>component<br/>The polygon's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'polygon'.</li>
+			</ul>
+			<li>dblclick<br/>Triggers when the polygon is double-clicked on.</li>
+			<ul>
+				<li>component<br/>The polygon's id.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+				<li>type<br/>Returns 'polygon'.</li>
+			</ul>
+		</ul>
+		<li>&lt;googlemaps:map></li>
+		<ul>
+			<li>click<br/>Triggers when the map is clicked on.</li>
+			<ul>
+				<li>longitude<br/>The longitude where the click occurred.</li>
+				<li>latitude<br/>The latitude where the click occurred.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+			</ul>
+			<li>dblclick<br/>Triggers when the map is double-clicked on.</li>
+			<ul>
+				<li>longitude<br/>The longitude where the click occurred.</li>
+				<li>latitude<br/>The latitude where the click occurred.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+			</ul>
+			<li>moveend<br/>Triggers when the user has completed moving the map.</li>
+			<ul>
+				<li>longitude<br/>The longitude of the new centerpoint for the map.</li>
+				<li>latitude<br/>The latitude of the new centerpoint for the map.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+			</ul>
+			<li>zoom<br/>Triggers when the user changes the zoom level.</li>
+			<ul>
+				<li>zoom<br/>The new zoom level of the map.</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+			</ul>
+			<li>maptypechanged</li>
+			<ul>
+				<li>type<br/>Returns the new map type (map, satellite or hybrid).</li>
+				<li>map<br/>The parent map's id.</li>
+				<li>event<br/>The event type that was triggered.</li>
+			</ul>
+		</ul>
+		</ul>
+		<p>The intended use is to have the event trigger a request to either a servlet or JSP page. This
+		page would retrieve the map from the session using the map id (passed as map parameter) making
+		the required changes, additions, etc. and then pass the response back to the requesting page or another
+		page that displays that map, which would then render the map with the changes.</p>
+		<p>For this methodology to work properly, the parent map must have a scope of type site, so the 
+		receiving entity can locate the map from the session.</p>
+		]]>
+		</description>
+		<attribute>
+			<name>action</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+			<![CDATA[
+			<p>The javascript event that triggers this URL.</p>
+			]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The URL that is called when the event is triggered. The URL is appended
+			with parameters based on the component and event type triggered.</description>
+		</attribute>
+		<attribute>
+			<name>asynchronous</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>Denotes this action as asynchronous, if true, or synchronous, if false. If false, the
+			request will forward to the specified URL. If true, the request will be made asynchronously. Typically
+			speaking if your URL only needs to know about the data, you can set this to true. If your request needs
+			to render special changes to the map, or redirect to another page, set this to false.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>key</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapKeyTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapKeyTag</display-name>
+		<description>
+		<![CDATA[
+		<p>The &lt;googlemaps:key> tag allows you to specify multiple keys for your GoogleMaps API. To use
+		this tag library you will need to <a href="http://www.google.com/apis/maps/signup.html">register</a>
+		each domain that will use the API.</p>
+		<p>If your website is registered with multiple domain names, you will need to obtain and specify a
+		key for each one</p>
+		]]>
+		</description>
+		<attribute>
+			<name>domain</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The domain name that was registered to get this key. If not specified the
+			current domain will be used.]]></description>
+		</attribute>
+		<attribute>
+			<name>key</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The GoogleMaps API Key for the this domain.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>body</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapBodyTag</tag-class>
+		<body-content>tagdependent</body-content>
+		<display-name>GoogleMapBodyTag</display-name>
+		<description>
+		<![CDATA[
+		Allows you to specify body content for the GoogleMap generated &lt;div> tag. This is reserved for future use
+		(potentially in generating custom controls).
+		]]>
+		</description>
+		<attribute>
+			<name>html</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>Denotes whether or not the body contains html code. If true then it will be escaped.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>message</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapMessageTag</tag-class>
+		<body-content>tagdependent</body-content>
+		<display-name>GoogleMapMessageTag</display-name>
+		<description>
+		<![CDATA[
+		Allows you to specify a message window to appear when maps are loading or requests are being processed.
+		]]>
+		</description>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The css-style to be applied to the window. Note that visibility and z-index will be handled automatically so you should not specofy these in your style attribute.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>marker</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapMarkerTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>GoogleMapMarkerTag</display-name>
+		<description>
+		<![CDATA[
+		<p>Adds a marker to the google map. A &lt;googlemaps:map> tag can have any number of marker tags. </p>
+		<p>The marker may contain child &lt;googlemaps:infowindow> tags.
+		</p>
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[A page specific id for this marker.]]></description>
+		</attribute>
+		<attribute>
+			<name>point</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The id of the &lt;googlemaps:point> to use to place this marker.]]></description>
+		</attribute>
+		<attribute>
+			<name>draggable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description>Denotes whether or not this marker should be draggable. Default is false.</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>infowindow</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapInfoWindowTag</tag-class>
+		<body-content>tagdependent</body-content>
+		<display-name>GoogleMapInfoWindowTag</display-name>
+		<description>
+		<![CDATA[
+		<p>Describes an &lt;googlemaps:infowindow> for a &lt;googlemaps:marker>. There can only be one &lt;googlemaps:infowindow> tag per &lt;googlemaps:marker> tag.
+		If set to display, the &lt;googlemaps:infowindow> will be initially displayed, otherwise it will be
+		displayed when the user clicks on the corresponding marker.</p>
+		<p>If an &lt;googlemaps:infowindow> is going to display HTML content, you must set the html
+		attribute to true, otherwise the content will be rendered as XML and may give
+		undesireable results.</p>
+		<p>The body content of the &lt;googlemaps:infowindow> tag will be the displayed data. You can include complete HTML pages including
+		nifty things like forms, images and more!</p>
+		]]>
+		</description>
+		<attribute>
+			<name>display</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[Denotes whether to initially display the infowindow, or wait for the user to click. Default is false (click).]]></description>
+		</attribute>
+		<attribute>
+			<name>content</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Allows the user to set this infowindow's displayed content. If this
+			attribute is used, any content between the starting and ending tag is ignored. Developer wishing to
+			provide dynamic window contents, either through JSTL or regular expressions, should use this option.]]></description>
+		</attribute>
+		<attribute>
+			<name>html</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[Denotes whether or not the contents of this tag are html and therefore need to be escaped. Default is true.]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The css style attribute(s) to apply to the window's contents.]]></description>
+		</attribute>
+		<attribute>
+			<name>css_class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The css class attribute to apply to the window's contents.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>tabbedInfoWindow</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapInfoWindowTabbedTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>GoogleMapInfoWindowTabbedTag</display-name>
+		<description><![CDATA[Displays a tabbed info window over the parent marker. The tabs are defined
+		using &lt;googlemaps:tab> tags as the body of this tag.]]></description>
+		<attribute>
+			<name>display</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[Denotes whether to initially display the infowindow, or wait for the user to click. Default is false (click).]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The css style attribute(s) to apply to the window's contents for each tab.]]></description>
+		</attribute>
+		<attribute>
+			<name>css_class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The css class attribute to apply to the window's contents for each tab.]]></description>
+		</attribute>
+	</tag>
+			
+	<tag>
+		<name>tab</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapTabTag</tag-class>
+		<body-content>tagdependent</body-content>
+		<display-name>GoogleMapTabTag</display-name>
+		<description><![CDATA[
+		Adds a tab to the parent &lt;googlemaps:tabbedInfoWindow>. The body contents
+		of this tab tag become the contents displayed in the tab.
+		]]></description>
+		<attribute>
+			<name>label</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>The tab label to display for this tab.</description>
+		</attribute>
+		<attribute>
+			<name>content</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Allows the user to set this tab's displayed content. If this
+			attribute is used, any content between the starting and ending tag is ignored. Developer wishing to
+			provide dynamic tab contents, either through JSTL or regular expressions, should use this option.]]></description>
+		</attribute>
+		<attribute>
+			<name>html</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[Denotes whether or not the contents of this tag are html and therefore need to be escaped. Default is true.]]></description>
+		</attribute>
+	</tag>
+		
+	<tag>
+		<name>blowup</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapBlowupTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapBlowupTag</display-name>
+		<description>
+		<![CDATA[
+		Sets up a map blowup window for the parent marker.
+		]]>
+		</description>
+		<attribute>
+			<name>display</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[Denotes whether to initially display the blowup, or wait for the user to click. Default is false (click).]]></description>
+		</attribute>
+		<attribute>
+			<name>zoom</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description><![CDATA[The desired zoom level for the blowup map. Default is 1.]]></description>
+		</attribute>
+		<attribute>
+			<name>maptype</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The type of blowup map to display (map, hybrid or satellite). Default will be the same as the parent map.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>box</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapBoxTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapBoxTag</display-name>
+		<description>
+		<![CDATA[
+		<p>Draws a box on a GoogleMap using polylines. The pointlist must contain two points (additional points will be ignored)
+		that will serve as the opposing corners of the box.</p>
+		<p>Due to a problem in Internet Explorer, it is <i>imperative</i> that you use the following HTML tag
+		in any page that uses the GoogleMaps API and Polylines in Internet Explorer:<blockquote>
+				&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"&gt;<br/>
+				</blockquote>
+		</p>
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[A page unique identifier for this box.]]></description>
+		</attribute>
+		<attribute>
+			<name>pointlist</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[A comma separated list of &lt;googlemaps:point&gt; ids to use as plotting points.]]></description>
+		</attribute>
+		<attribute>
+			<name>color</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The hexidecimal color value for the circle (Default is #ff0000).]]></description>
+		</attribute>
+		<attribute>
+			<name>weight</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description><![CDATA[The thickness of the line in pixels. Default is 2.]]></description>
+		</attribute>
+		<attribute>
+			<name>opacity</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>float</type>
+			<description><![CDATA[A float between 0 and 1 for opacity. A value of .50 would result in a 50% opaque line. Default is .50.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>polygon</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapPolygonTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapPolygonTag</display-name>
+		<description>
+		<![CDATA[
+		<p>Draws a closed polygon on a GoogleMap using polylines. It will plot a line between each of the points specified
+		in the point list, and then close it back to the first point.</p>
+		<p>Due to a problem in Internet Explorer, it is <i>imperative</i> that you use the following HTML tag
+		in any page that uses the GoogleMaps API and Polylines in Internet Explorer:<blockquote>
+				&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"&gt;<br/>
+				</blockquote>
+		</p>
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[A page unique identifier for this box.]]></description>
+		</attribute>
+		<attribute>
+			<name>pointlist</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[A comma separated list of &lt;googlemaps:point> id's to use as plotting points.]]></description>
+		</attribute>
+		<attribute>
+			<name>color</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The hexidecimal color value for the circle (Default is #ff0000).]]></description>
+		</attribute>
+		<attribute>
+			<name>weight</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description><![CDATA[The thickness of the line in pixels. Default is 2.]]></description>
+		</attribute>
+		<attribute>
+			<name>opacity</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>float</type>
+			<description><![CDATA[A float between 0 and 1 for opacity. A value of .50 would result in a 50% opaque line. Default is .50.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>circle</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapCircleTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapCircleTag</display-name>
+		<description>
+		<![CDATA[
+		<p>Draws a circle on a GoogleMap using Polylines using the location if the specified &lt;googlemaps:point>
+		as it's centerpoint.</p>
+		<p>Due to a problem in Internet Explorer, it is <i>imperative</i> that you use the following HTML tag
+		in any page that uses the GoogleMaps API and Polylines in Internet Explorer:<blockquote>
+				&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"&gt;<br/>
+				</blockquote>
+		</p>
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[A page unique identifier for this circle.]]></description>
+		</attribute>
+		<attribute>
+			<name>point</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The id of the &lt;googlemaps:point> to use as the center of this circle.]]></description>
+		</attribute>
+		<attribute>
+			<name>radius</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>double</type>
+			<description><![CDATA[The radius (in miles) of the circle.]]></description>
+		</attribute>
+		<attribute>
+			<name>color</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The hexidecimal color value for the circle (Default is #ff0000).]]></description>
+		</attribute>
+		<attribute>
+			<name>weight</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description><![CDATA[The thickness of the line in pixels. Default is 2.]]></description>
+		</attribute>
+		<attribute>
+			<name>opacity</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>float</type>
+			<description><![CDATA[A float between 0 and 1 for opacity. A value of .50 would result in a 50% opaque line. Default is .50.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>polyline</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapPolylineTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapPolylineTag</display-name>
+		<description>
+		<![CDATA[
+		<p>Allows the user to draw a polygonal line onto the Google Map. The &lt;googlemaps:polyline> tag defines
+		the generic attributes for the line (color, size, etc.). The &lt;googlemaps:points> ids listed in the pointlist
+		form the endpoints of each line segment.</p>
+		<p>Due to a problem in Internet Explorer, it is <i>imperative</i> that you use the following HTML tag
+		in any page that uses the GoogleMaps API and Polylines in Internet Explorer:<blockquote>
+				&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"&gt;<br/>
+				</blockquote>
+		</p>
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[A page unique identifier for this polyline.]]></description>
+		</attribute>
+		<attribute>
+			<name>pointlist</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[A comma separated list of &lt;googlemaps:point> ids to use as plotting points.]]></description>
+		</attribute>
+		<attribute>
+			<name>color</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The hexadecimal color to render this line in. Default is #ff0000 (red).]]></description>
+		</attribute>
+		<attribute>
+			<name>weight</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+			<description><![CDATA[The thickness of the line in pixels. Default is 2.]]></description>
+		</attribute>
+		<attribute>
+			<name>opacity</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>float</type>
+			<description><![CDATA[A float between 0 and 1 for opacity. A value of .50 would result in a 50% opaque line. Default is .50.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>point</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapPointTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapPointTag</display-name>
+		<description>
+		<![CDATA[
+		A point represents a geographical location. User must specify either a longitude/latitude pair or address information.
+		This tag provides geocoding through the following:
+		<ul>
+		<li>IP Address<br/>
+		    Using ip2geo web service.</li>
+		<li>US Address<br/>
+			Using Yahoo web service.</li>
+		<li>International Address<br/>
+			Using Maporama.</li>
+		</ul>
+		]]>
+		</description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[A page specific id for this marker. This value is used to specify this point when used in a point or pointlist
+			attribute.]]></description>
+		</attribute>
+		<attribute>
+			<name>center</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[Denotes this &lt;googlemaps:point> as the center point of the map. Overrides the centerLatitude
+			and centerLongitude values of the &lt;googlemaps:map> tag if specified.]]></description>
+		</attribute>
+		<attribute>
+			<name>longitude</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>double</type>
+			<description><![CDATA[The longitude value (in decimal format) of this point in the line.]]></description>
+		</attribute>
+		<attribute>
+			<name>longitudeAsString</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The longitude value (in decimal format as a String) of this point in the line.]]></description>
+		</attribute>
+		<attribute>
+			<name>latitude</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>double</type>
+			<description><![CDATA[The latitude value (in decimal format) of this point.]]></description>
+		</attribute>
+		<attribute>
+			<name>latitudeAsString</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The latitude value (in decimal format as a String) of this point.]]></description>
+		</attribute>
+		<attribute>
+			<name>ip</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The ip address to locate on the map.]]></description>
+		</attribute>
+		<attribute>
+			<name>address</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The street address of the location to map.]]></description>
+		</attribute>
+		<attribute>
+			<name>city</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The city name of the location to map.]]></description>
+		</attribute>
+		<attribute>
+			<name>state</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The state or province of the location to map.]]></description>
+		</attribute>
+		<attribute>
+			<name>zipcode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The zipcode or postal code of the location to map.]]></description>
+		</attribute>
+		<attribute>
+			<name>country</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The ISO compliant country code of the location to map.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>wheelControl</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapWheelControlTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapWheelControlTag</display-name>
+		<description>
+		<![CDATA[
+		This tag, when present within a &lt;googlemaps:map> tag set, will provide AJAX mousewheel
+		support for smooth zooming in and out of your google map. This feature currently
+		only works if the map version attribute is set to 1. Version 2 of the GoogleMaps API
+		has significant exposure changes. Future versions should support this feature.
+		]]>
+		</description>
+		<attribute>
+			<name>enable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[True or false. If set to true users can zooom in and out using the mouse wheel. Only works with a version set to 1.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>typeControl</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapTypeControlTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapTypeControlTag</display-name>
+		<description><![CDATA[This tag must be nested inside a &lt;googlemaps:map> tag. It provides information on whether to allow the user to change map types. If added to a &lt;googlemaps:map> tag and set
+		to display, the user will be presented with three buttons in the upper right-hand corner of the map, allowing
+		them to change the view to MAP, SATELLITE or HYBRID views on the fly.]]></description>
+		<attribute>
+			<name>enable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[True or false. Default value is true, if present.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>zoomControl</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapZoomControlTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapZoomControlTag</display-name>
+		<description><![CDATA[This tag must be nested inside a &lt;googlemaps:map> tag. It provides information on whether to allow the user to zoom in and out of the map.
+		If added to a &lt;googlemaps:map> tag and set to display it will provide the user with zoom in ('+') and zoom out ('-') buttons.
+		If the size is set to large they will also get a full zoom slider control on the left hand side of the map.]]></description>
+		<attribute>
+			<name>enable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[true or false. Default value is true, if present.]]></description>
+		</attribute>
+		<attribute>
+			<name>size</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[large or small. Small shows only '+' and '-' buttons. Large shows a full slider control.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>panControl</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapPanControlTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapPanControlTag</display-name>
+		<description><![CDATA[This tag must be nested inside a &lt;googlemaps:map> tag. It provides information on whether to allow the user to pan around the map. If added to a &lt;googlemaps:map>
+		tag and set to display, the user will be presented with up, down, left and right buttons in the uppor left-hand
+		corner of the map.]]></description>
+		<attribute>
+			<name>enable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[True or false. Denotes whether or not to allow the user to pan the map. If true, the user
+			can move the map around. Default is true.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>scaleControl</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapScaleControlTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapScaleControlTag</display-name>
+		<description>
+		<![CDATA[
+		This tag, when present within a &lt;googlemaps:map> tag set, will display
+		a map scale appropriate for the current zoom level.
+		]]>
+		</description>
+		<attribute>
+			<name>enable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<description><![CDATA[True or false. If set to true users can see a map scale control.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>scripttag</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapScriptTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapScriptTag</display-name>
+		<description><![CDATA[Generates the required script tag to import the GoogleMaps API. This tag must be placed after and outside the &lt;googlemaps:map> tag and should be placed in the &lt;head> section of your JSP for maximum portability.]]></description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The id attribute of the &lt;googlemaps:point> tag to script.]]></description>
+		</attribute>
+		<attribute>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Page or site. The scope of the &lt;googlemaps:map> tag this refers to.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>javascript</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapJavascriptTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapJavascriptTag</display-name>
+		<description><![CDATA[Generates the required javascript AJAX code needed to create the google map. This must be placed after and outside the &lt;googlemaps:map> tag. For maximum browser compatibility it should also be placed in the &lt;head> section, anywhere after the &lt;googlemaps:scripttag>.]]></description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The ID attribute of the &lt;googlemaps:map> tag to script.]]></description>
+		</attribute>
+		<attribute>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Page or site. The scope of the &lt;googlemaps:map> tag this refers to.]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>div</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapDivTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapDivTag</display-name>
+		<description><![CDATA[Generates the &lt;div> tag that will be the actual visible map. This tag must be placed after and outside the &lt;head> tag. It can be placed anywhere on the page.]]></description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The id attribute of the &lt;googlemaps:map> tag to script.]]></description>
+		</attribute>
+		<attribute>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Page or site. The scope of the &lt;googlemaps:map> tag this refers to.]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[CSS style to apply to the &lt;div> tag.]]></description>
+		</attribute>
+		<attribute>
+			<name>css_class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The CSS class for the &lt;div> tag.]]></description>
+		</attribute> 
+	</tag>
+	
+	<tag>
+		<name>initialize</name>
+		<tag-class>com.lamatek.tags.google.GoogleMapInitializeTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>GoogleMapInitializeTag</display-name>
+		<description><![CDATA[Generates the required javascript code to initialize the google map and register any listeners. For maximum browser compatibility, this tag should be placed just before the
+		closing &lt;/body> tag.]]></description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[The id attribute of the &lt;googlemaps:map> tag to script.]]></description>
+		</attribute>
+		<attribute>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[Page or site. The scope of the &lt;googlemaps:map> tag this refers to.]]></description>
+		</attribute>
+	</tag>
+	
+</taglib>
