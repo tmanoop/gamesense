@@ -1,4 +1,4 @@
-create table App.Area (sqaure_id integer PRIMARY KEY, square_desc varchar(32), floor_num integer, room_num varchar(16), gps_lat double, gps_lng double);
+create table App.Area (sqaure_id integer PRIMARY KEY, square_desc varchar(32), floor_num integer, room_num varchar(16), tile_x double, tile_y double, covered_ind varchar(32));
 create table App.Users (user_id integer PRIMARY KEY, user_email varchar(64), bullets integer, score integer, status_level varchar(16), user_pswd varchar(32), aliens_killed integer);
 create table App.Sensor_Readings (reading_id integer PRIMARY KEY, reading_value_id integer, user_id integer, square_id integer, gps_lat double, gps_lng double);
 create table App.Reading_values (reading_value_id integer PRIMARY KEY, reading_id integer, mac_id char(12), mac_signal_strength double);
