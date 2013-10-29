@@ -39,3 +39,14 @@ INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN',500);
 INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN_TABLE',0);
 
 select * from APP.SEQUENCE
+select * from APP.ALIENS
+select * from APP.AREA
+
+----insert squares
+
+insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(4, 'NJIT', 0, '0', 616446.0, 788244.0, 'N');
+insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(5, 'NJIT', 0, '0', 616447.0, 788244.0, 'N');
+insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(6, 'NJIT', 0, '0', 616448.0, 788244.0, 'N');
+insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(7, 'NJIT', 0, '0', 616449.0, 788244.0, 'N');
+insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(8, 'NJIT', 0, '0', 616450.0, 788244.0, 'N');
+
