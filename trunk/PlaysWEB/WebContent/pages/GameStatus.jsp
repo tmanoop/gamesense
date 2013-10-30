@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.plays.model.Alien"%>
+<%@page import="com.plays.model.Area"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="com.plays.services.AlienServicesLocal"%>
 
@@ -149,6 +150,7 @@ function bound(value, opt_min, opt_max) {
 			for(Alien al : locList){
 				double lat = al.getNextGpsLat();
 				double lng = al.getNextGpsLng();
+				int alienID = al.getAlienId();
 				if(lat != 0.0 && lng != 0.0) {
 			%>				
 					var loc = new google.maps.LatLng(<%= lat%>,<%= lng%>);
@@ -160,10 +162,51 @@ function bound(value, opt_min, opt_max) {
 				       map: map,
 				       icon: iconBase + 'alien.png'
 				    });
-				    marker.setTitle("Alien"+i++);
+				    marker.setTitle("Alien "+<%= alienID%>);
 				    bound.extend(loc);
 				    aliens.push(marker);
 			<%
+				}
+			}
+		%>
+	}
+	
+	function viewAreas() {
+		  	var numTiles = 1 << map.getZoom();
+	  	<%
+			List<Area> areaList = new ArrayList<Area>();	  		
+ 
+	  		areaList = alienServicesLocal.allAreas();
+	  		
+			for(Area ar : areaList){
+				double x = ar.getTileX();
+				double y = ar.getTileY();
+				int squareId = ar.getSqaureId();
+				String coveredInd = ar.getCoveredInd();
+				if(coveredInd.equalsIgnoreCase("Y")){
+				
+					%>									
+					var pixelCoordinate = new google.maps.Point(
+					    Math.floor(<%= x%> * TILE_SIZE),
+					    Math.floor(<%= y%> * TILE_SIZE));
+					var worldCoordinate = new google.maps.Point(
+							pixelCoordinate.x / numTiles,
+							pixelCoordinate.y / numTiles);
+
+					var projection = new MercatorProjection();
+					var tileLatLng = projection.fromPointToLatLng(worldCoordinate);	
+					//http://google.com/mapfiles/kml/paddle/A.png
+					//https://mcsense.googlecode.com/files/alien.png
+					var iconBase = 'http://maps.google.com/mapfiles/kml/pal5/';
+					var marker = new google.maps.Marker({
+				       position: tileLatLng,
+				       map: map,
+				       icon: iconBase + 'icon13.png'
+				    });
+				    marker.setTitle("Square "+<%= squareId%>+" Covered");
+				    aliens.push(marker);
+					<%
+			
 				}
 			}
 		%>
@@ -177,7 +220,7 @@ function bound(value, opt_min, opt_max) {
 	
 function initialize() {
   var mapOptions = {
-    zoom: 18,
+    zoom: 21,
     center: njit,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
@@ -204,16 +247,19 @@ function initialize() {
   
   var bound = new google.maps.LatLngBounds(njit1,njit2,njit3,njit4);
 
+  viewAliens(map,bound);
+  viewAreas();
   google.maps.event.addListener(map, 'zoom_changed', function() {
       if (map.getZoom() == 21) {
     	  viewAliens(map,bound);
+    	  viewAreas();
       }
       else {
           hideMarkers();
       }
   });
   
-  map.fitBounds(bound);
+  //map.fitBounds(bound);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -221,6 +267,18 @@ google.maps.event.addDomListener(window, 'load', initialize);
     </script>
   </head>
   <body>
+  <b><big>Alien vs NJIT game</big></b>
+<br>
+<br>
+<i>Enter Alien ID:</i>
+<br>
+<form name="alien" action="../ControlServlet" method="post">
+<p align="left">Alien ID:
+<input name="alienId" type="text" size="15" value="">
+<input type="submit" name="submit" value="Shoot the alien"></p>
+</form>
+<i>Note: Zoom to level 21 to see the aliens.</i>
+<br>
     <div id="map-canvas"></div>
   </body>
 </html>
