@@ -37,6 +37,7 @@ CoordMapType.prototype.getTile = function(coord, zoom, ownerDocument) {
 };
 
 var map;
+var aliens=[];
 var chicago = new google.maps.LatLng(41.850033,-87.6500523);
 var njit = new google.maps.LatLng(40.744778,-74.179854);
 var njit1 = new google.maps.LatLng(40.744721,-74.179841);
@@ -138,12 +139,9 @@ function bound(value, opt_min, opt_max) {
 
 	function viewAliens(map,bound) {
 		var i = 0;
+		aliens = [];
 	  	<%
-			List<Alien> locList = new ArrayList<Alien>();
-	  		Alien a = new Alien();
-	  		a.setNextGpsLat(40.744577);
-	  		a.setNextGpsLng(-74.179784);
-	  		locList.add(a);
+			List<Alien> locList = new ArrayList<Alien>();	  		
 	  		
 	  		InitialContext ic = new InitialContext();  
 	  		AlienServicesLocal alienServicesLocal=(AlienServicesLocal) ic.lookup("java:global/Plays/PlaysEJB/AlienServices!com.plays.services.AlienServicesLocal"); 
@@ -164,15 +162,22 @@ function bound(value, opt_min, opt_max) {
 				    });
 				    marker.setTitle("Alien"+i++);
 				    bound.extend(loc);
+				    aliens.push(marker);
 			<%
 				}
 			}
 		%>
 	}
 	
+	function hideMarkers() {
+	    for (var i = 0; i < aliens.length; i++) {
+	    	aliens[i].setMap(null); //Remove the marker from the map
+	    }
+	}
+	
 function initialize() {
   var mapOptions = {
-    zoom: 21,
+    zoom: 18,
     center: njit,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
@@ -198,9 +203,16 @@ function initialize() {
   createPolygon(njit1,njit2,njit3,njit4,map);
   
   var bound = new google.maps.LatLngBounds(njit1,njit2,njit3,njit4);
-  
-  viewAliens(map,bound);
 
+  google.maps.event.addListener(map, 'zoom_changed', function() {
+      if (map.getZoom() == 21) {
+    	  viewAliens(map,bound);
+      }
+      else {
+          hideMarkers();
+      }
+  });
+  
   map.fitBounds(bound);
 }
 
