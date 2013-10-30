@@ -49,7 +49,7 @@ public class ControlServlet extends HttpServlet {
 			} else if(action.equals("select")){
 				List<Alien> aliensList = alienServicesLocal.allAliens();
 				for(Alien a : aliensList){
-					out.println(a.getAlienId());
+					out.println(a.getNextGpsLat()+","+a.getNextGpsLng());
 				}
 			}
 			out.println("<BR> Test Success!!");
