@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.plays.model.Alien;
+import com.plays.model.Area;
 
 @Local
 public interface AlienServicesLocal {
@@ -18,4 +19,10 @@ public interface AlienServicesLocal {
 	boolean delete(int ID);
 
 	void update(Alien alien);
+	
+	List<Area> allAreas();
+
+	Area findAreaByID(int ID);
+	
+	void updateArea(Area area);
 }

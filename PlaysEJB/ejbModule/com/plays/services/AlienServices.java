@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import com.plays.model.Alien;
+import com.plays.model.Area;
 import com.plays.util.GameUtility;
 
 /**
@@ -93,5 +94,42 @@ public class AlienServices implements AlienServicesLocal {
 			e.printStackTrace();
 		}
     }
+
+	@Override
+	public List<Area> allAreas() {
+    	List<Area> pList = null;
+    	Query q = dataServicesLocal.getEM().createNamedQuery("Area.findAll");
+    	pList = (List<Area>) q.getResultList();
+		return pList;
+	}
+
+	@Override
+	public Area findAreaByID(int ID) {
+		Area area = null;
+		try {
+
+			area = (Area)dataServicesLocal.findEntity(Area.class, new Integer(ID));
+			
+			//dataServicesLocal.test();
+						
+		} catch (Exception e) {
+			System.out.println("Alien not found.");
+			e.printStackTrace();
+		}
+		
+		if (area==null) {
+			System.out.println("Alien not found.");
+		}
+		return area;
+	}
+
+	@Override
+	public void updateArea(Area area) {
+		try {
+			dataServicesLocal.merge(area);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
