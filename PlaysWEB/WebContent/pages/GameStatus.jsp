@@ -189,9 +189,10 @@ function bound(value, opt_min, opt_max) {
 					var pixelCoordinate = new google.maps.Point(
 					    Math.floor(<%= x%> * TILE_SIZE),
 					    Math.floor(<%= y%> * TILE_SIZE));
+					//TILE_SIZE/2 is added to move the pixel to middle of the tile
 					var worldCoordinate = new google.maps.Point(
-							pixelCoordinate.x / numTiles,
-							pixelCoordinate.y / numTiles);
+							(pixelCoordinate.x + TILE_SIZE/2) / numTiles,
+							(pixelCoordinate.y + TILE_SIZE/2) / numTiles);
 
 					var projection = new MercatorProjection();
 					var tileLatLng = projection.fromPointToLatLng(worldCoordinate);	
