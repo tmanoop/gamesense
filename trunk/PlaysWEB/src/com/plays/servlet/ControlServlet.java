@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.plays.model.Alien;
 import com.plays.model.Area;
 import com.plays.services.AlienServicesLocal;
-import com.plays.util.GameUtility;
 
 /**
  * Servlet implementation class ControlServlet
@@ -110,6 +113,19 @@ public class ControlServlet extends HttpServlet {
 				System.out.println("aliendId: "+alienId);
 				response.sendRedirect("pages/GameStatus.jsp");
 			}
+		} else if(submit!=null && submit.equals("Load Tile Coordinates")){
+			String myJsonTiles = request.getParameter("myJsonTilesValue");
+			System.out.println("myJsonTiles: "+myJsonTiles);
+			JsonElement jelement = new JsonParser().parse(myJsonTiles);
+			JsonArray jarray = jelement.getAsJsonArray();
+			JsonObject jobject = jarray.get(0).getAsJsonObject();			
+			String squareId = jobject.get("squareId").toString();
+			JsonObject jobject1 = jobject.getAsJsonObject("latLng");
+			String lat = jobject1.get("lb").toString();
+			String lng = jobject1.get("mb").toString();
+			
+			System.out.println("jobject: "+jobject);
+			out.println("<BR> All Tile coordinates are updated!!");
 		} else {
 			out.println("<BR> Test Success!!");
 		}
