@@ -36,6 +36,9 @@ public class Area implements Serializable {
 	@Column(name="TILE_Y")
 	private double tileY;
 
+	@Transient
+	private double distance;
+	
 	public Area() {
 	}
 
@@ -95,4 +98,11 @@ public class Area implements Serializable {
 		this.tileY = tileY;
 	}
 
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}	
 }
