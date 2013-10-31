@@ -10,5 +10,20 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="commons-fileupload-1.2.2.jar" deploy-path="/lib" handle="module:/classpath/lib/Plays/lib/commons-fileupload-1.2.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="googlemaps.jar" deploy-path="/lib" handle="module:/classpath/lib/Plays/lib/googlemaps.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-io-2.0.1.jar" deploy-path="/lib" handle="module:/classpath/lib/Plays/lib/commons-io-2.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="log4j-1.2.14.jar" deploy-path="/lib" handle="module:/classpath/lib/Plays/lib/log4j-1.2.14.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gson-1.7.1.jar" deploy-path="/lib" handle="module:/classpath/lib/Plays/lib/gson-1.7.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>
