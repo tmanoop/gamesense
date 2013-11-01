@@ -1,6 +1,7 @@
 package com.plays.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -22,14 +23,12 @@ public class Alien implements Serializable {
 	@Column(name="CURRENT_SQUARE_ID")
 	private int currentSquareId;
 
-	@Column(name="NEXT_GPS_LAT")
-	private double nextGpsLat;
-
-	@Column(name="NEXT_GPS_LNG")
-	private double nextGpsLng;
-
 	@Column(name="SHOT_COUNT")
 	private int shotCount;
+	
+	@OneToOne
+	@PrimaryKeyJoinColumn(name="CURRENT_SQUARE_ID",referencedColumnName="SQAURE_ID")
+	private Area area;
 
 	public Alien() {
 	}
@@ -50,22 +49,6 @@ public class Alien implements Serializable {
 		this.currentSquareId = currentSquareId;
 	}
 
-	public double getNextGpsLat() {
-		return this.nextGpsLat;
-	}
-
-	public void setNextGpsLat(double nextGpsLat) {
-		this.nextGpsLat = nextGpsLat;
-	}
-
-	public double getNextGpsLng() {
-		return this.nextGpsLng;
-	}
-
-	public void setNextGpsLng(double nextGpsLng) {
-		this.nextGpsLng = nextGpsLng;
-	}
-
 	public int getShotCount() {
 		return this.shotCount;
 	}
@@ -74,4 +57,12 @@ public class Alien implements Serializable {
 		this.shotCount = shotCount;
 	}
 
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
+	}
+	
 }

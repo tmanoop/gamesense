@@ -60,8 +60,6 @@ public class AlienServices implements AlienServicesLocal {
 			
 //			a.setAlienId(alien.getAlienId());
 			a.setCurrentSquareId(alien.getCurrentSquareId());
-			a.setNextGpsLat(alien.getNextGpsLat());
-			a.setNextGpsLng(alien.getNextGpsLng());
 			a.setShotCount(alien.getShotCount());
 			dataServicesLocal.persist(a);
 		} catch (Exception e) {

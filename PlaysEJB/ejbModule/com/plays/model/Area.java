@@ -1,6 +1,7 @@
 package com.plays.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -35,9 +36,18 @@ public class Area implements Serializable {
 
 	@Column(name="TILE_Y")
 	private double tileY;
+	
+	@Column(name="GPS_LAT")
+	private double gpsLat;
+
+	@Column(name="GPS_LNG")
+	private double gpsLng;
 
 	@Transient
 	private double distance;
+	
+	@OneToOne(orphanRemoval=true,mappedBy="area",cascade = {CascadeType.REMOVE,CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	private Alien alien;
 	
 	public Area() {
 	}
@@ -96,6 +106,22 @@ public class Area implements Serializable {
 
 	public void setTileY(double tileY) {
 		this.tileY = tileY;
+	}	
+
+	public double getGpsLat() {
+		return gpsLat;
+	}
+
+	public void setGpsLat(double gpsLat) {
+		this.gpsLat = gpsLat;
+	}
+
+	public double getGpsLng() {
+		return gpsLng;
+	}
+
+	public void setGpsLng(double gpsLng) {
+		this.gpsLng = gpsLng;
 	}
 
 	public double getDistance() {
@@ -104,5 +130,14 @@ public class Area implements Serializable {
 
 	public void setDistance(double distance) {
 		this.distance = distance;
+	}
+
+	public Alien getAlien() {
+		return alien;
+	}
+
+	public void setAlien(Alien alien) {
+		this.alien = alien;
 	}	
+	
 }
