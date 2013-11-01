@@ -151,8 +151,12 @@ function bound(value, opt_min, opt_max) {
 	  		locList = alienServicesLocal.allAliens();
 			for(Alien al : locList){
 				Area area = al.getArea();
-				double lat = area.getGpsLat();
-				double lng = area.getGpsLng();
+				double lat = 0.0;
+				double lng = 0.0;
+				if(area!=null){
+					lat = area.getGpsLat();
+					lng = area.getGpsLng();
+				} 				
 				int alienID = al.getAlienId();
 				if(lat != 0.0 && lng != 0.0) {
 			%>				
@@ -180,7 +184,6 @@ function bound(value, opt_min, opt_max) {
 			List<Area> areaList1 = new ArrayList<Area>();	  		
  
 	  		areaList1 = alienServicesLocal.allAreas();
-	  		System.out.println("areasize: "+areaList1.size());
 			for(Area ar : areaList1){
 				double x = ar.getTileX();
 				double y = ar.getTileY();

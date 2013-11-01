@@ -45,11 +45,24 @@ public class ControlServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		if(test.equals("alien")){
 			if(action.equals("add")){
-				Alien a = new Alien();
-				a.setCurrentSquareId(0);
-				a.setShotCount(0);
-				int id = alienServicesLocal.add(a).getAlienId();
-				out.println("<BR> Alien added!! " +id);
+				Alien a = null;
+				List<Area> areasList = alienServicesLocal.allAreas();
+				for(Area area : areasList){
+					if(area.getAlien()==null){
+						System.out.println("area: "+area.getSqaureId());
+						a = new Alien();
+						a.setArea(area);
+						a.setShotCount(0);
+						int id = alienServicesLocal.add(a).getAlienId();
+						out.println("<BR> Alien added!! " +id);
+						area.setAlien(a);
+						alienServicesLocal.updateArea(area);
+						break;
+					} 
+				}	
+				if(a==null){
+					out.println("<BR> Square not available!! ");					
+				}
 			} else if(action.equals("select")){
 				List<Alien> aliensList = alienServicesLocal.allAliens();
 				for(Alien a : aliensList){
@@ -81,26 +94,26 @@ public class ControlServlet extends HttpServlet {
 			String alienId = request.getParameter("alienId");
 			if(alienId!=null){
 				int nextSquareId = 0;
-				double nextGpsLat = 0;
-				double nextGpsLng = 0;
 				//call alien movement algorithm to move alien
 				//testing
 				//get alien
 				Alien alien = alienServicesLocal.findAlienByID(Integer.parseInt(alienId.trim()));
-				int shotCount = 0;//a.getShotCount()
-				int currentSquare = alien.getCurrentSquareId();
+				int shotCount = alien.getShotCount();//a.getShotCount()
+				int currentSquare = alien.getSquareId();
 				if(shotCount < 2){
 					//update square ID and next square lat lng and shot count
-					nextSquareId = 4;
-					nextGpsLat = 40.744601;//originial 40.744601,-74.179771
-					nextGpsLng = -74.179771;//new 40.744459, -74.179766
-//					nextGpsLat = 40.744459;
-//					nextGpsLng = -74.179766;
+					List<Area> areasList = alienServicesLocal.allAreas();
+					
+					for(Area area : areasList){
+						if(area.getCoveredInd().equalsIgnoreCase("N")){
+							nextSquareId = area.getSqaureId();
+						}
+					}
 				}
 				//if shotCount is 2 then the alien is killed now with the current shot. 
 				//Then the alien sqaure and next lat lng are marked zeros. 
-				alien.setCurrentSquareId(nextSquareId);
-				alien.setShotCount(0);//shotCount++
+				alien.setSquareId(nextSquareId);
+				alien.setShotCount(shotCount++);//shotCount++
 				alienServicesLocal.update(alien);
 
 				//update the square cov ind
