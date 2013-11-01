@@ -18,6 +18,7 @@ import com.google.gson.JsonParser;
 import com.plays.model.Alien;
 import com.plays.model.Area;
 import com.plays.services.AlienServicesLocal;
+import com.plays.services.GameStrategyServicesLocal;
 
 /**
  * Servlet implementation class ControlServlet
@@ -28,6 +29,8 @@ public class ControlServlet extends HttpServlet {
        
 	@EJB(name="com.plays.services.AlienServices")
 	AlienServicesLocal alienServicesLocal;
+	@EJB(name="com.plays.services.GameStrategyServices")
+	GameStrategyServicesLocal gameStrategyServicesLocal;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -110,6 +113,8 @@ public class ControlServlet extends HttpServlet {
 						if(area.getCoveredInd().equalsIgnoreCase("N") && area.getAlien()==null){
 							nextSquare = area;
 							System.out.println("nextSquare: "+nextSquare.getSqaureId());
+							int square = gameStrategyServicesLocal.getNearestAvailableSquare(1);
+							System.out.println("nearest square: "+square);
 							break;
 						}
 					}
