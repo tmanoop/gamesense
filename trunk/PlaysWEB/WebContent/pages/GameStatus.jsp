@@ -148,8 +148,9 @@ function bound(value, opt_min, opt_max) {
 	  		AlienServicesLocal alienServicesLocal=(AlienServicesLocal) ic.lookup("java:global/Plays/PlaysEJB/AlienServices!com.plays.services.AlienServicesLocal"); 
 	  		locList = alienServicesLocal.allAliens();
 			for(Alien al : locList){
-				double lat = al.getNextGpsLat();
-				double lng = al.getNextGpsLng();
+				Area area = al.getArea();
+				double lat = area.getGpsLat();
+				double lng = area.getGpsLng();
 				int alienID = al.getAlienId();
 				if(lat != 0.0 && lng != 0.0) {
 			%>				

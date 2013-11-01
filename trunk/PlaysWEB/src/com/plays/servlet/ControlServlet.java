@@ -53,7 +53,7 @@ public class ControlServlet extends HttpServlet {
 			} else if(action.equals("select")){
 				List<Alien> aliensList = alienServicesLocal.allAliens();
 				for(Alien a : aliensList){
-					out.println(a.getNextGpsLat()+","+a.getNextGpsLng());
+					out.println(a.getAlienId());
 				}
 			}
 			out.println("<BR> Test Success!!");
@@ -100,8 +100,6 @@ public class ControlServlet extends HttpServlet {
 				//if shotCount is 2 then the alien is killed now with the current shot. 
 				//Then the alien sqaure and next lat lng are marked zeros. 
 				alien.setCurrentSquareId(nextSquareId);
-				alien.setNextGpsLat(nextGpsLat);
-				alien.setNextGpsLng(nextGpsLng);
 				alien.setShotCount(0);//shotCount++
 				alienServicesLocal.update(alien);
 
@@ -118,13 +116,20 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("myJsonTiles: "+myJsonTiles);
 			JsonElement jelement = new JsonParser().parse(myJsonTiles);
 			JsonArray jarray = jelement.getAsJsonArray();
-			JsonObject jobject = jarray.get(0).getAsJsonObject();			
-			String squareId = jobject.get("squareId").toString();
-			JsonObject jobject1 = jobject.getAsJsonObject("latLng");
-			String lat = jobject1.get("lb").toString();
-			String lng = jobject1.get("mb").toString();
+			for(int i=0;i<jarray.size();i++){
+				JsonObject jobject = jarray.get(i).getAsJsonObject();			
+				String squareId = jobject.get("squareId").toString();
+				JsonObject jobject1 = jobject.getAsJsonObject("latLng");
+				String lat = jobject1.get("lb").toString();
+				String lng = jobject1.get("mb").toString();
+				
+				Area area = alienServicesLocal.findAreaByID(Integer.parseInt(squareId));
+				area.setGpsLat(Double.parseDouble(lat));
+				area.setGpsLng(Double.parseDouble(lng));
+				alienServicesLocal.updateArea(area);
+				System.out.println("jobject: "+jobject);
+			}
 			
-			System.out.println("jobject: "+jobject);
 			out.println("<BR> All Tile coordinates are updated!!");
 		} else {
 			out.println("<BR> Test Success!!");
