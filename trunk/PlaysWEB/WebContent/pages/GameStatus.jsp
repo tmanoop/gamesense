@@ -149,7 +149,6 @@ function bound(value, opt_min, opt_max) {
 	  		locList = alienServicesLocal.allAliens();
 			for(Alien al : locList){
 				Area area = al.getArea();
-				System.out.println("alien: "+al.getAlienId()+", area: "+area);
 				double lat = 0.0;
 				double lng = 0.0;
 				if(area!=null){
