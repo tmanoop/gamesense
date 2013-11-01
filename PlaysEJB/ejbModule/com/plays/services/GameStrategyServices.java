@@ -73,7 +73,10 @@ public class GameStrategyServices implements GameStrategyServicesLocal {
 		//get distances to all available squares
 		//sort and pick the nearest
 		Collections.sort(availableAreaList, new DistanceSortComparator());
-		return availableAreaList.get(1).getSqaureId();
+		for(Area area : availableAreaList){
+			System.out.println(area.getSqaureId()+","+area.getDistance());
+		}
+		return availableAreaList.get(0).getSqaureId();
 	}
 
 	private Area chooseSquareFromUnpopularRegions(int currentSquareId) {
