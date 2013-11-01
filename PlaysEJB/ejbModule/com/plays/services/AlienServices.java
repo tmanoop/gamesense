@@ -106,12 +106,12 @@ public class AlienServices implements AlienServicesLocal {
 			//dataServicesLocal.test();
 						
 		} catch (Exception e) {
-			System.out.println("Alien not found.");
+			System.out.println("Area not found.");
 			e.printStackTrace();
 		}
 		
 		if (area==null) {
-			System.out.println("Alien not found.");
+			System.out.println("Area not found.");
 		}
 		return area;
 	}

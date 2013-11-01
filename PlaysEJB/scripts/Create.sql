@@ -35,6 +35,9 @@ ON DELETE CASCADE;
 update APP.AREA
 set COVERED_IND = 'N'
 
+update App.Aliens
+set SHOT_COUNT = 0, square_id = 1 where alien_id = 1551;
+
 select * from App.Aliens 
 
 insert into "APP"."ALIENS" ("ALIEN_ID", "NEXT_GPS_LAT", "NEXT_GPS_LNG", "CURRENT_SQUARE_ID", "SHOT_COUNT") values(1, 0.0, 0.0, 0, 0)

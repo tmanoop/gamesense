@@ -93,33 +93,42 @@ public class ControlServlet extends HttpServlet {
 			//get alien ID
 			String alienId = request.getParameter("alienId");
 			if(alienId!=null){
-				int nextSquareId = 0;
+				Area nextSquare = null;
 				//call alien movement algorithm to move alien
 				//testing
 				//get alien
 				Alien alien = alienServicesLocal.findAlienByID(Integer.parseInt(alienId.trim()));
 				int shotCount = alien.getShotCount();//a.getShotCount()
-				int currentSquare = alien.getSquareId();
+				Area currentSquare = alien.getArea();
+				int currentSquareId = alien.getSquareId();
+				System.out.println("currentSquare: "+currentSquareId);
 				if(shotCount < 2){
 					//update square ID and next square lat lng and shot count
 					List<Area> areasList = alienServicesLocal.allAreas();
 					
 					for(Area area : areasList){
-						if(area.getCoveredInd().equalsIgnoreCase("N")){
-							nextSquareId = area.getSqaureId();
+						if(area.getCoveredInd().equalsIgnoreCase("N") && area.getAlien()==null){
+							nextSquare = area;
+							System.out.println("nextSquare: "+nextSquare.getSqaureId());
+							break;
 						}
 					}
 				}
 				//if shotCount is 2 then the alien is killed now with the current shot. 
 				//Then the alien sqaure and next lat lng are marked zeros. 
-				alien.setSquareId(nextSquareId);
-				alien.setShotCount(shotCount++);//shotCount++
+				alien.setArea(nextSquare);
+				alien.setShotCount(++shotCount);//shotCount++
+				System.out.println("shotCount: "+alien.getShotCount()+" shotCountvar: "+shotCount);
 				alienServicesLocal.update(alien);
+				if(nextSquare!=null){
+					nextSquare.setAlien(alien);
+					alienServicesLocal.updateArea(nextSquare);					
+				}
 
 				//update the square cov ind
-				Area area = alienServicesLocal.findAreaByID(currentSquare);
-				area.setCoveredInd("Y");
-				alienServicesLocal.updateArea(area);
+//				Area area = alienServicesLocal.findAreaByID(currentSquareId);
+				currentSquare.setCoveredInd("Y");
+				alienServicesLocal.updateArea(currentSquare);
 				
 				System.out.println("aliendId: "+alienId);
 				response.sendRedirect("pages/GameStatus.jsp");
