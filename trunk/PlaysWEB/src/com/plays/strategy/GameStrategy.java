@@ -22,15 +22,15 @@ public class GameStrategy {
 	}
 
 	public void moveAlien(Alien alien1){
-		int currentSquareId = alien1.getCurrentSquareId();
+		int currentSquareId = alien1.getSquareId();
 		Area choosenSquare = chooseSquareFromUnpopularRegions(currentSquareId);
 		if(choosenSquare == null){
 //			4: The targeted area is fully covered and the game is complete
 		} else {
 			Alien alien2 = getAlien(choosenSquare);
-			alien1.setCurrentSquareId(choosenSquare.getSqaureId());
+			alien1.setSquareId(choosenSquare.getSqaureId());
 			if(alien2 != null){
-				alien2.setCurrentSquareId(getNearestAvailableSquare(currentSquareId));
+				alien2.setSquareId(getNearestAvailableSquare(currentSquareId));
 			}
 			updateCoveredSquare(currentSquareId);
 		}
@@ -39,7 +39,7 @@ public class GameStrategy {
 	public Alien getAlien(Area choosenSquare) {
 		List<Alien> aliensList = alienServicesLocal.allAliens();
 		for(Alien a : aliensList){
-			if(a.getCurrentSquareId() == choosenSquare.getSqaureId())
+			if(a.getSquareId() == choosenSquare.getSqaureId())
 				return a;
 		}
 		return null;

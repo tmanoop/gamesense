@@ -9,8 +9,8 @@
 		<class>com.plays.model.ReadingValue</class>
 		<class>com.plays.model.SensorReading</class>
 		<class>com.plays.model.Sentinel</class>
-		<class>com.plays.model.User</class>
 		<class>com.plays.model.Sequence</class>
+		<class>com.plays.model.User</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
 			<property name="javax.persistence.jdbc.url"	value="jdbc:derby://localhost:1527/sample;create=true" />

@@ -46,7 +46,7 @@ public class Area implements Serializable {
 	@Transient
 	private double distance;
 	
-	@OneToOne(orphanRemoval=true,mappedBy="area",cascade = {CascadeType.REMOVE,CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@OneToOne(orphanRemoval=true,mappedBy="area",cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	private Alien alien;
 	
 	public Area() {

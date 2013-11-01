@@ -55,19 +55,14 @@ public class AlienServices implements AlienServicesLocal {
     
     @Override
     public Alien add(Alien alien){
-    	Alien a = new Alien();
     	try {
-			
-//			a.setAlienId(alien.getAlienId());
-			a.setCurrentSquareId(alien.getCurrentSquareId());
-			a.setShotCount(alien.getShotCount());
-			dataServicesLocal.persist(a);
+			dataServicesLocal.persist(alien);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
-		return a;
+		return alien;
     	
     }
     

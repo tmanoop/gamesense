@@ -20,14 +20,14 @@ public class Alien implements Serializable {
 	@Column(name="ALIEN_ID")
 	private int alienId;
 
-	@Column(name="CURRENT_SQUARE_ID")
-	private int currentSquareId;
+	@Column(name="SQUARE_ID", insertable = false, updatable = false)
+	private int squareId;
 
 	@Column(name="SHOT_COUNT")
 	private int shotCount;
 	
-	@OneToOne
-	@PrimaryKeyJoinColumn(name="CURRENT_SQUARE_ID",referencedColumnName="SQAURE_ID")
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="SQUARE_ID")
 	private Area area;
 
 	public Alien() {
@@ -41,12 +41,12 @@ public class Alien implements Serializable {
 		this.alienId = alienId;
 	}
 
-	public int getCurrentSquareId() {
-		return this.currentSquareId;
+	public int getSquareId() {
+		return this.squareId;
 	}
 
-	public void setCurrentSquareId(int currentSquareId) {
-		this.currentSquareId = currentSquareId;
+	public void setSquareId(int squareId) {
+		this.squareId = squareId;
 	}
 
 	public int getShotCount() {
