@@ -1,8 +1,8 @@
-create table App.Area (sqaure_id integer PRIMARY KEY, square_desc varchar(32), floor_num integer, room_num varchar(16), tile_x double, tile_y double, covered_ind varchar(32));
+create table App.Area (sqaure_id integer PRIMARY KEY, square_desc varchar(32), floor_num integer, room_num varchar(16), tile_x double, tile_y double, gps_lat double, gps_lng double, covered_ind varchar(32));
 create table App.Users (user_id integer PRIMARY KEY, user_email varchar(64), bullets integer, score integer, status_level varchar(16), user_pswd varchar(32), aliens_killed integer);
 create table App.Sensor_Readings (reading_id integer PRIMARY KEY, reading_value_id integer, user_id integer, square_id integer, gps_lat double, gps_lng double);
 create table App.Reading_values (reading_value_id integer PRIMARY KEY, reading_id integer, mac_id char(12), mac_signal_strength double);
-create table App.Aliens (alien_id integer PRIMARY KEY, next_gps_lat double, next_gps_lng double, current_square_id integer, shot_count integer);
+create table App.Aliens (alien_id integer PRIMARY KEY, current_square_id integer, shot_count integer);
 create table App.Player_Aliens (player_alien_id integer PRIMARY KEY, shot_alien_id integer, user_id integer, shot_square_id integer, gps_lat double, gps_lng double);
 create table App.Bullets (bullet_id integer PRIMARY KEY, bullet_count integer,  square_id integer, gps_lat double, gps_lng double);
 create table App.Sentinels (sentinel_id integer PRIMARY KEY, user_id integer, square_id integer, gps_lat double, gps_lng double);
@@ -43,7 +43,9 @@ select * from APP.ALIENS
 select * from APP.AREA
 
 ----insert squares
-
+insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(1, 'NJIT', 0, '0', 616446.0, 788243.0, 'N');
+insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(2, 'NJIT', 0, '0', 616447.0, 788243.0, 'N');
+insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(3, 'NJIT', 0, '0', 616448.0, 788243.0, 'N');
 insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(4, 'NJIT', 0, '0', 616446.0, 788244.0, 'N');
 insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(5, 'NJIT', 0, '0', 616447.0, 788244.0, 'N');
 insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(6, 'NJIT', 0, '0', 616448.0, 788244.0, 'N');
