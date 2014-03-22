@@ -10,7 +10,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="USERS")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQueries({
+	@NamedQuery(name="User.loginCheck",
+        	  query="Select e from User e where e.userMeid = :meid"),
+	@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+})
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,11 +23,16 @@ public class User implements Serializable {
 	@Column(name="USER_ID")
 	private int userId;
 
+	@Column(name="USER_ACCESS")
+	private String userAccess;
+	
 	@Column(name="ALIENS_KILLED")
 	private int aliensKilled;
 
+	@Column(name="BULLETS")
 	private int bullets;
 
+	@Column(name="SCORE")
 	private int score;
 
 	@Column(name="STATUS_LEVEL")
@@ -32,8 +41,8 @@ public class User implements Serializable {
 	@Column(name="USER_EMAIL")
 	private String userEmail;
 
-	@Column(name="USER_PSWD")
-	private String userPswd;
+	@Column(name="USER_MEID")
+	private String userMeid;
 
 	public User() {
 	}
@@ -44,6 +53,14 @@ public class User implements Serializable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getUserAccess() {
+		return userAccess;
+	}
+
+	public void setUserAccess(String userAccess) {
+		this.userAccess = userAccess;
 	}
 
 	public int getAliensKilled() {
@@ -86,12 +103,12 @@ public class User implements Serializable {
 		this.userEmail = userEmail;
 	}
 
-	public String getUserPswd() {
-		return this.userPswd;
+	public String getUserMeid() {
+		return userMeid;
 	}
 
-	public void setUserPswd(String userPswd) {
-		this.userPswd = userPswd;
+	public void setUserMeid(String userMeid) {
+		this.userMeid = userMeid;
 	}
 
 }
