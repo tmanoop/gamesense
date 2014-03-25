@@ -12,6 +12,7 @@ public class JData {
 	private int level;
 	private double currentLat;
 	private double currentLng;
+	private String UserAccess;
 	private List<JWiFiData> jWiFiData;
 	
 	public String getEmail() {
@@ -73,6 +74,12 @@ public class JData {
 	}
 	public void setjWiFiData(List<JWiFiData> jWiFiData) {
 		this.jWiFiData = jWiFiData;
+	}
+	public String getUserAccess() {
+		return UserAccess;
+	}
+	public void setUserAccess(String userAccess) {
+		UserAccess = userAccess;
 	}
 	
 	
