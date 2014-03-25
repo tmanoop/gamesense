@@ -68,9 +68,10 @@ public class LoginServlet extends HttpServlet {
 					jData.setScore(p.getScore());
 					jData.setBustedAliens(p.getAliensKilled());
 					jData.setCollectedPowerCount(p.getBullets());
-					jData.setLevel(Integer.parseInt(p.getStatusLevel()));
+					jData.setLevel(Integer.parseInt((p.getStatusLevel()==null) ? "0" : p.getStatusLevel()));
 					jData.setUserAccess(p.getUserAccess());
-					String jsonString = new Gson().toJson(jData );
+					String jsonString = new Gson().toJson(jData);
+					System.out.println( jsonString );
 				out.println(jsonString);
 			}
 		} else if(ACCESS.equalsIgnoreCase("access")){
