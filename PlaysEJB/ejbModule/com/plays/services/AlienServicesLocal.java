@@ -6,6 +6,8 @@ import javax.ejb.Local;
 
 import com.plays.model.Alien;
 import com.plays.model.Area;
+import com.plays.model.SensorReading;
+import com.plays.model.User;
 
 @Local
 public interface AlienServicesLocal {
@@ -25,4 +27,10 @@ public interface AlienServicesLocal {
 	Area findAreaByID(int ID);
 	
 	void updateArea(Area area);
+
+	SensorReading addSensorReading(SensorReading rv);
+
+	User updateUser(User p);
+
+	User findUser(String meid);
 }

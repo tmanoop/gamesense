@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +17,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.plays.json.JData;
 import com.plays.json.JWiFiData;
+import com.plays.model.SensorReading;
+import com.plays.model.User;
+import com.plays.services.AlienServicesLocal;
 
 /**
  * Servlet implementation class AlienServlet
@@ -28,6 +31,9 @@ public class AlienServlet extends HttpServlet {
 	private static final String ALIEN_SHOT = "alienShot";
 	private static final String ALIEN_HINTS = "alienHints";
        
+	@EJB(name="com.plays.services.AlienServices")
+	AlienServicesLocal alienServicesLocal;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -95,9 +101,31 @@ public class AlienServlet extends HttpServlet {
         JData jData = new Gson().fromJson(jsonString, collectionType);
         System.out.println(jData.getEmail()+", "+jData.getMeid()+", "+jData.getScore());
         
+        User p = alienServicesLocal.findUser(jData.getMeid());
+        if(p!=null){
+        	p.setUserEmail(jData.getEmail());
+        	p.setAliensKilled(jData.getBustedAliens());
+        	p.setBullets(jData.getCollectedPowerCount());
+        	p.setScore(jData.getScore());
+        	p.setStatusLevel(jData.getLevel()+"");
+    		alienServicesLocal.updateUser(p);
+            
+        }
+        
         List<JWiFiData> jWiFiDataList = jData.getjWiFiData();
         for(JWiFiData jWiFiData : jWiFiDataList){
         	System.out.println(jWiFiData.getBSSID()+", "+jWiFiData.getSSID());
+        	SensorReading sensorReading = new SensorReading();
+        	sensorReading.setBssid(jWiFiData.getBSSID());
+        	sensorReading.setSsid(jWiFiData.getSSID());
+        	sensorReading.setCapabilities(jWiFiData.getCapabilities());
+        	sensorReading.setFrequency(jWiFiData.getFrequency());
+        	sensorReading.setSignallevel(jWiFiData.getLevel());
+        	sensorReading.setGpsLat(jData.getCurrentLat());
+        	sensorReading.setGpsLng(jData.getCurrentLng());
+        	if(p!=null)
+        		sensorReading.setUserId(p.getUserId());
+        	alienServicesLocal.addSensorReading(sensorReading);
         }
 	}
 
