@@ -4,8 +4,8 @@ public class JWiFiData {
 	private String BSSID;
 	private String SSID; 
 	private String capabilities;
-	private String frequency;
-	private String level;
+	private int frequency;
+	private int level;
 	public String getBSSID() {
 		return BSSID;
 	}
@@ -24,16 +24,16 @@ public class JWiFiData {
 	public void setCapabilities(String capabilities) {
 		this.capabilities = capabilities;
 	}
-	public String getFrequency() {
+	public int getFrequency() {
 		return frequency;
 	}
-	public void setFrequency(String frequency) {
+	public void setFrequency(int frequency) {
 		this.frequency = frequency;
 	}
-	public String getLevel() {
+	public int getLevel() {
 		return level;
 	}
-	public void setLevel(String level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
 	

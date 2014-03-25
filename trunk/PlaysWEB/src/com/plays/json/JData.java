@@ -9,8 +9,9 @@ public class JData {
 	private int score;
 	private int bustedAliens;
 	private int collectedPowerCount;
-	private long currentLat;
-	private long currentLng;
+	private int level;
+	private double currentLat;
+	private double currentLng;
 	private List<JWiFiData> jWiFiData;
 	
 	public String getEmail() {
@@ -49,16 +50,22 @@ public class JData {
 	public void setCollectedPowerCount(int collectedPowerCount) {
 		this.collectedPowerCount = collectedPowerCount;
 	}
-	public long getCurrentLat() {
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	public double getCurrentLat() {
 		return currentLat;
 	}
-	public void setCurrentLat(long currentLat) {
-		this.currentLat = currentLat;
+	public void setCurrentLat(double d) {
+		this.currentLat = d;
 	}
-	public long getCurrentLng() {
+	public double getCurrentLng() {
 		return currentLng;
 	}
-	public void setCurrentLng(long currentLng) {
+	public void setCurrentLng(double currentLng) {
 		this.currentLng = currentLng;
 	}
 	public List<JWiFiData> getjWiFiData() {

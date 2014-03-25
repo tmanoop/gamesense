@@ -8,7 +8,8 @@ import javax.persistence.Query;
 
 import com.plays.model.Alien;
 import com.plays.model.Area;
-import com.plays.util.GameUtility;
+import com.plays.model.SensorReading;
+import com.plays.model.User;
 
 /**
  * Session Bean implementation class BankAdminServices
@@ -124,5 +125,43 @@ public class AlienServices implements AlienServicesLocal {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public SensorReading addSensorReading(SensorReading rv) {
+		try {
+			
+			dataServicesLocal.merge(rv);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rv;
+	}
+	
+	@Override
+	public User updateUser(User p) {
+		try {
+			
+			dataServicesLocal.merge(p);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return p;
+	}
 
+	@Override
+    public User findUser(String meid){
+    	User p = null;
+    	try {
+
+			Query q = dataServicesLocal.getEM().createNamedQuery("User.loginCheck").setParameter("meid", meid);
+			
+			p = (User)q.getSingleResult();
+						
+		} catch (Exception e) {
+//			System.out.println("Player not found.");
+		}
+    	return p;
+    }
 }
