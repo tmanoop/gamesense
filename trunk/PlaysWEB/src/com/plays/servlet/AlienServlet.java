@@ -99,8 +99,8 @@ public class AlienServlet extends HttpServlet {
         Type collectionType = new TypeToken<JData>() {
         }.getType();
         JData jData = new Gson().fromJson(jsonString, collectionType);
-        System.out.println(jData.getEmail()+", "+jData.getMeid()+", "+jData.getScore());
-        
+//        System.out.println(jData.getEmail()+", "+jData.getMeid()+", "+jData.getScore());
+//        System.out.println("Sensor readings saved.");
         User p = alienServicesLocal.findUser(jData.getMeid());
         if(p!=null){
         	p.setUserEmail(jData.getEmail());
@@ -114,7 +114,7 @@ public class AlienServlet extends HttpServlet {
         
         List<JWiFiData> jWiFiDataList = jData.getjWiFiData();
         for(JWiFiData jWiFiData : jWiFiDataList){
-        	System.out.println(jWiFiData.getBSSID()+", "+jWiFiData.getSSID());
+//        	System.out.println(jWiFiData.getBSSID()+", "+jWiFiData.getSSID());
         	SensorReading sensorReading = new SensorReading();
         	sensorReading.setBssid(jWiFiData.getBSSID());
         	sensorReading.setSsid(jWiFiData.getSSID());

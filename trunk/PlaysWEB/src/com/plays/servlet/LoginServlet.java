@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.plays.json.JData;
 import com.plays.model.User;
 import com.plays.services.LoginServicesLocal;
 import com.plays.util.Emailer;
@@ -60,7 +63,15 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				String access = (p.getUserAccess() == null || p.getUserAccess().equalsIgnoreCase(NO)) ? NO : YES;
 					System.out.println(access);
-				out.println(access);
+				
+					JData jData = new JData();
+					jData.setScore(p.getScore());
+					jData.setBustedAliens(p.getAliensKilled());
+					jData.setCollectedPowerCount(p.getBullets());
+					jData.setLevel(Integer.parseInt(p.getStatusLevel()));
+					jData.setUserAccess(p.getUserAccess());
+					String jsonString = new Gson().toJson(jData );
+				out.println(jsonString);
 			}
 		} else if(ACCESS.equalsIgnoreCase("access")){
 			if(p != null){
