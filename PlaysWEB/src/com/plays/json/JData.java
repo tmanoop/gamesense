@@ -1,5 +1,7 @@
 package com.plays.json;
 
+import java.util.List;
+
 public class JData {
 	private String email;
 	private String meid;
@@ -9,6 +11,7 @@ public class JData {
 	private int collectedPowerCount;
 	private long currentLat;
 	private long currentLng;
+	private List<JWiFiData> jWiFiData;
 	
 	public String getEmail() {
 		return email;
@@ -57,6 +60,12 @@ public class JData {
 	}
 	public void setCurrentLng(long currentLng) {
 		this.currentLng = currentLng;
+	}
+	public List<JWiFiData> getjWiFiData() {
+		return jWiFiData;
+	}
+	public void setjWiFiData(List<JWiFiData> jWiFiData) {
+		this.jWiFiData = jWiFiData;
 	}
 	
 	

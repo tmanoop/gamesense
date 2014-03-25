@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.plays.json.JData;
+import com.plays.json.JWiFiData;
 
 /**
  * Servlet implementation class AlienServlet
@@ -92,6 +94,11 @@ public class AlienServlet extends HttpServlet {
         }.getType();
         JData jData = new Gson().fromJson(jsonString, collectionType);
         System.out.println(jData.getEmail()+", "+jData.getMeid()+", "+jData.getScore());
+        
+        List<JWiFiData> jWiFiDataList = jData.getjWiFiData();
+        for(JWiFiData jWiFiData : jWiFiDataList){
+        	System.out.println(jWiFiData.getBSSID()+", "+jWiFiData.getSSID());
+        }
 	}
 
 }
