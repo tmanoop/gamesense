@@ -33,4 +33,10 @@ public interface AlienServicesLocal {
 	User updateUser(User p);
 
 	User findUser(String meid);
+
+	Area findAreaByXY(double tileX, double tileY);
+
+	List<Area> findAreasByInd(String coveredInd);
+
+	List<Alien> findAliensByShotCnt();
 }

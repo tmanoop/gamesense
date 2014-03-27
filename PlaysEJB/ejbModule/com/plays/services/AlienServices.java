@@ -55,6 +55,22 @@ public class AlienServices implements AlienServicesLocal {
     }
     
     @Override
+    public List<Alien> findAliensByShotCnt(){
+		List<Alien> pList = null;
+    	try {
+
+			Query q = dataServicesLocal.getEM().createNamedQuery("Alien.findAliensByShotCnt").setParameter("shotCount", 2);
+			
+			pList = (List<Alien>) q.getResultList();
+			
+						
+		} catch (Exception e) {
+//			System.out.println("Player not found.");
+		}
+    	return pList;
+    }
+    
+    @Override
     public Alien add(Alien alien){
     	try {
 			dataServicesLocal.persist(alien);
@@ -116,6 +132,37 @@ public class AlienServices implements AlienServicesLocal {
 		}
 		return area;
 	}
+	
+	@Override
+    public Area findAreaByXY(double tileX, double tileY){
+    	Area p = null;
+    	try {
+
+			Query q = dataServicesLocal.getEM().createNamedQuery("Area.findByXY").setParameter("tileX", tileX).setParameter("tileY", tileY);
+			
+			p = (Area)q.getSingleResult();
+						
+		} catch (Exception e) {
+//			System.out.println("Player not found.");
+		}
+    	return p;
+    }
+	
+	@Override
+    public List<Area> findAreasByInd(String coveredInd){
+		List<Area> pList = null;
+    	try {
+
+			Query q = dataServicesLocal.getEM().createNamedQuery("Area.findAreaByInd").setParameter("coveredInd", coveredInd);
+			
+			pList = (List<Area>) q.getResultList();
+			
+						
+		} catch (Exception e) {
+//			System.out.println("Player not found.");
+		}
+    	return pList;
+    }
 
 	@Override
 	public void updateArea(Area area) {

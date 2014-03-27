@@ -74,3 +74,5 @@ insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "
 insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(7, 'NJIT', 0, '0', 616449.0, 788244.0, 'N');
 insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(8, 'NJIT', 0, '0', 616450.0, 788244.0, 'N');
 
+
+insert into "APP"."AREA" ("SQAURE_ID", "SQUARE_DESC", "FLOOR_NUM", "ROOM_NUM", "TILE_X", "TILE_Y", "COVERED_IND") values(9, 'HOME', 0, '0', 614191.0, 789883.0, 'N');
