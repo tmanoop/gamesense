@@ -11,7 +11,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="ALIENS")
-@NamedQuery(name="Alien.findAll", query="SELECT a FROM Alien a")
+@NamedQueries({
+	@NamedQuery(name="Alien.findAll", query="SELECT a FROM Alien a"),
+	@NamedQuery(name="Alien.findAliensByShotCnt", query="SELECT a FROM Alien a where a.shotCount < :shotCount")
+})
 public class Alien implements Serializable {
 	private static final long serialVersionUID = 1L;
 

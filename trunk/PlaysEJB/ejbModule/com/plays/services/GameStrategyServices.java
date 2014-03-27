@@ -78,7 +78,45 @@ public class GameStrategyServices implements GameStrategyServicesLocal {
 		}
 		return availableAreaList.get(0).getSqaureId();
 	}
+	
+	public Area getNearestAvailableSquare(Area currentSquare) {
+		List<Area> areaList = alienServicesLocal.findAreasByInd("N");
+		List<Area> availableAreaList = new ArrayList<Area>();
+		for(Area area : areaList){
+				// move latlng columns into Area table and update the values with center of tiles
+				double distance = distance(area.getGpsLat(), area.getGpsLng(), currentSquare.getGpsLat(), currentSquare.getGpsLng(), 'K');
+				area.setDistance(distance);
+				availableAreaList.add(area);	
+		}
+		//get distances to all available squares
+		//sort and pick the nearest
+		Collections.sort(availableAreaList, new DistanceSortComparator());
+//		for(Area area : availableAreaList){
+//			System.out.println(area.getSqaureId()+","+area.getDistance());
+//		}
+		return availableAreaList.get(0);
+	}
 
+	public Area getNearestAvailableAlien(Area currentSquare) {
+		List<Alien> aliens =  alienServicesLocal.findAliensByShotCnt();
+		List<Area> availableAreaList = new ArrayList<Area>();
+		for(Alien alien : aliens){
+			Area area = alien.getArea();
+				// move latlng columns into Area table and update the values with center of tiles
+				double distance = distance(area.getGpsLat(), area.getGpsLng(), currentSquare.getGpsLat(), currentSquare.getGpsLng(), 'K');
+				area.setDistance(distance);
+				availableAreaList.add(area);	
+		}
+		//get distances to all available squares
+		//sort and pick the nearest
+		Collections.sort(availableAreaList, new DistanceSortComparator());
+//		for(Area area : availableAreaList){
+//			System.out.println(area.getSqaureId()+","+area.getDistance());
+//		}
+		return availableAreaList.get(0);
+	}
+
+	
 	private Area chooseSquareFromUnpopularRegions(int currentSquareId) {
 		// TODO Auto-generated method stub
 		return null;

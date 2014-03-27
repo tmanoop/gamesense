@@ -14,4 +14,8 @@ public interface GameStrategyServicesLocal {
 	
 	int getNearestAvailableSquare(int currentSquareId);
 
+	Area getNearestAvailableSquare(Area area);
+	
+	Area getNearestAvailableAlien(Area currentSquare);
+
 }

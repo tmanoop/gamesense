@@ -46,26 +46,40 @@ public class ControlServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String test = request.getParameter("test");
 		String action = request.getParameter("action");
+		String tileX = request.getParameter("tileX");
+		String tileY = request.getParameter("tileY");
 		if(test.equals("alien")){
 			if(action.equals("add")){
-				Alien a = null;
-				List<Area> areasList = alienServicesLocal.allAreas();
-				for(Area area : areasList){
-					if(area.getAlien()==null){
-						System.out.println("area: "+area.getSqaureId());
-						a = new Alien();
-						a.setArea(area);
-						a.setShotCount(0);
-						int id = alienServicesLocal.add(a).getAlienId();
-						out.println("<BR> Alien added!! " +id);
-						area.setAlien(a);
-						alienServicesLocal.updateArea(area);
-						break;
-					} 
-				}	
-				if(a==null){
-					out.println("<BR> Square not available!! ");					
+				if(tileX!=null && tileY!=null){
+					Alien a = new Alien();
+					Area area = alienServicesLocal.findAreaByXY(Double.parseDouble(tileX), Double.parseDouble(tileY));
+					a.setArea(area);
+					a.setShotCount(0);
+					int id = alienServicesLocal.add(a).getAlienId();
+					out.println("<BR> Alien added!! " +id);
+					area.setAlien(a);
+					alienServicesLocal.updateArea(area);
+				} else {
+					Alien a = null;
+					List<Area> areasList = alienServicesLocal.allAreas();
+					for(Area area : areasList){
+						if(area.getAlien()==null){
+							System.out.println("area: "+area.getSqaureId());
+							a = new Alien();
+							a.setArea(area);
+							a.setShotCount(0);
+							int id = alienServicesLocal.add(a).getAlienId();
+							out.println("<BR> Alien added!! " +id);
+							area.setAlien(a);
+							alienServicesLocal.updateArea(area);
+							break;
+						} 
+					}	
+					if(a==null){
+						out.println("<BR> Square not available!! ");					
+					}
 				}
+				
 			} else if(action.equals("select")){
 				List<Alien> aliensList = alienServicesLocal.allAliens();
 				for(Alien a : aliensList){
