@@ -77,31 +77,35 @@ public class AlienServlet extends HttpServlet {
 
 	private JData moveAlien(JData jData) {
 		System.out.println("Alien shot and moved.");
-		GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
-		Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
-		Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
-		if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
-			area.setCoveredInd("Y");
-			alienServicesLocal.updateArea(area);
-		}
 
 		JData newJData = new JData();
 		newJData.setRequestType(jData.getRequestType());
-		if(area.getAlien()!=null){
-			Alien alien = area.getAlien();
-			alien.setShotCount(alien.getShotCount()+1);
-			Area nearestSquare = gameStrategyServicesLocal.getNearestAvailableSquare(area);
-			alien.setArea(nearestSquare);
-			alienServicesLocal.update(alien);
-			
-			if(nearestSquare!=null){
-				nearestSquare.setAlien(alien);
-				alienServicesLocal.updateArea(nearestSquare);					
+		GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
+		Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
+		Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
+		if(area!=null){
+			if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
+				area.setCoveredInd("Y");
+				alienServicesLocal.updateArea(area);
 			}
-			
-			newJData.setCurrentLat(nearestSquare.getGpsLat());
-			newJData.setCurrentLng(nearestSquare.getGpsLng());
+
+			if(area.getAlien()!=null){
+				Alien alien = area.getAlien();
+				alien.setShotCount(alien.getShotCount()+1);
+				Area nearestSquare = gameStrategyServicesLocal.getNearestAvailableSquare(area);
+				alien.setArea(nearestSquare);
+				alienServicesLocal.update(alien);
+				
+				if(nearestSquare!=null){
+					nearestSquare.setAlien(alien);
+					alienServicesLocal.updateArea(nearestSquare);					
+				}
+				
+				newJData.setCurrentLat(nearestSquare.getGpsLat());
+				newJData.setCurrentLng(nearestSquare.getGpsLng());
+			}
 		}
+		
 		return newJData;
 	}
 
@@ -202,20 +206,25 @@ public class AlienServlet extends HttpServlet {
 	}
 
 	private JData searchAlienLocation(JData jData) {
+		JData newJData = new JData();
+		newJData.setRequestType(jData.getRequestType());
+		
 		GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
 		Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
 		Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
-		if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
-			area.setCoveredInd("Y");
-			alienServicesLocal.updateArea(area);
-		}
+		if(area!=null){
+			if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
+				area.setCoveredInd("Y");
+				alienServicesLocal.updateArea(area);
+			}
 
-		JData newJData = new JData();
-		newJData.setRequestType(jData.getRequestType());
-		if(area.getAlien()!=null && area.getAlien().getShotCount() < 2){
-			newJData.setCurrentLat(area.getGpsLat());
-			newJData.setCurrentLng(area.getGpsLng());
+			
+			if(area.getAlien()!=null && area.getAlien().getShotCount() < 2){
+				newJData.setCurrentLat(area.getGpsLat());
+				newJData.setCurrentLng(area.getGpsLng());
+			}
 		}
+		
 		return newJData;
 	}
 
