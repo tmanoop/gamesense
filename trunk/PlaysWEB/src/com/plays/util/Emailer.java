@@ -91,7 +91,7 @@ public class Emailer {
 
             //4) create new MimeBodyPart object and set DataHandler object to this object        
             MimeBodyPart messageBodyPart2 = new MimeBodyPart();   
-            String filePath = "C:\\Manoop\\docs\\njit\\game_dev\\PlaysWEB\\ConsentForm.pdf";
+            String filePath = "C:\\Manoop\\gamesense\\PlaysWEB\\ConsentForm.pdf";
             String filename = "ConsentForm.pdf";//change accordingly     
             DataSource source = new FileDataSource(filePath);    
             messageBodyPart2.setDataHandler(new DataHandler(source));    
