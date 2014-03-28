@@ -104,6 +104,10 @@ public class AlienServlet extends HttpServlet {
 				newJData.setCurrentLat(nearestSquare.getGpsLat());
 				newJData.setCurrentLng(nearestSquare.getGpsLng());
 			}
+		} else {
+			//TODO only for testing everywhere not in NJIT. comment this after testing
+			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
+			newJData.setCurrentLng(jData.getCurrentLng() + Math.random()/1000);
 		}
 		
 		return newJData;
@@ -122,6 +126,10 @@ public class AlienServlet extends HttpServlet {
 			
 			newJData.setCurrentLat(nearestSquare.getGpsLat());
 			newJData.setCurrentLng(nearestSquare.getGpsLng());
+		} else {
+			//TODO only for testing everywhere not in NJIT. comment this after testing
+			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
+			newJData.setCurrentLng(jData.getCurrentLng() + Math.random()/1000);
 		}
 		return newJData;
 	}
@@ -223,6 +231,10 @@ public class AlienServlet extends HttpServlet {
 				newJData.setCurrentLat(area.getGpsLat());
 				newJData.setCurrentLng(area.getGpsLng());
 			}
+		} else if(jData.getCollectedPowerCount()%2==0){
+			//TODO only for testing everywhere not in NJIT. comment this after testing
+			newJData.setCurrentLat(jData.getCurrentLat() );
+			newJData.setCurrentLng(jData.getCurrentLng() );
 		}
 		
 		return newJData;
