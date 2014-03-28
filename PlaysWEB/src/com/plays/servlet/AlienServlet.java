@@ -183,7 +183,7 @@ public class AlienServlet extends HttpServlet {
         System.out.println("jsonstring: "+jsonString);
 		if (jsonString != null && !jsonString.equals("")) {
 			JData jData = new Gson().fromJson(jsonString, collectionType);
-			
+			jData.setRequestType(requestType);
 			JData newJData = null;
 
 			if(ALIEN_SEARCH.equalsIgnoreCase(requestType)){
