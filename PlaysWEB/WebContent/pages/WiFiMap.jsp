@@ -288,19 +288,19 @@ function initialize() {
   
   var bound = new google.maps.LatLngBounds(njit1,njit2,njit3,njit4);
 
-  viewAliens(map,bound);
-  viewAreas();
+  //viewAliens(map,bound);
+  //viewAreas();
   google.maps.event.addListener(map, 'zoom_changed', function() {
       if (map.getZoom() == 21) {
-    	  viewAliens(map,bound);
-    	  viewAreas();    	  
+    	  //viewAliens(map,bound);
+    	  //viewAreas();    	  
       }
       else {
-          hideMarkers();
+          //hideMarkers();
       }
   });
   
-  //map.fitBounds(bound);
+  map.fitBounds(bound);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -317,6 +317,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <p align="left">Light blue color - Areas with medium signal strength
 <p align="left">Light red color - Areas with low signal strength
 <p align="left">White color - Areas with no collected WiFi data
+<br>
 <i>Note: Zoom to level 21 to see the WiFi coverage in colors.</i>
 <br>
     <div id="map-canvas"></div>
