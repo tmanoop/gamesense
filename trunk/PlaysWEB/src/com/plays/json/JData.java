@@ -3,6 +3,10 @@ package com.plays.json;
 import java.util.List;
 
 public class JData {
+	public static final String ALIEN_SEARCH = "alienSearch";
+	public static final String ALIEN_SHOT = "alienShot";
+	public static final String ALIEN_HINTS = "alienHints";
+	
 	private String email;
 	private String meid;
 	private String requestType;
