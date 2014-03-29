@@ -36,6 +36,7 @@ public class AlienServlet extends HttpServlet {
 	private static final String ALIEN_SEARCH = "alienSearch";
 	private static final String ALIEN_SHOT = "alienShot";
 	private static final String ALIEN_HINTS = "alienHints";
+	private static final String SENTINEL_SEARCH = "sentinelSearch";
        
 	@EJB(name="com.plays.services.AlienServices")
 	AlienServicesLocal alienServicesLocal;
@@ -205,6 +206,8 @@ public class AlienServlet extends HttpServlet {
 			} else if(ALIEN_HINTS.equalsIgnoreCase(requestType)){
 				//return up to 3 near by aliens
 				newJData = alienHints(jData);
+			} else if(SENTINEL_SEARCH.equalsIgnoreCase(requestType)){
+				newJData = searchAlienLocation(jData);
 			}
 			
 			String jsonStringNewJData = new Gson().toJson(newJData);

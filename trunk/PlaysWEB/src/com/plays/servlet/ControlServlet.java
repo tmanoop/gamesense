@@ -2,6 +2,8 @@ package com.plays.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -19,6 +21,8 @@ import com.plays.model.Alien;
 import com.plays.model.Area;
 import com.plays.services.AlienServicesLocal;
 import com.plays.services.GameStrategyServicesLocal;
+import com.plays.util.GoogleMapsProjection2;
+import com.plays.util.Point;
 
 /**
  * Servlet implementation class ControlServlet
@@ -153,22 +157,28 @@ public class ControlServlet extends HttpServlet {
 				response.sendRedirect("pages/GameStatus.jsp");
 			}
 		} else if(submit!=null && submit.equals("Load Tile Coordinates")){
-			String myJsonTiles = request.getParameter("myJsonTilesValue");
-			System.out.println("myJsonTiles: "+myJsonTiles);
-			JsonElement jelement = new JsonParser().parse(myJsonTiles);
-			JsonArray jarray = jelement.getAsJsonArray();
-			for(int i=0;i<jarray.size();i++){
-				JsonObject jobject = jarray.get(i).getAsJsonObject();			
-				String squareId = jobject.get("squareId").toString();
-				JsonObject jobject1 = jobject.getAsJsonObject("latLng");
-				String lat = jobject1.get("lb").toString();
-				String lng = jobject1.get("mb").toString();
+//			String myJsonTiles = request.getParameter("myJsonTilesValue");
+//			System.out.println("myJsonTiles: "+myJsonTiles);
+//			JsonElement jelement = new JsonParser().parse(myJsonTiles);
+//			JsonArray jarray = jelement.getAsJsonArray();
+			List<Area> areaList1 = alienServicesLocal.allAreas();
+	  		
+			for(int i=0;i<areaList1.size();i++){
+//				JsonObject jobject = areaList1.get(i).getAsJsonObject();			
+//				String squareId = jobject.get("squareId").toString();
+//				JsonObject jobject1 = jobject.getAsJsonObject("latLng");
+//				String lat = jobject1.get("lb").toString();
+//				String lng = jobject1.get("mb").toString();
+
+				Area area = areaList1.get(i);
 				
-				Area area = alienServicesLocal.findAreaByID(Integer.parseInt(squareId));
-				area.setGpsLat(Double.parseDouble(lat));
-				area.setGpsLng(Double.parseDouble(lng));
+				Point point = new Point(area.getTileX(), area.getTileY());
+				GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
+		        Point point1 = gmap2.fromPointToLatLng(point,GoogleMapsProjection2.ZOOM);
+				
+				area.setGpsLat(point1.x);
+				area.setGpsLng(point1.y);
 				alienServicesLocal.updateArea(area);
-				System.out.println("jobject: "+jobject);
 			}
 			
 			out.println("<BR> All Tile coordinates are updated!!");

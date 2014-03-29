@@ -275,6 +275,33 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <body>
   <b><big>Alien vs NJIT game</big></b>
 <br>
+<form name="test" method="get" action="../ControlServlet">
+<br><br>
+<table align="center"><tr><td><h2>Admin Screen</h2></td></tr></table>
+<table width="300px" align="center" style="border:1px solid #000000;background-color:#efefef;">
+<tr><td colspan=2></td></tr>
+<tr><td colspan=2> </td></tr>
+  <tr>
+  <td><b>Action</b></td>
+  <td><input type="text" name="action" value=""></td>
+  </tr>
+  <tr>
+  <td><b>Test</b></td>
+  <td><input type="text" name="test" value=""></td>
+  </tr>
+  <tr>
+  <td><b>TileX</b></td>
+  <td><input type="text" name="tileX" value=""></td>
+  <td><b>TileY</b></td>
+  <td><input type="text" name="tileY" value=""></td>
+  </tr>
+  <tr>
+  <td></td>
+  <td><input type="submit" name="Submit" value="Submit"></td>
+  </tr>
+  <tr><td colspan=2> </td></tr>
+</table>
+</form>
 <br>
 <i>Enter Alien ID:</i>
 <br>
