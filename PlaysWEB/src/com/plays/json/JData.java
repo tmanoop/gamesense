@@ -6,6 +6,7 @@ public class JData {
 	public static final String ALIEN_SEARCH = "alienSearch";
 	public static final String ALIEN_SHOT = "alienShot";
 	public static final String ALIEN_HINTS = "alienHints";
+	public static final String SENTINEL_SEARCH = "sentinelSearch";
 	
 	private String email;
 	private String meid;

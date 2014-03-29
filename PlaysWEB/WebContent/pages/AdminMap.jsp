@@ -314,7 +314,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <br>
 <form name="tiles" action="../ControlServlet" method="post">
 <input type=hidden name="myJsonTilesValue"/>  
-<input type="submit" name="submit" value="Load Tile Coordinates" onclick="return loadTileCoord();">
+<input type="submit" name="submit" value="Load Tile Coordinates" >
 </form>
 <i>Note: Zoom to level 21 to see the aliens.</i>
 <br>
