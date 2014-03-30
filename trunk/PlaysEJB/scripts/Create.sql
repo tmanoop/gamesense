@@ -15,7 +15,7 @@ drop table App.Aliens;
 drop table App.Player_Aliens;
 drop table App.Bullets;
 drop table App.Sentinels;
-
+p.getStatusLevel()
 drop table Area;
 drop table Users;
 drop table Sensor_Readings;
@@ -60,7 +60,8 @@ CREATE TABLE APP.SEQUENCE (SEQ_NAME VARCHAR(50) NOT NULL, SEQ_COUNT DECIMAL(15),
 INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN',500);
 INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN_TABLE',0);
 
-select * from APP.SEQUENCE
+select * from APP.Sensor_Readings 
+order by reading_id desc
 select * from APP.ALIENS
 select * from APP.AREA
 
