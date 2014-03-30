@@ -37,6 +37,9 @@ public class AlienServlet extends HttpServlet {
 	private static final String ALIEN_SHOT = "alienShot";
 	private static final String ALIEN_HINTS = "alienHints";
 	private static final String SENTINEL_SEARCH = "sentinelSearch";
+	
+	private static final double NJIT_LAT = 40.744778;
+	private static final double NJIT_LNG = -74.179854;
        
 	@EJB(name="com.plays.services.AlienServices")
 	AlienServicesLocal alienServicesLocal;
@@ -105,7 +108,7 @@ public class AlienServlet extends HttpServlet {
 				newJData.setCurrentLat(nearestSquare.getGpsLat());
 				newJData.setCurrentLng(nearestSquare.getGpsLng());
 			}
-		} else {
+		} else if (isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng())) {
 			//TODO only for testing everywhere not in NJIT. comment this after testing
 			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
 			newJData.setCurrentLng(jData.getCurrentLng() + Math.random()/1000);
@@ -127,7 +130,7 @@ public class AlienServlet extends HttpServlet {
 			
 			newJData.setCurrentLat(nearestSquare.getGpsLat());
 			newJData.setCurrentLng(nearestSquare.getGpsLng());
-		} else {
+		} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng())) {
 			//TODO only for testing everywhere not in NJIT. comment this after testing
 			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
 			newJData.setCurrentLng(jData.getCurrentLng() + Math.random()/1000);
@@ -234,13 +237,23 @@ public class AlienServlet extends HttpServlet {
 				newJData.setCurrentLat(area.getGpsLat());
 				newJData.setCurrentLng(area.getGpsLng());
 			}
-		} else if(jData.getCollectedPowerCount()%2==0){
+		} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng()) && !JData.SENTINEL_SEARCH.equalsIgnoreCase(jData.getRequestType()) && jData.getCollectedPowerCount()%2==0){
 			//TODO only for testing everywhere not in NJIT. comment this after testing
 			newJData.setCurrentLat(jData.getCurrentLat() );
 			newJData.setCurrentLng(jData.getCurrentLng() );
 		}
 		
 		return newJData;
+	}
+	
+	private boolean isLocAtNJIT(double lat, double lng){
+		double distance = gameStrategyServicesLocal.distance(NJIT_LAT, NJIT_LNG, lat, lng, 'K');
+		System.out.println("distance from NJIT:" + distance);
+		if(distance<100){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
