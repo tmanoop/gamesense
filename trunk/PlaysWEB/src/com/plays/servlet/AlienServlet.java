@@ -92,9 +92,9 @@ public class AlienServlet extends HttpServlet {
 				area.setCoveredInd("Y");
 				alienServicesLocal.updateArea(area);
 			}
+			Area nearestSquare = gameStrategyServicesLocal.getNearestAvailableSquare(area);
 
 			if(area.getAlien()!=null){
-				Area nearestSquare = gameStrategyServicesLocal.getNearestAvailableSquare(area);
 				Alien alien = area.getAlien();
 				if(alien.getShotCount()<2){
 					alien.setShotCount(alien.getShotCount()+1);
@@ -104,13 +104,17 @@ public class AlienServlet extends HttpServlet {
 						nearestSquare.setAlien(alien);
 						alienServicesLocal.updateArea(nearestSquare);
 					}
-				}
+				}				
+			}
+			
+			if(jData.getAlienRunCounter()<2){
 				System.out.println("Next available sqaure: "+nearestSquare);
 				if(nearestSquare!=null){
 					newJData.setCurrentLat(nearestSquare.getGpsLat());
 					newJData.setCurrentLng(nearestSquare.getGpsLng());
 				}
 			}
+			
 		} else if (isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng())) {
 			//TODO only for testing everywhere not in NJIT. comment this after testing
 //			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
