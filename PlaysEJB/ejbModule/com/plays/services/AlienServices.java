@@ -1,5 +1,6 @@
 package com.plays.services;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -137,7 +138,11 @@ public class AlienServices implements AlienServicesLocal {
     public Area findAreaByXY(double tileX, double tileY){
     	Area p = null;
     	try {
-
+    		DecimalFormat df = new DecimalFormat("#");
+    		tileX = Double.parseDouble(df.format(tileX));
+    		tileY = Double.parseDouble(df.format(tileY));
+            System.out.println(tileX+"   "+tileY);
+            
 			Query q = dataServicesLocal.getEM().createNamedQuery("Area.findByXY").setParameter("tileX", tileX).setParameter("tileY", tileY);
 			
 			p = (Area)q.getSingleResult();
