@@ -38,8 +38,8 @@ public class AlienServlet extends HttpServlet {
 	private static final String ALIEN_HINTS = "alienHints";
 	private static final String SENTINEL_SEARCH = "sentinelSearch";
 	
-	private static final double NJIT_LAT = 40.744778;
-	private static final double NJIT_LNG = -74.179854;
+	private static final double NJIT_LAT = 40.741675;
+	private static final double NJIT_LNG = -74.177552;
        
 	@EJB(name="com.plays.services.AlienServices")
 	AlienServicesLocal alienServicesLocal;
@@ -94,24 +94,27 @@ public class AlienServlet extends HttpServlet {
 			}
 
 			if(area.getAlien()!=null){
-				Alien alien = area.getAlien();
-				alien.setShotCount(alien.getShotCount()+1);
 				Area nearestSquare = gameStrategyServicesLocal.getNearestAvailableSquare(area);
-				alien.setArea(nearestSquare);
-				alienServicesLocal.update(alien);
-				
-				if(nearestSquare!=null){
-					nearestSquare.setAlien(alien);
-					alienServicesLocal.updateArea(nearestSquare);					
+				Alien alien = area.getAlien();
+				if(alien.getShotCount()<2){
+					alien.setShotCount(alien.getShotCount()+1);
+					alien.setArea(nearestSquare);
+					alienServicesLocal.update(alien);
+					if(nearestSquare!=null){
+						nearestSquare.setAlien(alien);
+						alienServicesLocal.updateArea(nearestSquare);
+					}
 				}
-				
-				newJData.setCurrentLat(nearestSquare.getGpsLat());
-				newJData.setCurrentLng(nearestSquare.getGpsLng());
+				System.out.println("Next available sqaure: "+nearestSquare);
+				if(nearestSquare!=null){
+					newJData.setCurrentLat(nearestSquare.getGpsLat());
+					newJData.setCurrentLng(nearestSquare.getGpsLng());
+				}
 			}
 		} else if (isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng())) {
 			//TODO only for testing everywhere not in NJIT. comment this after testing
-			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
-			newJData.setCurrentLng(jData.getCurrentLng() + Math.random()/1000);
+//			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
+//			newJData.setCurrentLng(jData.getCurrentLng() + Math.random()/1000);
 		}
 		
 		return newJData;
@@ -132,8 +135,8 @@ public class AlienServlet extends HttpServlet {
 			newJData.setCurrentLng(nearestSquare.getGpsLng());
 		} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng())) {
 			//TODO only for testing everywhere not in NJIT. comment this after testing
-			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
-			newJData.setCurrentLng(jData.getCurrentLng() + Math.random()/1000);
+//			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
+//			newJData.setCurrentLng(jData.getCurrentLng() + Math.random()/1000);
 		}
 		return newJData;
 	}
@@ -226,34 +229,67 @@ public class AlienServlet extends HttpServlet {
 		GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
 		Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
 		Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
+		System.out.println("Searching monster, Player: "+jData.getEmail()+", at point x,y: "+point.x+","+ point.y+", area found: "+area);
 		if(area!=null){
 			if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
 				area.setCoveredInd("Y");
 				alienServicesLocal.updateArea(area);
 			}
 
-			
+			System.out.println("Alien: "+area.getAlien());
 			if(area.getAlien()!=null && area.getAlien().getShotCount() < 2){
 				newJData.setCurrentLat(area.getGpsLat());
 				newJData.setCurrentLng(area.getGpsLng());
 			}
 		} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng()) && !JData.SENTINEL_SEARCH.equalsIgnoreCase(jData.getRequestType()) && jData.getCollectedPowerCount()%2==0){
 			//TODO only for testing everywhere not in NJIT. comment this after testing
-			newJData.setCurrentLat(jData.getCurrentLat() );
-			newJData.setCurrentLng(jData.getCurrentLng() );
+//			newJData.setCurrentLat(jData.getCurrentLat() );
+//			newJData.setCurrentLng(jData.getCurrentLng() );
 		}
 		
 		return newJData;
 	}
 	
 	private boolean isLocAtNJIT(double lat, double lng){
-		double distance = gameStrategyServicesLocal.distance(NJIT_LAT, NJIT_LNG, lat, lng, 'K');
+		double distance = distance(NJIT_LAT, NJIT_LNG, lat, lng, 'K');
 		System.out.println("distance from NJIT:" + distance);
-		if(distance<100){
+		if(distance<1){//1 kilometers is 0.6 mile
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	
+	public double distance(double lat1, double lon1, double lat2, double lon2,
+			char unit) {
+		double theta = lon1 - lon2;
+		double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
+				+ Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
+				* Math.cos(deg2rad(theta));
+		dist = Math.acos(dist);
+		dist = rad2deg(dist);
+		dist = dist * 60 * 1.1515;
+		if (unit == 'K') {//'K' is kilometers (default)  
+			dist = dist * 1.609344;
+		} else if (unit == 'N') {//'N' is nautical miles
+			dist = dist * 0.8684;
+		}
+		return (dist);
+	}
+	
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	/* :: This function converts decimal degrees to radians : */
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	private double deg2rad(double deg) {
+		return (deg * Math.PI / 180.0);
+	}
+
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	/* :: This function converts radians to decimal degrees : */
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	private double rad2deg(double rad) {
+		return (rad * 180.0 / Math.PI);
 	}
 
 }
