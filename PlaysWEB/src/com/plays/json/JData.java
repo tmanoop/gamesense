@@ -13,6 +13,7 @@ public class JData {
 	private String requestType;
 	private int score;
 	private int bustedAliens;
+	private int alienRunCounter;
 	private int collectedPowerCount;
 	private int level;
 	private double currentLat;
@@ -49,6 +50,12 @@ public class JData {
 	}
 	public void setBustedAliens(int bustedAliens) {
 		this.bustedAliens = bustedAliens;
+	}	
+	public int getAlienRunCounter() {
+		return alienRunCounter;
+	}
+	public void setAlienRunCounter(int alienRunCounter) {
+		this.alienRunCounter = alienRunCounter;
 	}
 	public int getCollectedPowerCount() {
 		return collectedPowerCount;
