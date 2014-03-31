@@ -126,13 +126,12 @@ function bound(value, opt_min, opt_max) {
 		  var njitCoords = [latlng1,latlng2,latlng3,latlng4,latlng1];
 
 		  // Construct the polygon.
-		  polygonNJIT = new google.maps.Polygon({
+		  polygonNJIT = new google.maps.Polyline({
 		    paths: njitCoords,
+		    geodesic: true,
 		    strokeColor: '#FF0000',
-		    strokeOpacity: 0.8,
-		    strokeWeight: 2,
-		    fillColor: '#FF0000',
-		    fillOpacity: 0.35
+		    strokeOpacity: 1.0,
+		    strokeWeight: 2
 		  });
 
 		  polygonNJIT.setMap(map);
@@ -156,7 +155,7 @@ function bound(value, opt_min, opt_max) {
 					lng = area.getGpsLng();
 				} 				
 				int alienID = al.getAlienId();
-				if(lat != 0.0 && lng != 0.0) {
+				if(lat != 0.0 && lng != 0.0 && area.getCoveredInd().equalsIgnoreCase("N")) {
 			%>				
 					var loc = new google.maps.LatLng(<%= lat%>,<%= lng%>);
 					//http://google.com/mapfiles/kml/paddle/A.png
@@ -265,7 +264,87 @@ function initialize() {
       }
   });
   
+//add a click event handler to the map object
+  google.maps.event.addListener(map, "click", function(event)
+  {
+      // place a marker
+      placeAlien(event.latLng);
+  });
+  
   //map.fitBounds(bound);
+}
+
+function placeAlien(location) {
+    var iconBase = '../images/';
+	var marker = new google.maps.Marker({
+       position: location,
+       map: map,
+       icon: iconBase + 'alien.png'
+    });
+
+    // add marker in markers array
+    aliens.push(marker);
+
+    //call server and post the alien
+    var numTiles = 1 << map.getZoom();
+	  var projection = new MercatorProjection();
+	  var worldCoordinate = projection.fromLatLngToPoint(location);
+	  var pixelCoordinate = new google.maps.Point(
+	      worldCoordinate.x * numTiles,
+	      worldCoordinate.y * numTiles);
+	  var tileCoordinate = new google.maps.Point(
+	      Math.floor(pixelCoordinate.x / TILE_SIZE),
+	      Math.floor(pixelCoordinate.y / TILE_SIZE));
+
+    //document.forms["myForm"].submit();
+    saveAlienAjax(tileCoordinate.x, tileCoordinate.y);
+    //submitAlien({'action':'add', 'test':'alien', 'tileX':tileCoordinate.x,'tileY':tileCoordinate.y});
+}
+
+function submitAlien(params) {
+    var form = document.createElement("form");
+    form.setAttribute("method", "get");
+    form.setAttribute("action", "http://localhost:8080/PlaysWEB/ControlServlet");
+ 
+    //Move the submit function to another variable
+    //so that it doesn't get overwritten.
+    form._submit_function_ = form.submit;
+ 
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+ 
+            form.appendChild(hiddenField);
+         }
+    }
+    
+    document.body.appendChild(form);
+    form._submit_function_();
+}
+
+function saveAlienAjax(x, y) {
+	var xmlhttp;
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp.onreadystatechange=function() {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+	    var tempResp=xmlhttp.responseText;
+	    }
+	};
+	var url = 'http://mcsense.njit.edu:10080//PlaysWEB/ControlServlet?action=add&test=alien&'; 
+	url = url + 'tileX='+x+'&tileY='+y;
+	//alert(url);
+	xmlhttp.open("GET",url,true);
+	xmlhttp.send();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -275,33 +354,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <body>
   <b><big>Alien vs NJIT game</big></b>
 <br>
-<form name="test" method="get" action="../ControlServlet">
-<br><br>
-<table align="center"><tr><td><h2>Admin Screen</h2></td></tr></table>
-<table width="300px" align="center" style="border:1px solid #000000;background-color:#efefef;">
-<tr><td colspan=2></td></tr>
-<tr><td colspan=2> </td></tr>
-  <tr>
-  <td><b>Action</b></td>
-  <td><input type="text" name="action" value=""></td>
-  </tr>
-  <tr>
-  <td><b>Test</b></td>
-  <td><input type="text" name="test" value=""></td>
-  </tr>
-  <tr>
-  <td><b>TileX</b></td>
-  <td><input type="text" name="tileX" value=""></td>
-  <td><b>TileY</b></td>
-  <td><input type="text" name="tileY" value=""></td>
-  </tr>
-  <tr>
-  <td></td>
-  <td><input type="submit" name="Submit" value="Submit"></td>
-  </tr>
-  <tr><td colspan=2> </td></tr>
-</table>
-</form>
 <br>
 <i>Enter Alien ID:</i>
 <br>
