@@ -60,7 +60,7 @@ public class ControlServlet extends HttpServlet {
 					a.setArea(area);
 					a.setShotCount(0);
 					int id = alienServicesLocal.add(a).getAlienId();
-					out.println("<BR> Alien added!! " +id);
+					//out.println("<BR> Alien added!! " +id);
 					area.setAlien(a);
 					alienServicesLocal.updateArea(area);
 				} else {
@@ -90,7 +90,7 @@ public class ControlServlet extends HttpServlet {
 					out.println(a.getAlienId());
 				}
 			}
-			out.println("<BR> Test Success!!");
+			//out.println("<BR> Test Success!!");
 		}
 		if(test.equals("area")){
 			if(action.equals("select")){
