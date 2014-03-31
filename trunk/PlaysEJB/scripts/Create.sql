@@ -36,7 +36,10 @@ update APP.Users
 set USER_ACCESS = 'Y'
 where user_email = 'tmanoop@gmail.com'
 
+update APP.Sensor_Readings
+set CREATED_TIME = '2014-03-30 08:00:00'
 
+select * from SENSOR_READINGS sr where sr.READING_ID in (select MAX(READING_ID) from SENSOR_READINGS group by USER_ID) 
 
 ALTER TABLE APP.Aliens
 ADD FOREIGN KEY (sqaure_id) 
