@@ -27,8 +27,10 @@ drop table Player_Aliens;
 drop table Bullets;
 drop table Sentinels;
 
-delete from App.Aliens;
+delete from App.Sentinels where sentinel_id = 96496;
 
+delete from App.Aliens;
+delete from App.Sensor_Readings;
 delete from App.Users;
 select * from App.Users;
 
@@ -41,6 +43,8 @@ set CREATED_TIME = '2014-03-30 08:00:00'
 
 select * from SENSOR_READINGS sr where sr.READING_ID in (select MAX(READING_ID) from SENSOR_READINGS group by USER_ID) 
 
+select * from SENSOR_READINGS order by reading_id desc
+
 ALTER TABLE APP.Aliens
 ADD FOREIGN KEY (sqaure_id) 
 REFERENCES APP.Area(sqaure_id)
@@ -48,7 +52,7 @@ ON DELETE CASCADE;
 
 update APP.AREA
 set COVERED_IND = 'N'
-
+delete from App.Aliens;
 update App.Aliens
 set SHOT_COUNT = 0, square_id = 1 where alien_id = 1551;
 
