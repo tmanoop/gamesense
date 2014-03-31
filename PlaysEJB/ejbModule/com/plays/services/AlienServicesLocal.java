@@ -44,4 +44,8 @@ public interface AlienServicesLocal {
 	Sentinel findSentinel(String meid);
 
 	Sentinel updateSentinel(Sentinel p);
+
+	List<SensorReading> allRecentReadings();
+
+	List<Sentinel> allSentinels();
 }
