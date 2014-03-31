@@ -37,6 +37,22 @@ public class AlienServices implements AlienServicesLocal {
     }
     
     @Override
+    public List<Sentinel> allSentinels(){
+    	List<Sentinel> pList = null;
+    	Query q = dataServicesLocal.getEM().createNamedQuery("Sentinel.findAll");
+    	pList = (List<Sentinel>) q.getResultList();
+		return pList;
+    }
+    
+    @Override
+    public List<SensorReading> allRecentReadings(){
+    	List<SensorReading> pList = null;
+    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.recent");
+    	pList = (List<SensorReading>) q.getResultList();
+		return pList;
+    }
+    
+    @Override
     public Alien findAlienByID(int ID){
     	Alien alien = null;
 		try {

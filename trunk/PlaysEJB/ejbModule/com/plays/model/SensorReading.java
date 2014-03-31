@@ -12,7 +12,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="SENSOR_READINGS")
-@NamedQuery(name="SensorReading.findAll", query="SELECT s FROM SensorReading s")
+@NamedQueries({
+	@NamedQuery(name="SensorReading.recent",
+        	  query="select s from SensorReading s where s.readingId in (select MAX(st.readingId) from SensorReading st group by st.userId) "),
+    @NamedQuery(name="SensorReading.findAll", query="SELECT s FROM SensorReading s")
+})
 public class SensorReading implements Serializable {
 	private static final long serialVersionUID = 1L;
 
