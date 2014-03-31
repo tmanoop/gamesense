@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
 					jData.setBustedAliens(p.getAliensKilled());
 					jData.setCollectedPowerCount(p.getBullets());
 					jData.setLevel(Integer.parseInt((p.getStatusLevel()==null) ? "0" : p.getStatusLevel()));
-					jData.setUserAccess(p.getUserAccess());
+					jData.setUserAccess(access);
 					String jsonString = new Gson().toJson(jData);
 					System.out.println( jsonString );
 				out.println(jsonString);
@@ -98,7 +98,7 @@ public class LoginServlet extends HttpServlet {
 	
 	private void emailToPlayer(String emailId) {
 		String body = "Hello," +
-						"\n\n Thanks for installing the Monster Vs. NJIT game." +
+						"\n\n Thanks for installing the Monsters vs NJIT game." +
 						"\n\n Below are the game registration steps:" +
 						"\n\n\t 1. Please completely fill the attached consent form and sign it." +
 						"\n\n\t 2. Please scan the signed consent form and email the scanned copy to \"mt57@njit.edu\"." +
@@ -107,7 +107,7 @@ public class LoginServlet extends HttpServlet {
 						"\n\n Regards," +
 						"\n\n Game Administrator" +
 						"\n\n mt57@njit.edu";
-		Emailer.sendEmailWithAttachment(Emailer.SENDER, emailId, "Monster Vs. NJIT game registration details", body);
+		Emailer.sendEmailWithAttachment(Emailer.SENDER, emailId, "Monsters vs NJIT game registration details", body);
 	}
 
 }
