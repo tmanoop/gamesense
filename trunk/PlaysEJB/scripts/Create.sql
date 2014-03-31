@@ -5,7 +5,9 @@ create table App.Reading_values (reading_value_id integer PRIMARY KEY, reading_i
 create table App.Aliens (alien_id integer PRIMARY KEY, square_id integer, shot_count integer);
 create table App.Player_Aliens (player_alien_id integer PRIMARY KEY, shot_alien_id integer, user_id integer, shot_square_id integer, gps_lat double, gps_lng double);
 create table App.Bullets (bullet_id integer PRIMARY KEY, bullet_count integer,  square_id integer, gps_lat double, gps_lng double);
-create table App.Sentinels (sentinel_id integer PRIMARY KEY, user_id integer, square_id integer, gps_lat double, gps_lng double);
+create table App.Sentinels (sentinel_id integer PRIMARY KEY, user_email varchar(255), user_meid varchar(255), gps_lat double, gps_lng double);
+
+ALTER TABLE APP.Sensor_Readings ADD CREATED_TIME TIMESTAMP;
 
 drop table App.Area;
 drop table App.Users;

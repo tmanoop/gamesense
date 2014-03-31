@@ -1,6 +1,8 @@
 package com.plays.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 import javax.persistence.*;
 
 
@@ -40,6 +42,9 @@ public class SensorReading implements Serializable {
 
 	@Column(name="USER_ID")
 	private int userId;
+	
+	@Column(name="CREATED_TIME")
+	private Timestamp createdTime;
 
 	public SensorReading() {
 	}
@@ -122,6 +127,14 @@ public class SensorReading implements Serializable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public Timestamp getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Timestamp timestamp) {
+		this.createdTime = timestamp;
 	}
 
 }

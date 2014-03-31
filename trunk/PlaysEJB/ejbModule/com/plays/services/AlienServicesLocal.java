@@ -7,6 +7,7 @@ import javax.ejb.Local;
 import com.plays.model.Alien;
 import com.plays.model.Area;
 import com.plays.model.SensorReading;
+import com.plays.model.Sentinel;
 import com.plays.model.User;
 
 @Local
@@ -39,4 +40,8 @@ public interface AlienServicesLocal {
 	List<Area> findAreasByInd(String coveredInd);
 
 	List<Alien> findAliensByShotCnt();
+
+	Sentinel findSentinel(String meid);
+
+	Sentinel updateSentinel(Sentinel p);
 }

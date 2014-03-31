@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import com.plays.model.Alien;
 import com.plays.model.Area;
 import com.plays.model.SensorReading;
+import com.plays.model.Sentinel;
 import com.plays.model.User;
 
 /**
@@ -201,6 +202,18 @@ public class AlienServices implements AlienServicesLocal {
 		}
 		return p;
 	}
+	
+	@Override
+	public Sentinel updateSentinel(Sentinel p) {
+		try {
+			
+			dataServicesLocal.merge(p);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return p;
+	}
 
 	@Override
     public User findUser(String meid){
@@ -210,6 +223,21 @@ public class AlienServices implements AlienServicesLocal {
 			Query q = dataServicesLocal.getEM().createNamedQuery("User.loginCheck").setParameter("meid", meid);
 			
 			p = (User)q.getSingleResult();
+						
+		} catch (Exception e) {
+//			System.out.println("Player not found.");
+		}
+    	return p;
+    }
+	
+	@Override
+    public Sentinel findSentinel(String meid){
+		Sentinel p = null;
+    	try {
+
+			Query q = dataServicesLocal.getEM().createNamedQuery("Sentinel.findByMeid").setParameter("meid", meid);
+			
+			p = (Sentinel)q.getSingleResult();
 						
 		} catch (Exception e) {
 //			System.out.println("Player not found.");
