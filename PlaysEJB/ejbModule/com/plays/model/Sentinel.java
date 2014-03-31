@@ -1,6 +1,7 @@
 package com.plays.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -10,7 +11,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="SENTINELS")
-@NamedQuery(name="Sentinel.findAll", query="SELECT s FROM Sentinel s")
+@NamedQueries({
+	@NamedQuery(name="Sentinel.findByMeid",
+      	  query="Select e from Sentinel e where e.userMeid = :meid"),
+	@NamedQuery(name="Sentinel.findAll", query="SELECT s FROM Sentinel s")
+})
 public class Sentinel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,11 +30,11 @@ public class Sentinel implements Serializable {
 	@Column(name="GPS_LNG")
 	private double gpsLng;
 
-	@Column(name="SQUARE_ID")
-	private int squareId;
+	@Column(name="USER_MEID")
+	private String userMeid;
 
-	@Column(name="USER_ID")
-	private int userId;
+	@Column(name="USER_EMAIL")
+	private String userEmail;
 
 	public Sentinel() {
 	}
@@ -58,20 +63,19 @@ public class Sentinel implements Serializable {
 		this.gpsLng = gpsLng;
 	}
 
-	public int getSquareId() {
-		return this.squareId;
+	public String getUserMeid() {
+		return userMeid;
 	}
 
-	public void setSquareId(int squareId) {
-		this.squareId = squareId;
+	public void setUserMeid(String userMeid) {
+		this.userMeid = userMeid;
 	}
 
-	public int getUserId() {
-		return this.userId;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}	
 }
