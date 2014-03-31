@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -21,6 +22,7 @@ import com.plays.json.JWiFiData;
 import com.plays.model.Alien;
 import com.plays.model.Area;
 import com.plays.model.SensorReading;
+import com.plays.model.Sentinel;
 import com.plays.model.User;
 import com.plays.services.AlienServicesLocal;
 import com.plays.services.GameStrategyServicesLocal;
@@ -144,6 +146,50 @@ public class AlienServlet extends HttpServlet {
 		}
 		return newJData;
 	}
+	
+	private JData searchAlienLocation(JData jData) {
+		JData newJData = new JData();
+		newJData.setRequestType(jData.getRequestType());
+		
+		GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
+		Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
+		Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
+		System.out.println("Searching monster, Player: "+jData.getEmail()+", at point x,y: "+point.x+","+ point.y+", area found: "+area);
+		if(area!=null){
+			if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
+				area.setCoveredInd("Y");
+				alienServicesLocal.updateArea(area);
+			}
+
+			System.out.println("Alien: "+area.getAlien());
+			if(area.getAlien()!=null && area.getAlien().getShotCount() < 2){
+				newJData.setCurrentLat(area.getGpsLat());
+				newJData.setCurrentLng(area.getGpsLng());
+			}
+		} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng()) && !JData.SENTINEL_SEARCH.equalsIgnoreCase(jData.getRequestType()) && jData.getCollectedPowerCount()%2==0){
+			//TODO only for testing everywhere not in NJIT. comment this after testing
+//			newJData.setCurrentLat(jData.getCurrentLat() );
+//			newJData.setCurrentLng(jData.getCurrentLng() );
+		}
+		
+		return newJData;
+	}	
+
+	private void saveSentinel(JData jData) {
+		Sentinel p = alienServicesLocal.findSentinel(jData.getMeid());
+		if (p != null) {
+			p.setGpsLat(jData.getCurrentLat());
+			p.setGpsLng(jData.getCurrentLng());
+		} else {
+			p = new Sentinel();
+			p.setUserEmail(jData.getEmail());
+			p.setUserMeid(jData.getMeid());
+			p.setGpsLat(jData.getCurrentLat());
+			p.setGpsLng(jData.getCurrentLng());
+		}
+
+		alienServicesLocal.updateSentinel(p);
+	}
 
 	private void saveSensorReadings(JData jData) {
 		System.out.println("Sensor readings saved.");
@@ -171,6 +217,7 @@ public class AlienServlet extends HttpServlet {
 						sensorReading.setSignallevel(jWiFiData.getLevel());
 						sensorReading.setGpsLat(jData.getCurrentLat());
 						sensorReading.setGpsLng(jData.getCurrentLng());
+						sensorReading.setCreatedTime(new Timestamp(System.currentTimeMillis()));
 						if (p != null)
 							sensorReading.setUserId(p.getUserId());
 						alienServicesLocal.addSensorReading(sensorReading);
@@ -217,6 +264,7 @@ public class AlienServlet extends HttpServlet {
 				//return up to 3 near by aliens
 				newJData = alienHints(jData);
 			} else if(SENTINEL_SEARCH.equalsIgnoreCase(requestType)){
+				saveSentinel(jData);
 				newJData = searchAlienLocation(jData);
 			}
 			
@@ -224,35 +272,7 @@ public class AlienServlet extends HttpServlet {
 			out.println(jsonStringNewJData);
 		}
         
-	}
-
-	private JData searchAlienLocation(JData jData) {
-		JData newJData = new JData();
-		newJData.setRequestType(jData.getRequestType());
-		
-		GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
-		Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
-		Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
-		System.out.println("Searching monster, Player: "+jData.getEmail()+", at point x,y: "+point.x+","+ point.y+", area found: "+area);
-		if(area!=null){
-			if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
-				area.setCoveredInd("Y");
-				alienServicesLocal.updateArea(area);
-			}
-
-			System.out.println("Alien: "+area.getAlien());
-			if(area.getAlien()!=null && area.getAlien().getShotCount() < 2){
-				newJData.setCurrentLat(area.getGpsLat());
-				newJData.setCurrentLng(area.getGpsLng());
-			}
-		} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng()) && !JData.SENTINEL_SEARCH.equalsIgnoreCase(jData.getRequestType()) && jData.getCollectedPowerCount()%2==0){
-			//TODO only for testing everywhere not in NJIT. comment this after testing
-//			newJData.setCurrentLat(jData.getCurrentLat() );
-//			newJData.setCurrentLng(jData.getCurrentLng() );
-		}
-		
-		return newJData;
-	}
+	}	
 	
 	private boolean isLocAtNJIT(double lat, double lng){
 		double distance = distance(NJIT_LAT, NJIT_LNG, lat, lng, 'K');
