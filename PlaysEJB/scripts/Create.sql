@@ -33,7 +33,7 @@ delete from App.Aliens;
 delete from App.Sensor_Readings;
 delete from App.Users;
 select * from App.Users;
-
+select * from App.Aliens;
 update APP.Users
 set USER_ACCESS = 'Y'
 where user_email = 'tmanoop@gmail.com'
