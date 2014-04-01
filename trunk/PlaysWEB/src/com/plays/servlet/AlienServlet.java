@@ -165,6 +165,9 @@ public class AlienServlet extends HttpServlet {
 			if(area.getAlien()!=null && area.getAlien().getShotCount() < 2){
 				newJData.setCurrentLat(area.getGpsLat());
 				newJData.setCurrentLng(area.getGpsLng());
+			} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng()) && jData.getBustedAliens()==0){
+				newJData.setCurrentLat(jData.getCurrentLat() );
+				newJData.setCurrentLng(jData.getCurrentLng() );
 			}
 		} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng()) && !JData.SENTINEL_SEARCH.equalsIgnoreCase(jData.getRequestType()) && jData.getCollectedPowerCount()%2==0){
 			//TODO only for testing everywhere not in NJIT. comment this after testing
