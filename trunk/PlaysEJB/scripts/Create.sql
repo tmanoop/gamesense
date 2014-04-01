@@ -33,11 +33,23 @@ delete from App.Aliens;
 delete from App.Sensor_Readings;
 delete from App.Users;
 select * from App.Users;
-select * from App.Aliens;
+select * from App.Aliens where shot_count>0;
+
+update APP.Users
+set BULLETS = 100
+where STATUS_LEVEL is NULL;
+
+update APP.Users
+set STATUS_LEVEL = '1'
+where STATUS_LEVEL is NULL;
+
+select user_email from APP.USERS
+where USER_ACCESS is NULL;
+
 update APP.Users
 set USER_ACCESS = 'Y'
 where user_email = 'tmanoop@gmail.com'
-
+select count(*) from APP.AREA where COVERED_IND = 'Y'
 update APP.Sensor_Readings
 set CREATED_TIME = '2014-03-30 08:00:00'
 
@@ -72,8 +84,9 @@ INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN_TABLE',0);
 select * from APP.Sensor_Readings 
 order by reading_id desc
 select * from APP.ALIENS
-select * from APP.AREA
-
+select count(*) from APP.AREA where COVERED_IND = 'Y'
+select count(*) from APP.AREA where COVERED_IND = 'N'
+--day1  5pm--160 sq cov  
 --delete existing squares
 delete from APP.AREA;
 
