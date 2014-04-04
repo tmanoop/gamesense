@@ -54,12 +54,15 @@ public class LoginServlet extends HttpServlet {
 				p = new User();
 				p.setUserEmail(emailId);
 				p.setUserMeid(meid);
+				p.setBullets(100);
+				p.setStatusLevel("1");
+				p.setUserAccess(YES);
 				loginServicesLocal.register(p);
 				
 				emailToAdmin(emailId, meid);
 				//email consent form to user
 				emailToPlayer(emailId);
-				out.println(NO);
+				out.println(YES);
 			} else {
 				String access = (p.getUserAccess() == null || p.getUserAccess().equalsIgnoreCase(NO)) ? NO : YES;
 					System.out.println(access);

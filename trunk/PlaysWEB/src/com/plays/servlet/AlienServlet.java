@@ -82,7 +82,7 @@ public class AlienServlet extends HttpServlet {
 	}
 
 	private JData moveAlien(JData jData) {
-		System.out.println("Alien shot and moved.");
+//		System.out.println("Alien shot and moved.");
 
 		JData newJData = new JData();
 		newJData.setRequestType(jData.getRequestType());
@@ -110,7 +110,7 @@ public class AlienServlet extends HttpServlet {
 			}
 			
 			if(jData.getAlienRunCounter()<2){
-				System.out.println("Next available sqaure: "+nearestSquare);
+//				System.out.println("Next available sqaure: "+nearestSquare);
 				if(nearestSquare!=null){
 					newJData.setCurrentLat(nearestSquare.getGpsLat());
 					newJData.setCurrentLng(nearestSquare.getGpsLng());
@@ -127,7 +127,7 @@ public class AlienServlet extends HttpServlet {
 	}
 
 	private JData alienHints(JData jData) {
-		System.out.println("Searching Alien.");
+//		System.out.println("Searching Alien.");
 		GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
 		Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
 		Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
@@ -154,14 +154,14 @@ public class AlienServlet extends HttpServlet {
 		GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
 		Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
 		Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
-		System.out.println("Searching monster, Player: "+jData.getEmail()+", at point x,y: "+point.x+","+ point.y+", area found: "+area);
+//		System.out.println("Searching monster, Player: "+jData.getEmail()+", at point x,y: "+point.x+","+ point.y+", area found: "+area);
 		if(area!=null){
 			if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
 				area.setCoveredInd("Y");
 				alienServicesLocal.updateArea(area);
 			}
 
-			System.out.println("Alien: "+area.getAlien());
+//			System.out.println("Alien: "+area.getAlien());
 			if(area.getAlien()!=null && area.getAlien().getShotCount() < 2){
 				newJData.setCurrentLat(area.getGpsLat());
 				newJData.setCurrentLng(area.getGpsLng());
@@ -195,7 +195,7 @@ public class AlienServlet extends HttpServlet {
 	}
 
 	private void saveSensorReadings(JData jData) {
-		System.out.println("Sensor readings saved.");
+//		System.out.println("Sensor readings saved.");
 		// System.out.println(jData.getEmail()+", "+jData.getMeid()+", "+jData.getScore());
 					// System.out.println("Sensor readings saved.");
 					User p = alienServicesLocal.findUser(jData.getMeid());
@@ -236,7 +236,7 @@ public class AlienServlet extends HttpServlet {
 
 		String requestType = request.getParameter("requestType");
 		
-		System.out.println(requestType);
+//		System.out.println(requestType);
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(
 		                request.getInputStream()));
@@ -249,7 +249,7 @@ public class AlienServlet extends HttpServlet {
 		//Parse Response into our object
         Type collectionType = new TypeToken<JData>() {
         }.getType();
-        System.out.println("jsonstring: "+jsonString);
+//        System.out.println("jsonstring: "+jsonString);
 		if (jsonString != null && !jsonString.equals("")) {
 			JData jData = new Gson().fromJson(jsonString, collectionType);
 			jData.setRequestType(requestType);
@@ -279,7 +279,7 @@ public class AlienServlet extends HttpServlet {
 	
 	private boolean isLocAtNJIT(double lat, double lng){
 		double distance = distance(NJIT_LAT, NJIT_LNG, lat, lng, 'K');
-		System.out.println("distance from NJIT:" + distance);
+//		System.out.println("distance from NJIT:" + distance);
 		if(distance<1){//1 kilometers is 0.6 mile
 			return true;
 		} else {
