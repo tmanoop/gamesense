@@ -73,9 +73,9 @@ public class GameStrategyServices implements GameStrategyServicesLocal {
 		//get distances to all available squares
 		//sort and pick the nearest
 		Collections.sort(availableAreaList, new DistanceSortComparator());
-		for(Area area : availableAreaList){
-			System.out.println(area.getSqaureId()+","+area.getDistance());
-		}
+//		for(Area area : availableAreaList){
+//			System.out.println(area.getSqaureId()+","+area.getDistance());
+//		}
 		return availableAreaList.get(0).getSqaureId();
 	}
 	
@@ -103,9 +103,11 @@ public class GameStrategyServices implements GameStrategyServicesLocal {
 		for(Alien alien : aliens){
 			Area area = alien.getArea();
 				// move latlng columns into Area table and update the values with center of tiles
+			if(area!=null){
 				double distance = distance(area.getGpsLat(), area.getGpsLng(), currentSquare.getGpsLat(), currentSquare.getGpsLng(), 'K');
 				area.setDistance(distance);
-				availableAreaList.add(area);	
+				availableAreaList.add(area);
+			}
 		}
 		//get distances to all available squares
 		//sort and pick the nearest
