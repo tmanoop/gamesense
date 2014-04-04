@@ -158,7 +158,7 @@ public class AlienServices implements AlienServicesLocal {
     		DecimalFormat df = new DecimalFormat("#");
     		tileX = Double.parseDouble(df.format(tileX));
     		tileY = Double.parseDouble(df.format(tileY));
-            System.out.println(tileX+"   "+tileY);
+//            System.out.println(tileX+"   "+tileY);
             
 			Query q = dataServicesLocal.getEM().createNamedQuery("Area.findByXY").setParameter("tileX", tileX).setParameter("tileY", tileY);
 			
