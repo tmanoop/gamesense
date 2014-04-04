@@ -4,6 +4,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.plays.model.Alien"%>
+<%@page import="com.plays.model.SensorReading"%>
+<%@page import="com.plays.model.Sentinel"%>
 <%@page import="com.plays.model.Area"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="com.plays.services.AlienServicesLocal"%>
@@ -155,7 +157,7 @@ function bound(value, opt_min, opt_max) {
 					lng = area.getGpsLng();
 				} 				
 				int alienID = al.getAlienId();
-				if(lat != 0.0 && lng != 0.0 && area.getCoveredInd().equalsIgnoreCase("N")) {
+				if(lat != 0.0 && lng != 0.0 && al.getShotCount() < 2) {//&& area.getCoveredInd().equalsIgnoreCase("N")
 			%>				
 					var loc = new google.maps.LatLng(<%= lat%>,<%= lng%>);
 					//http://google.com/mapfiles/kml/paddle/A.png
@@ -217,6 +219,78 @@ function bound(value, opt_min, opt_max) {
 		%>
 	}
 	
+	function viewPlayers(map,bound) {
+		var i = 0;
+		aliens = [];
+	  	<%
+			List<SensorReading> playerList = new ArrayList<SensorReading>();	  		
+	  		 
+	  		playerList = alienServicesLocal.allRecentReadings();
+			for(SensorReading sr : playerList){
+				double lat = 0.0;
+				double lng = 0.0;
+				if(sr!=null){
+					lat = sr.getGpsLat();
+					lng = sr.getGpsLng();
+				} 				
+				int userID = sr.getUserId();
+				if(lat != 0.0 && lng != 0.0) {
+			%>				
+					var loc = new google.maps.LatLng(<%= lat%>,<%= lng%>);
+					//http://google.com/mapfiles/kml/paddle/A.png
+					//https://mcsense.googlecode.com/files/alien.png
+					var iconBase = '../images/';
+					var marker = new google.maps.Marker({
+				       position: loc,
+				       map: map,
+				       icon: iconBase + 'player.png'
+				    });
+				    marker.setTitle("Player "+<%= userID%>);
+				    bound.extend(loc);
+				    aliens.push(marker);
+			<%
+				}
+			}
+		%>
+	}
+	
+	function viewSentinels(map,bound) {
+		var i = 0;
+		aliens = [];
+	  	<%
+			List<Sentinel> sentinelList = new ArrayList<Sentinel>();	  		
+	  		 
+	  		sentinelList = alienServicesLocal.allSentinels();
+			for(Sentinel s : sentinelList){
+				double lat = 0.0;
+				double lng = 0.0;
+				if(s!=null){
+					lat = s.getGpsLat();
+					lng = s.getGpsLng();
+				} 				
+				String userEmail = s.getUserEmail();
+				 userEmail = userEmail.replace("@", "");
+				 userEmail = userEmail.replace(".", "");
+				if(lat != 0.0 && lng != 0.0) {
+			%>				
+					var loc = new google.maps.LatLng(<%= lat%>,<%= lng%>);
+					//http://google.com/mapfiles/kml/paddle/A.png
+					//https://mcsense.googlecode.com/files/alien.png
+					var iconBase = '../images/';
+					var marker = new google.maps.Marker({
+				       position: loc,
+				       map: map,
+				       icon: iconBase + 'sentinel.png'
+				    });
+				    marker.setTitle("Player "+"<%= userEmail%>");
+				    bound.extend(loc);
+				    aliens.push(marker);
+			<%
+				}
+			}
+		%>
+	}
+	
 	function hideMarkers() {
 	    for (var i = 0; i < aliens.length; i++) {
 	    	aliens[i].setMap(null); //Remove the marker from the map
@@ -240,7 +314,7 @@ function initialize() {
   
   var coordInfoWindow = new google.maps.InfoWindow();
   coordInfoWindow.setContent(createInfoWindowContent());
-  coordInfoWindow.setPosition(njit);
+  //coordInfoWindow.setPosition(njit);
   coordInfoWindow.open(map);
 
   google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -253,10 +327,14 @@ function initialize() {
   var bound = new google.maps.LatLngBounds(njit1,njit2,njit3,njit4);
 
   viewAliens(map,bound);
+    viewPlayers(map,bound);
+  viewSentinels(map,bound);
   viewAreas();
   google.maps.event.addListener(map, 'zoom_changed', function() {
       if (map.getZoom() == 21) {
     	  viewAliens(map,bound);
+    	    viewPlayers(map,bound);
+  			viewSentinels(map,bound);
     	  viewAreas();
       }
       else {
