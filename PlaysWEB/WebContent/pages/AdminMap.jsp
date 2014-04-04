@@ -230,6 +230,7 @@ function bound(value, opt_min, opt_max) {
 					lng = s.getGpsLng();
 				} 				
 				String userEmail = s.getUserEmail();
+				 userEmail = userEmail.replace("@", "");
 				if(lat != 0.0 && lng != 0.0) {
 			%>				
 					var loc = new google.maps.LatLng(<%= lat%>,<%= lng%>);
