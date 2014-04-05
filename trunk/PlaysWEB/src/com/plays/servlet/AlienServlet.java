@@ -202,7 +202,7 @@ public class AlienServlet extends HttpServlet {
 					if (p != null) {
 						p.setUserEmail(jData.getEmail());
 						p.setAliensKilled(jData.getBustedAliens());
-						p.setBullets(jData.getCollectedPowerCount());
+						p.setBullets(jData.getCollectedPowerCount() < 50 ? 100 : jData.getCollectedPowerCount());
 						p.setScore(jData.getScore());
 						p.setStatusLevel(jData.getLevel() + "");
 						alienServicesLocal.updateUser(p);
