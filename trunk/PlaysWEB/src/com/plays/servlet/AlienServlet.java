@@ -222,6 +222,8 @@ public class AlienServlet extends HttpServlet {
 							sensorReading.setUserId(p.getUserId());
 						if(area!=null)
 							sensorReading.setSquareId(area.getSqaureId());
+						else 
+							sensorReading.setSquareId(-1);
 						alienServicesLocal.addSensorReading(sensorReading);
 					}
 	}
