@@ -55,7 +55,61 @@ set CREATED_TIME = '2014-03-30 08:00:00'
 
 select * from SENSOR_READINGS sr where sr.READING_ID in (select MAX(READING_ID) from SENSOR_READINGS group by USER_ID) 
 
-select * from SENSOR_READINGS order by reading_id desc
+select min(reading_id) from APP.SENSOR_READINGS -- 99807
+
+select max(reading_id) from APP.SENSOR_READINGS -- 906520
+
+select min(SIGNALLEVEL) from APP.SENSOR_READINGS order by reading_id desc
+
+--below query to check the max min of overall squares
+select max(A.avg_signal_level)
+	from
+	(select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.SENSOR_READINGS 
+		where (SSID like ('%NJIT%') or SSID like ('%njit%'))
+			and square_id >= 0
+			group by square_id) A
+			
+--below query to get max signal of all squares
+select square_id, max(SIGNALLEVEL) from APP.SENSOR_READINGS 
+	where square_id >= 0
+		group by square_id
+		order by square_id;
+			
+-- below query to get max signal of each square having NJIT signal
+select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.SENSOR_READINGS 
+		where (SSID like ('%NJIT%') or SSID like ('%njit%'))
+			and square_id >= 0
+			group by square_id
+			order by square_id;
+		
+-- no NJIT WiFI reading - red -- TODO verify the query to subtract
+select square_id from APP.SENSOR_READINGS 
+	where square_id > 0
+		group by square_id
+EXCEPT
+select square_id as avg_signal_level from APP.SENSOR_READINGS 
+		where (SSID like ('%NJIT%') or SSID like ('%njit%'))
+			and square_id >= 0
+			group by square_id
+	
+-- verify the no NJIT WiFi readings square
+select * from APP.SENSOR_READINGS 
+where square_id = 77
+-- 0 - 109
+-- 0 - 35 - Strong -  green
+select * from APP.SENSOR_READINGS 
+	where (SSID like ('%NJIT%') or SSID like ('%njit%'))
+		and SIGNALLEVEL between -35 and 0;
+-- 36 - 70 - medium -  blue
+select * from APP.SENSOR_READINGS 
+	where (SSID like ('%NJIT%') or SSID like ('%njit%'))
+		and SIGNALLEVEL between -70 and -36;
+-- 71 or higher - low -  yellow
+select * from APP.SENSOR_READINGS 
+	where (SSID like ('%NJIT%') or SSID like ('%njit%'))
+		and SIGNALLEVEL > -71
+		group by square_id;
+		
 
 ALTER TABLE APP.Aliens
 ADD FOREIGN KEY (sqaure_id) 

@@ -1,6 +1,7 @@
 package com.plays.services;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -12,6 +13,7 @@ import com.plays.model.Area;
 import com.plays.model.SensorReading;
 import com.plays.model.Sentinel;
 import com.plays.model.User;
+import com.plays.model.WiFiMap;
 
 /**
  * Session Bean implementation class BankAdminServices
@@ -45,11 +47,72 @@ public class AlienServices implements AlienServicesLocal {
     }
     
     @Override
+    public List<SensorReading> allSensorReadings(){
+    	List<SensorReading> pList = null;
+    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findAll");
+    	pList = (List<SensorReading>) q.getResultList();
+		return pList;
+    }
+    
+    @Override
+    public List<SensorReading> allSensorReadingsBetweenIDs(long start, long end){
+    	List<SensorReading> pList = null;
+    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findById").setParameter("start", start).setParameter("end", end);
+    	pList = (List<SensorReading>) q.getResultList();
+		return pList;
+    }
+    
+    @Override
+    public long allSensorReadingsCount(){
+    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.count");
+    	List<Long> count = (List<Long>) q.getResultList();
+		return count.get(0);
+    }
+    
+    @Override
     public List<SensorReading> allRecentReadings(){
     	List<SensorReading> pList = null;
     	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.recent");
     	pList = (List<SensorReading>) q.getResultList();
 		return pList;
+    }
+    
+    @Override
+    public List<WiFiMap> findNJITCovSquares(){
+    	List<WiFiMap> wiFiMapList = new ArrayList<WiFiMap>();
+    	
+    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNJITCovSquares");
+    	List<Object[]> results = q.getResultList();
+    	
+    	for (Object[] result : results) {
+    	    int squareId = (int) result[0];
+    	    Area area = findAreaByID(squareId);
+    	    int maxSignalLevel = ((Number) result[1]).intValue();
+    	    WiFiMap wiFiMap = new WiFiMap();
+    	    wiFiMap.setArea(area);
+    	    wiFiMap.setMaxSignalLevel(maxSignalLevel);
+    	    wiFiMapList.add(wiFiMap);
+    	}
+    	
+		return wiFiMapList;
+    }
+    
+    @Override
+    public List<WiFiMap> findNoNJITCovSquares(){
+    	List<WiFiMap> wiFiMapList = new ArrayList<WiFiMap>();
+    	
+    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNoNJITCovSquares");
+    	List<Integer> results = (List<Integer>)q.getResultList();
+    	
+    	for (Integer result : results) {
+    	    Integer squareId = result;
+    	    Area area = findAreaByID(squareId);
+    	    WiFiMap wiFiMap = new WiFiMap();
+    	    wiFiMap.setArea(area);
+    	    wiFiMapList.add(wiFiMap);
+    	}
+    	
+		return wiFiMapList;
     }
     
     @Override
