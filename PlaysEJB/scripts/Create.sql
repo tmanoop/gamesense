@@ -57,7 +57,9 @@ select * from SENSOR_READINGS sr where sr.READING_ID in (select MAX(READING_ID) 
 
 select min(reading_id) from APP.SENSOR_READINGS -- 99807
 
-select max(reading_id) from APP.SENSOR_READINGS -- 906520
+select max(reading_id) from APP.SENSOR_READINGS -- 1317232
+
+select * from APP.SENSOR_READINGS where reading_id = 1318541
 
 select min(SIGNALLEVEL) from APP.SENSOR_READINGS order by reading_id desc
 
