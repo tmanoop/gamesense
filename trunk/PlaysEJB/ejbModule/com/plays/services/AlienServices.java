@@ -85,7 +85,7 @@ public class AlienServices implements AlienServicesLocal {
     	List<Object[]> results = q.getResultList();
     	
     	for (Object[] result : results) {
-    	    int squareId = (int) result[0];
+    	    int squareId = (Integer) result[0];
     	    Area area = findAreaByID(squareId);
     	    int maxSignalLevel = ((Number) result[1]).intValue();
     	    WiFiMap wiFiMap = new WiFiMap();
