@@ -81,7 +81,16 @@ public class AlienServices implements AlienServicesLocal {
     public List<WiFiMap> findNJITCovSquares(){
     	List<WiFiMap> wiFiMapList = new ArrayList<WiFiMap>();
     	
-    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNJITCovSquares");
+    	//Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNJITCovSquares");
+    	
+    	String sqlScript = "select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.SENSOR_READINGS " 
+							+" where (SSID like ('%NJIT%') or SSID like ('%njit%')) "
+								+" and square_id >= 0 "
+								+" group by square_id "
+								+" order by square_id ";
+		Query q = dataServicesLocal.getEM().createNativeQuery(sqlScript);
+//    	q.getResultList();
+    	
     	List<Object[]> results = q.getResultList();
     	
     	for (Object[] result : results) {
@@ -101,7 +110,17 @@ public class AlienServices implements AlienServicesLocal {
     public List<WiFiMap> findNoNJITCovSquares(){
     	List<WiFiMap> wiFiMapList = new ArrayList<WiFiMap>();
     	
-    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNoNJITCovSquares");
+//    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNoNJITCovSquares");
+    	String sqlScript = "select square_id from APP.SENSOR_READINGS " 
+								+" where square_id > 0 "
+								+" group by square_id "
+								+" EXCEPT "
+								+" select square_id as avg_signal_level from APP.SENSOR_READINGS " 
+								+" where (SSID like ('%NJIT%') or SSID like ('%njit%')) "
+								+" 	and square_id >= 0 "
+								+" 	group by square_id ";
+    	Query q = dataServicesLocal.getEM().createNativeQuery(sqlScript);
+    	
     	List<Integer> results = (List<Integer>)q.getResultList();
     	
     	for (Integer result : results) {
