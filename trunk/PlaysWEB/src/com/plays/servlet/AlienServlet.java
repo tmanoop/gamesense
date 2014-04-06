@@ -258,7 +258,9 @@ public class AlienServlet extends HttpServlet {
 
 			GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
 			Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
-			Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
+			Area area = null;
+			if(point.x!=0 && point.y!=0)
+			     area = alienServicesLocal.findAreaByXY(point.x, point.y);
 			
 			if(ALIEN_SEARCH.equalsIgnoreCase(requestType)){
 				//save sensor readings
