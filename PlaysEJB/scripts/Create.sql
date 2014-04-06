@@ -59,8 +59,10 @@ select min(reading_id) from APP.SENSOR_READINGS -- 99807
 
 select max(reading_id) from APP.SENSOR_READINGS -- 1317232
 
-select * from APP.SENSOR_READINGS where reading_id = 1318541
-
+select * from APP.SENSOR_READINGS where square_id = 0 and (SSID like ('%NJIT%') or SSID like ('%njit%'))
+update APP.SENSOR_READINGS 
+set square_id = -1 
+where square_id = 0
 select min(SIGNALLEVEL) from APP.SENSOR_READINGS order by reading_id desc
 
 --below query to check the max min of overall squares
