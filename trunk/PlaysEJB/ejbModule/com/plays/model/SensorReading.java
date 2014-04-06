@@ -15,7 +15,13 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name="SensorReading.recent",
         	  query="select s from SensorReading s where s.readingId in (select MAX(st.readingId) from SensorReading st group by st.userId) "),
-    @NamedQuery(name="SensorReading.findAll", query="SELECT s FROM SensorReading s")
+    @NamedQuery(name="SensorReading.findAll", query="SELECT s FROM SensorReading s"),
+    @NamedQuery(name="SensorReading.count", query="SELECT count(s) FROM SensorReading s"),
+    @NamedQuery(name="SensorReading.findById", query="SELECT s FROM SensorReading s where s.readingId between :start and :end"),
+    @NamedQuery(name="SensorReading.findNJITCovSquares", query="SELECT s.squareId, max(s.signallevel) FROM SensorReading s where (s.ssid like ('%NJIT%') or s.ssid like ('%njit%')) and s.squareId >= 0 group by s.squareId order by s.squareId "),
+    @NamedQuery(name="SensorReading.findNoNJITCovSquares", query="SELECT s1.squareId FROM SensorReading s1 where s1.squareId >= 0 group by s1.squareId "
+    		+ "EXCEPT "
+    		+ "SELECT s2.squareId FROM SensorReading s2 where (s2.ssid like ('%NJIT%') or s2.ssid like ('%njit%')) and s2.squareId >= 0 group by s2.squareId ")
 })
 public class SensorReading implements Serializable {
 	private static final long serialVersionUID = 1L;

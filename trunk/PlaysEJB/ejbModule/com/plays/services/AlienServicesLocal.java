@@ -9,6 +9,7 @@ import com.plays.model.Area;
 import com.plays.model.SensorReading;
 import com.plays.model.Sentinel;
 import com.plays.model.User;
+import com.plays.model.WiFiMap;
 
 @Local
 public interface AlienServicesLocal {
@@ -48,4 +49,14 @@ public interface AlienServicesLocal {
 	List<SensorReading> allRecentReadings();
 
 	List<Sentinel> allSentinels();
+
+	List<SensorReading> allSensorReadings();
+
+	List<SensorReading> allSensorReadingsBetweenIDs(long start, long end);
+
+	long allSensorReadingsCount();
+
+	List<WiFiMap> findNJITCovSquares();
+
+	List<WiFiMap> findNoNJITCovSquares();
 }
