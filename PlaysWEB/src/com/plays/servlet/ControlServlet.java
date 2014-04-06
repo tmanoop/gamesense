@@ -186,7 +186,7 @@ public class ControlServlet extends HttpServlet {
 		} else if(submit!=null && submit.equals("LoadSquareIDs")){
 			//long count = alienServicesLocal.allSensorReadingsCount();
 //			System.out.println("SeansorReadings Size: "+count);
-			long end = 906520;
+			long end = 1317232;
 			long start = 99807;
 			long batch = 10000;
 			while(start+batch<=end){
