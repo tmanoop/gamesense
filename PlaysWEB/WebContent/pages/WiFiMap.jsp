@@ -237,9 +237,9 @@ function bound(value, opt_min, opt_max) {
 						color = '#F4FA3E';//yellow
 					var sqCircle;
 					 var sqOptions = {
-				      strokeColor: color,
-				      strokeOpacity: 0.8,
-				      strokeWeight: 2,
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
 				      fillColor: color,
 				      fillOpacity: 0.35,
 				      map: map,
@@ -277,9 +277,9 @@ function bound(value, opt_min, opt_max) {
 					var color = '#FE1212';//red
 					var sqCircle;
 					 var sqOptions = {
-				      strokeColor: color,
-				      strokeOpacity: 0.8,
-				      strokeWeight: 2,
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
 				      fillColor: color,
 				      fillOpacity: 0.35,
 				      map: map,
