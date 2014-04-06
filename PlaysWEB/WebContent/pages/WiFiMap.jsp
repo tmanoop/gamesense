@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.plays.model.Alien"%>
+<%@page import="com.plays.model.WiFiMap"%>
 <%@page import="com.plays.model.Area"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="com.plays.services.AlienServicesLocal"%>
@@ -11,6 +12,34 @@
 <html>
 <head>
     <title>NJIT WiFi Map</title>
+    <style>
+		table,th,td
+		{
+		border:1px solid black;
+		border-collapse:collapse;
+		}
+		th,td
+		{
+		padding:5px;
+		}
+		th
+		{
+		text-align:left;
+		}
+		
+		.header img {
+		  float: left;
+		  width: 150px;
+		  height: 50px;
+		  background: #555;
+		}
+		
+		.header h1 {
+		  position: relative;
+		  top: 18px;
+		  left: 10px;
+		}
+	</style>
     <style>
       html, body, #map-canvas {
         height: 100%;
@@ -42,7 +71,7 @@ var aliens=[];
 var tiles=[];
 var myJsonTiles;
 var chicago = new google.maps.LatLng(41.850033,-87.6500523);
-var njit = new google.maps.LatLng(40.744778,-74.179854);
+var njit = new google.maps.LatLng(40.741675,-74.177552);
 var njit1 = new google.maps.LatLng(40.744721,-74.179841);
 var njit2 = new google.maps.LatLng(40.742689,-74.173361);
 var njit3 = new google.maps.LatLng(40.738754,-74.175442);
@@ -178,6 +207,94 @@ function bound(value, opt_min, opt_max) {
 		%>
 	}
 	
+	function viewWiFiMap(map,bound) {
+		var i = 0;
+		aliens = [];
+	  	<%
+			List<WiFiMap> wiFiMapList = new ArrayList<WiFiMap>();	  		
+	  	 
+	  	wiFiMapList = alienServicesLocal.findNJITCovSquares();
+			for(WiFiMap wiFiMap : wiFiMapList){
+				Area area = wiFiMap.getArea();
+				double lat = 0.0;
+				double lng = 0.0;
+				if(area!=null){
+					lat = area.getGpsLat();
+					lng = area.getGpsLng();
+				} 				
+				int maxSignalLevel = wiFiMap.getMaxSignalLevel();
+				if(lat != 0.0 && lng != 0.0) {
+			%>				
+					var loc = new google.maps.LatLng(<%= lat%>,<%= lng%>);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = <%= maxSignalLevel%>;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      strokeColor: color,
+				      strokeOpacity: 0.8,
+				      strokeWeight: 2,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+			<%
+				}
+			}
+		%>
+	}
+	
+	function viewNoWiFiMap(map,bound) {
+		var i = 0;
+		aliens = [];
+	  	<%
+			List<WiFiMap> noWiFiMapList = new ArrayList<WiFiMap>();	  		
+	  	 
+	  	noWiFiMapList = alienServicesLocal.findNoNJITCovSquares();
+			for(WiFiMap wiFiMap : noWiFiMapList){
+				Area area = wiFiMap.getArea();
+				double lat = 0.0;
+				double lng = 0.0;
+				if(area!=null){
+					lat = area.getGpsLat();
+					lng = area.getGpsLng();
+				} 				
+				if(lat != 0.0 && lng != 0.0) {
+			%>				
+					var loc = new google.maps.LatLng(<%= lat%>,<%= lng%>);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      strokeColor: color,
+				      strokeOpacity: 0.8,
+				      strokeWeight: 2,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+			<%
+				}
+			}
+		%>
+	}
+	
 	function loadTileCoord() {
 		var numTiles = 1 << map.getZoom();
 	  	<%
@@ -273,7 +390,7 @@ function initialize() {
   // their parent base map.
   map.overlayMapTypes.insertAt(
       0, new CoordMapType(new google.maps.Size(256, 256)));
-  
+  /*
   var coordInfoWindow = new google.maps.InfoWindow();
   coordInfoWindow.setContent(createInfoWindowContent());
   coordInfoWindow.setPosition(njit);
@@ -283,17 +400,21 @@ function initialize() {
     coordInfoWindow.setContent(createInfoWindowContent());
     coordInfoWindow.open(map);
   });
-  
-  createPolygon(njit1,njit2,njit3,njit4,map);
+  */
+  //createPolygon(njit1,njit2,njit3,njit4,map);
   
   var bound = new google.maps.LatLngBounds(njit1,njit2,njit3,njit4);
 
   //viewAliens(map,bound);
   //viewAreas();
+  viewWiFiMap(map,bound);
+  viewNoWiFiMap(map,bound);
   google.maps.event.addListener(map, 'zoom_changed', function() {
       if (map.getZoom() == 21) {
     	  //viewAliens(map,bound);
-    	  //viewAreas();    	  
+    	  //viewAreas(); 
+    	  viewWiFiMap(map,bound);
+    	  viewNoWiFiMap(map,bound);
       }
       else {
           //hideMarkers();
@@ -308,17 +429,25 @@ google.maps.event.addDomListener(window, 'load', initialize);
     </script>
   </head>
   <body>
-  <b><big>NJIT WiFi Map</big></b>
+  <div class="header">
+  <img src="../images/njit-logo.jpg" alt="logo" />
+  <h1 align="center">NJIT WiFi Map</h1>
+</div>
 <br>
+<p align="left">Campus is being mapped with NJIT WiFi coverage as a by-product of <a href="https://play.google.com/store/apps/details?id=com.mtlabs.games.avn">Monster vs NJIT</a> game.
+ <i> For more details on the project contact: mt57@njit.edu.</i>
+
+<table style="width:1300px">
+<tr>
+  <th bgcolor = '#06DF31'>GREEN areas with STRONG signal strength</th>
+  <th bgcolor = '#3EEFFC'>BLUE areas with MEDIUM signal strength</th> 
+  <th bgcolor = '#F4FA3E'>YELLOW areas with LOW signal strength</th>
+  <th bgcolor = '#FE1212'>RED areas detected with no NJIT WiFi</th>
+</tr>
+
+</table>
 <br>
-<br>
-<p align="left">Highlighted region is being mapped with NJIT WiFi coverage as a by-product of Monster vs NJIT game.
-<p align="left">Dark blue color - Areas with strong signal strength
-<p align="left">Light blue color - Areas with medium signal strength
-<p align="left">Light red color - Areas with low signal strength
-<p align="left">White color - Areas with no collected WiFi data
-<br>
-<i>Note: Zoom to level 21 to see the WiFi coverage in colors.</i>
+<i>Note: Areas with no data are not colored.</i>
 <br>
     <div id="map-canvas"></div>
   </body>

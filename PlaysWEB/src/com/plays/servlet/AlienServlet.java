@@ -147,13 +147,10 @@ public class AlienServlet extends HttpServlet {
 		return newJData;
 	}
 	
-	private JData searchAlienLocation(JData jData) {
+	private JData searchAlienLocation(JData jData, Area area) {
 		JData newJData = new JData();
 		newJData.setRequestType(jData.getRequestType());
 		
-		GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
-		Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
-		Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
 //		System.out.println("Searching monster, Player: "+jData.getEmail()+", at point x,y: "+point.x+","+ point.y+", area found: "+area);
 		if(area!=null){
 			if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
@@ -194,7 +191,7 @@ public class AlienServlet extends HttpServlet {
 		alienServicesLocal.updateSentinel(p);
 	}
 
-	private void saveSensorReadings(JData jData) {
+	private void saveSensorReadings(JData jData, Area area) {
 //		System.out.println("Sensor readings saved.");
 		// System.out.println(jData.getEmail()+", "+jData.getMeid()+", "+jData.getScore());
 					// System.out.println("Sensor readings saved.");
@@ -223,6 +220,8 @@ public class AlienServlet extends HttpServlet {
 						sensorReading.setCreatedTime(new Timestamp(System.currentTimeMillis()));
 						if (p != null)
 							sensorReading.setUserId(p.getUserId());
+						if(area!=null)
+							sensorReading.setSquareId(area.getSqaureId());
 						alienServicesLocal.addSensorReading(sensorReading);
 					}
 	}
@@ -255,11 +254,15 @@ public class AlienServlet extends HttpServlet {
 			jData.setRequestType(requestType);
 			JData newJData = null;
 
+			GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
+			Point point = gmap2.fromLatLngToPoint(jData.getCurrentLat(), jData.getCurrentLng(), GoogleMapsProjection2.ZOOM);
+			Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
+			
 			if(ALIEN_SEARCH.equalsIgnoreCase(requestType)){
 				//save sensor readings
-				saveSensorReadings(jData);
+				saveSensorReadings(jData, area);
 				//search alien near the user loc
-				newJData = searchAlienLocation(jData);
+				newJData = searchAlienLocation(jData, area);
 			} else if(ALIEN_SHOT.equalsIgnoreCase(requestType)){
 				//move alien to new location and update user scores
 				newJData = moveAlien(jData);
@@ -268,7 +271,7 @@ public class AlienServlet extends HttpServlet {
 				newJData = alienHints(jData);
 			} else if(SENTINEL_SEARCH.equalsIgnoreCase(requestType)){
 				saveSentinel(jData);
-				newJData = searchAlienLocation(jData);
+				newJData = searchAlienLocation(jData, area);
 			}
 			
 			String jsonStringNewJData = new Gson().toJson(newJData);

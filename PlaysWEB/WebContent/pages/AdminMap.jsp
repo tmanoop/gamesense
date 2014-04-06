@@ -393,6 +393,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <input type=hidden name="myJsonTilesValue"/>  
 <input type="submit" name="submit" value="Load Tile Coordinates" >
 </form>
+<form name="tiles" action="../ControlServlet" method="post">
+<input type="submit" name="submit" value="LoadSquareIDs" >
+</form>
 <i>Note: Zoom to level 21 to see the aliens.</i>
 <br>
     <div id="map-canvas"></div>
