@@ -25,6 +25,9 @@ public class Alien implements Serializable {
 
 	@Column(name="SQUARE_ID", insertable = false, updatable = false)
 	private int squareId;
+	
+	@Column(name="USER_ID")
+	private int userId;
 
 	@Column(name="SHOT_COUNT")
 	private int shotCount;
@@ -50,6 +53,14 @@ public class Alien implements Serializable {
 
 	public void setSquareId(int squareId) {
 		this.squareId = squareId;
+	}
+	
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public int getShotCount() {
