@@ -63,3 +63,33 @@ create trigger App.InsertAlienAUDIT
             ('I'),
             CURRENT_TIMESTAMP
             );
+            
+ ---- trigger for users
+ drop table App.Users_Audit
+ create table App.Users_Audit (audit_id integer NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY, user_id integer, user_access varchar(10), user_email varchar(255), bullets integer, score integer, status_level varchar(16), user_meid varchar(255), aliens_killed integer, sys_action varchar(10), sys_time TIMESTAMP);
+ 
+ drop trigger App.UpdateUsersAUDIT
+
+create trigger App.UpdateUsersAUDIT
+  after update  
+            on App.Users
+  REFERENCING NEW AS CURR_USER
+  for each row MODE DB2SQL
+            insert into App.Users_Audit
+            (
+            user_id, user_access, user_email, bullets, score, status_level, user_meid, aliens_killed,
+            sys_action, sys_time
+            )
+            values
+            (
+            (CURR_USER.user_id),
+            (CURR_USER.user_access),
+            (CURR_USER.user_email), 
+            (CURR_USER.bullets), 
+            (CURR_USER.score), 
+            (CURR_USER.status_level), 
+            (CURR_USER.user_meid), 
+            (CURR_USER.aliens_killed),
+            ('U'),
+            CURRENT_TIMESTAMP
+            );
