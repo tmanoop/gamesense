@@ -183,7 +183,10 @@ public class AlienServices implements AlienServicesLocal {
 		} catch (Exception e) {
 //			System.out.println("Player not found.");
 		}
-    	return pList.get(0);
+    	if(pList.size()>0)
+    	    return pList.get(0);
+    	else
+    		return null;
     }
     
     @Override
