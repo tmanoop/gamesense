@@ -171,6 +171,22 @@ public class AlienServices implements AlienServicesLocal {
     }
     
     @Override
+    public Alien findAvailableAlienByShotCnt(int shotCount){
+		List<Alien> pList = null;
+    	try {
+
+			Query q = dataServicesLocal.getEM().createNamedQuery("Alien.findAliensByShotCnt").setParameter("shotCount", shotCount);
+			
+			pList = (List<Alien>) q.getResultList();
+			
+						
+		} catch (Exception e) {
+//			System.out.println("Player not found.");
+		}
+    	return pList.get(0);
+    }
+    
+    @Override
     public Alien add(Alien alien){
     	try {
 			dataServicesLocal.persist(alien);

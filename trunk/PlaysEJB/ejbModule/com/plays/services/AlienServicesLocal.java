@@ -59,4 +59,6 @@ public interface AlienServicesLocal {
 	List<WiFiMap> findNJITCovSquares();
 
 	List<WiFiMap> findNoNJITCovSquares();
+
+	Alien findAvailableAlienByShotCnt(int shotCount);
 }
