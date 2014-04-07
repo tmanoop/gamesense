@@ -111,9 +111,9 @@ public class AlienServlet extends HttpServlet {
 					alienServicesLocal.update(alien);
 				}
 			} else {
-				Alien alien = alienServicesLocal.findAvailableAlienByShotCnt(0);
+				Alien alien = alienServicesLocal.findAvailableAlienByShotCnt(1);
 				if(alien==null)
-					alien = alienServicesLocal.findAvailableAlienByShotCnt(1);
+					alien = alienServicesLocal.findAvailableAlienByShotCnt(2);
 				
 				if(alien!=null){
 					alien.setShotCount(alien.getShotCount()+1);
