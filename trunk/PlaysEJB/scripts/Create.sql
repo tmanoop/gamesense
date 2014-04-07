@@ -9,6 +9,10 @@ create table App.Sentinels (sentinel_id integer PRIMARY KEY, user_email varchar(
 
 ALTER TABLE APP.Sensor_Readings ADD CREATED_TIME TIMESTAMP;
 
+ALTER TABLE APP.Aliens ADD user_id integer;
+
+
+
 drop table App.Area;
 drop table App.Users;
 drop table App.Sensor_Readings;
@@ -33,7 +37,11 @@ delete from App.Aliens;
 delete from App.Sensor_Readings;
 delete from App.Users;
 select * from App.Users;
-select * from App.Aliens where shot_count>0;
+select * from App.Aliens where shot_count=2;
+
+select square_id, count(*) from App.Aliens group by square_id
+
+select count(*) from App.Aliens where shot_count<2;
 
 update APP.Users
 set BULLETS = 100
