@@ -63,8 +63,10 @@ create trigger App.InsertAlienAUDIT
             ('I'),
             CURRENT_TIMESTAMP
             );
-            
+ select * from App.Aliens_Audit           
  ---- trigger for users
+ select * from App.Users_Audit
+            
  drop table App.Users_Audit
  create table App.Users_Audit (audit_id integer NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY, user_id integer, user_access varchar(10), user_email varchar(255), bullets integer, score integer, status_level varchar(16), user_meid varchar(255), aliens_killed integer, sys_action varchar(10), sys_time TIMESTAMP);
  
