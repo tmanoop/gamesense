@@ -52,7 +52,7 @@ set STATUS_LEVEL = '1'
 where STATUS_LEVEL is NULL;
 
 select user_email from APP.USERS
-where USER_ACCESS is NULL;
+where USER_ACCESS is not NULL;
 
 update APP.Users
 set USER_ACCESS = 'Y'
