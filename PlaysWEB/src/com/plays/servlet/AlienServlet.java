@@ -134,6 +134,7 @@ public class AlienServlet extends HttpServlet {
 				if(nearestSquare!=null){
 					newJData.setCurrentLat(nearestSquare.getGpsLat());
 					newJData.setCurrentLng(nearestSquare.getGpsLng());
+					newJData.setFloorNum(nearestSquare.getFloorNum());
 				}
 			}
 			
@@ -156,6 +157,7 @@ public class AlienServlet extends HttpServlet {
 			
 			newJData.setCurrentLat(nearestSquare.getGpsLat());
 			newJData.setCurrentLng(nearestSquare.getGpsLng());
+			newJData.setFloorNum(nearestSquare.getFloorNum());
 		} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng())) {
 			//TODO only for testing everywhere not in NJIT. comment this after testing
 //			newJData.setCurrentLat(jData.getCurrentLat() + Math.random()/1000);
@@ -179,6 +181,7 @@ public class AlienServlet extends HttpServlet {
 			if(area.getAlien()!=null && area.getAlien().getShotCount() < 2){
 				newJData.setCurrentLat(area.getGpsLat());
 				newJData.setCurrentLng(area.getGpsLng());
+				newJData.setFloorNum(area.getFloorNum());
 			} else if(isLocAtNJIT(jData.getCurrentLat(), jData.getCurrentLng()) && jData.getBustedAliens()==0){
 				newJData.setCurrentLat(jData.getCurrentLat() );
 				newJData.setCurrentLng(jData.getCurrentLng() );
@@ -235,6 +238,7 @@ public class AlienServlet extends HttpServlet {
 						sensorReading.setGpsLat(jData.getCurrentLat());
 						sensorReading.setGpsLng(jData.getCurrentLng());
 						sensorReading.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+						sensorReading.setAltitude(jWiFiData.getAltitude());
 						if (p != null)
 							sensorReading.setUserId(p.getUserId());
 						if(area!=null)
@@ -267,7 +271,7 @@ public class AlienServlet extends HttpServlet {
 		//Parse Response into our object
         Type collectionType = new TypeToken<JData>() {
         }.getType();
-//        System.out.println("jsonstring: "+jsonString);
+        System.out.println("jsonstring: "+jsonString);
 		if (jsonString != null && !jsonString.equals("")) {
 			JData jData = new Gson().fromJson(jsonString, collectionType);
 			jData.setRequestType(requestType);
