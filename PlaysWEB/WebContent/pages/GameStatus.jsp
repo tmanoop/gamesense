@@ -418,8 +418,9 @@ function saveAlienAjax(x, y) {
 	    var tempResp=xmlhttp.responseText;
 	    }
 	};
+	var floorNum = document.getElementById('floor');
 	var url = 'http://mcsense.njit.edu:10080//PlaysWEB/ControlServlet?action=add&test=alien&'; 
-	url = url + 'tileX='+x+'&tileY='+y;
+	url = url + 'tileX='+x+'&tileY='+y+'&floor='+floorNum.value;
 	//alert(url);
 	xmlhttp.open("GET",url,true);
 	xmlhttp.send();
@@ -440,6 +441,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <input name="alienId" type="text" size="15" value="">
 <input type="submit" name="submit" value="Shoot the alien"></p>
 </form>
+
+<input name="floor" id="floor" type="text" size="15" value="0">
 <i>Note: Zoom to level 21 to see the aliens.</i>
 <br>
     <div id="map-canvas"></div>
