@@ -19,6 +19,7 @@ public class JData {
 	private double currentLat;
 	private double currentLng;
 	private String UserAccess;
+	private int floorNum;
 	private List<JWiFiData> jWiFiData;
 	
 	public String getEmail() {
@@ -93,6 +94,10 @@ public class JData {
 	public void setUserAccess(String userAccess) {
 		UserAccess = userAccess;
 	}
-	
-	
+	public int getFloorNum() {
+		return floorNum;
+	}
+	public void setFloorNum(int floorNum) {
+		this.floorNum = floorNum;
+	}		
 }
