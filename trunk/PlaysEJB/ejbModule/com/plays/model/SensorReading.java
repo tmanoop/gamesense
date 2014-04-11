@@ -56,6 +56,9 @@ public class SensorReading implements Serializable {
 	@Column(name="CREATED_TIME")
 	private Timestamp createdTime;
 
+	@Column(name="ALTITUDE")
+	private int altitude;
+
 	public SensorReading() {
 	}
 
@@ -147,4 +150,13 @@ public class SensorReading implements Serializable {
 		this.createdTime = timestamp;
 	}
 
+	public int getAltitude() {
+		return altitude;
+	}
+
+	public void setAltitude(int altitude) {
+		this.altitude = altitude;
+	}
+
+	
 }
