@@ -53,13 +53,22 @@ public class ControlServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String tileX = request.getParameter("tileX");
 		String tileY = request.getParameter("tileY");
+		String floor = request.getParameter("floor");
+		int floorNum = Integer.parseInt(floor);
 		if(test.equals("alien")){
 			if(action.equals("add")){
-				if(tileX!=null && tileY!=null){
+				if(floorNum>0){
+					//create area
+
+					System.out.println( "floor#"+floorNum);
+//					create alien
+				} else if(tileX!=null && tileY!=null){
 					Alien a = new Alien();
 					Area area = alienServicesLocal.findAreaByXY(Double.parseDouble(tileX), Double.parseDouble(tileY));
 					a.setArea(area);
 					a.setShotCount(0);
+					System.out.println( "floor#"+floorNum);
+					//area.setFloorNum(Integer.parseInt(floorNum));
 					int id = alienServicesLocal.add(a).getAlienId();
 					//out.println("<BR> Alien added!! " +id);
 					area.setAlien(a);
