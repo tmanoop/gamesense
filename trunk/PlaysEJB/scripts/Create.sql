@@ -9,6 +9,8 @@ create table App.Sentinels (sentinel_id integer PRIMARY KEY, user_email varchar(
 
 ALTER TABLE APP.Sensor_Readings ADD CREATED_TIME TIMESTAMP;
 
+ALTER TABLE APP.Sensor_Readings ADD altitude integer;
+
 ALTER TABLE APP.Aliens ADD user_id integer;
 
 
