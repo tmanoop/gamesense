@@ -271,7 +271,7 @@ public class AlienServlet extends HttpServlet {
 		//Parse Response into our object
         Type collectionType = new TypeToken<JData>() {
         }.getType();
-        System.out.println("jsonstring: "+jsonString);
+        //System.out.println("jsonstring: "+jsonString);
 		if (jsonString != null && !jsonString.equals("")) {
 			JData jData = new Gson().fromJson(jsonString, collectionType);
 			jData.setRequestType(requestType);
