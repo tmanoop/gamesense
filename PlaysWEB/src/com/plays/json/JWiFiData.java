@@ -6,6 +6,7 @@ public class JWiFiData {
 	private String capabilities;
 	private int frequency;
 	private int level;
+	private int altitude;
 	public String getBSSID() {
 		return BSSID;
 	}
@@ -36,6 +37,10 @@ public class JWiFiData {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
-	
+	public int getAltitude() {
+		return altitude;
+	}
+	public void setAltitude(int altitude) {
+		this.altitude = altitude;
+	}
 }
