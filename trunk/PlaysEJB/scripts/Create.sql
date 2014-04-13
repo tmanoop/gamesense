@@ -13,6 +13,8 @@ ALTER TABLE APP.Sensor_Readings ADD altitude integer;
 
 ALTER TABLE APP.Aliens ADD user_id integer;
 
+ALTER TABLE APP.Area ALTER square_desc SET DATA TYPE varchar(200);
+
 
 
 drop table App.Area;
