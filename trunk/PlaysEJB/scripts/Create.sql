@@ -15,11 +15,8 @@ ALTER TABLE APP.Aliens ADD user_id integer;
 
 ALTER TABLE APP.Area ALTER square_desc SET DATA TYPE varchar(200);
 
-
-
 drop table App.Area;
 drop table App.Users;
-drop table App.Sensor_Readings;
 drop table App.Reading_values;
 drop table App.Aliens;
 drop table App.Player_Aliens;
@@ -151,9 +148,9 @@ CREATE TABLE APP.SEQUENCE (SEQ_NAME VARCHAR(50) NOT NULL, SEQ_COUNT DECIMAL(15),
 INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN',500);
 INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN_TABLE',0);
 
-select * from APP.Sensor_Readings 
+select * from APP.Sensor_Readings where altitude < 0 
 order by reading_id desc
-select * from APP.ALIENS
+select * from APP.AREA where floor_num > 0
 select count(*) from APP.AREA where COVERED_IND = 'Y'
 select count(*) from APP.AREA where COVERED_IND = 'N'
 --day1  5pm--160 sq cov  
