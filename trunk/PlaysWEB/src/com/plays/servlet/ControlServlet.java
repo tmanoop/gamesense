@@ -59,7 +59,19 @@ public class ControlServlet extends HttpServlet {
 			if(action.equals("add")){
 				if(floorNum>0){
 					//create area
-
+					Alien a = new Alien();
+					Area area = alienServicesLocal.findAreaByXYFloor(Double.parseDouble(tileX), Double.parseDouble(tileY), floorNum);
+					if(area!=null){
+						a.setArea(area);
+						a.setShotCount(0);
+						System.out.println( "area#"+area.getSqaureId());
+						//area.setFloorNum(Integer.parseInt(floorNum));
+						int id = alienServicesLocal.add(a).getAlienId();
+						//out.println("<BR> Alien added!! " +id);
+						area.setAlien(a);
+						alienServicesLocal.updateArea(area);
+					}
+					
 					System.out.println( "floor#"+floorNum);
 //					create alien
 				} else if(tileX!=null && tileY!=null){
