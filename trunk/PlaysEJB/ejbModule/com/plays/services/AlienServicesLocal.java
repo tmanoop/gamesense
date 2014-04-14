@@ -61,4 +61,6 @@ public interface AlienServicesLocal {
 	List<WiFiMap> findNoNJITCovSquares();
 
 	Alien findAvailableAlienByShotCnt(int shotCount);
+
+	Area findAreaByXYFloor(double tileX, double tileY, int floor);
 }
