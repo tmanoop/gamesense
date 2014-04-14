@@ -14,6 +14,7 @@ import javax.persistence.*;
 	@NamedQuery(name="Area.findAll", query="SELECT a FROM Area a"),
 	@NamedQuery(name="Area.findAreaByInd", query="SELECT a FROM Area a where a.coveredInd = :coveredInd"),
 	@NamedQuery(name="Area.findByXY", query="SELECT a FROM Area a where a.tileX = :tileX and a.tileY = :tileY"),
+	@NamedQuery(name="Area.findByXYFloor", query="SELECT a FROM Area a where a.tileX = :tileX and a.tileY = :tileY and a.floorNum = :floor"),
 })
 public class Area implements Serializable {
 	private static final long serialVersionUID = 1L;
