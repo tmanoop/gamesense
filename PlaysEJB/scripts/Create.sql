@@ -148,9 +148,23 @@ CREATE TABLE APP.SEQUENCE (SEQ_NAME VARCHAR(50) NOT NULL, SEQ_COUNT DECIMAL(15),
 INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN',500);
 INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN_TABLE',0);
 
-select * from APP.Sensor_Readings where altitude < 0 
+Select * from App.Users
+select distinct square_id, altitude from APP.Sensor_Readings where altitude < 0 and square_id > 0;
+
+select * from APP.Sensor_Readings where altitude <> 0 and square_id > 0 and user_id = 2286757 and created_time > '2014-04-12 12:00:00';
+
+select * from APP.Sensor_Readings where altitude <> 0 and square_id > 0 and user_id = 2848035 and created_time > '2014-04-13 17:55:00';
+
+select * from APP.AREA where floor_num > 0 and COVERED_IND = 'Y'
+
 order by reading_id desc
-select * from APP.AREA where floor_num > 0
+select * from APP.AREA where floor_num > 0 and TILE_X = 616449 and TILE_Y = 788246
+
+update App.AREA 
+set SQUARE_DESC = 'Student Mall / Parking Deck'
+where SQUARE_DESC = 'Guttenberg Information Technologies Center'
+
+select * from APP.AREA where GPS_LAT is NULL;
 select count(*) from APP.AREA where COVERED_IND = 'Y'
 select count(*) from APP.AREA where COVERED_IND = 'N'
 --day1  5pm--160 sq cov  
