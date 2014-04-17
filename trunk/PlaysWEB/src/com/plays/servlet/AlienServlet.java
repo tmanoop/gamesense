@@ -175,7 +175,7 @@ public class AlienServlet extends HttpServlet {
 			if(area.getCoveredInd() == null || area.getCoveredInd().equalsIgnoreCase("N")) {
 				area.setCoveredInd("Y");
 				alienServicesLocal.updateArea(area);
-			} else if(jData.getjWiFiData() != null && jData.getjWiFiData().get(0).getAltitude() != 0){
+			} else if(jData.getjWiFiData() != null && jData.getjWiFiData().size() > 0 && jData.getjWiFiData().get(0).getAltitude() != 0){
 				for(int i=2; i<9; i++){
 					Area coveredSquare = alienServicesLocal.findAreaByXYFloor(area.getGpsLat(), area.getGpsLng(), i);
 					if(coveredSquare==null){
