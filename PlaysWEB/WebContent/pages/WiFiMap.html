@@ -135,7 +135,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74478596665598,-74.17985916137695);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -77;
+					var maxWifiSignal = -75;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -235,7 +235,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74465591168391,-74.1796875);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -70;
+					var maxWifiSignal = -67;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -560,7 +560,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.744395800976775,-74.17951583862305);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -32;
+					var maxWifiSignal = 0;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -610,7 +610,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.744395800976775,-74.17917251586914);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -55;
+					var maxWifiSignal = -53;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -635,7 +635,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.744395800976775,-74.17900085449219);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -60;
+					var maxWifiSignal = -43;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -685,7 +685,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74426574524173,-74.1800308227539);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -46;
+					var maxWifiSignal = -44;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -785,7 +785,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74426574524173,-74.1793441772461);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -52;
+					var maxWifiSignal = -49;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -810,7 +810,32 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74426574524173,-74.17917251586914);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -62;
+					var maxWifiSignal = -53;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74426574524173,-74.17900085449219);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -41;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -935,7 +960,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74413568925235,-74.17985916137695);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -45;
+					var maxWifiSignal = -43;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -960,7 +985,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74413568925235,-74.1796875);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -42;
+					var maxWifiSignal = -39;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -1035,7 +1060,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74413568925235,-74.17917251586914);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -54;
+					var maxWifiSignal = -47;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -1060,7 +1085,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74413568925235,-74.17900085449219);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -59;
+					var maxWifiSignal = -45;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -1235,7 +1260,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74400563300867,-74.17917251586914);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -51;
+					var maxWifiSignal = -45;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -1260,7 +1285,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74400563300867,-74.17900085449219);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -54;
+					var maxWifiSignal = -48;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -1286,6 +1311,31 @@ function bound(value, opt_min, opt_max) {
 					//add circle
 					var color = '#06DF31';
 					var maxWifiSignal = -64;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74400563300867,-74.17865753173828);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -52;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -1485,7 +1535,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74387557651064,-74.17900085449219);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -55;
+					var maxWifiSignal = -42;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -1735,7 +1785,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74374551975831,-74.17951583862305);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -75;
+					var maxWifiSignal = -67;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -2160,7 +2210,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74361546275168,-74.17865753173828);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -66;
+					var maxWifiSignal = -58;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -2235,7 +2285,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74361546275168,-74.17814254760742);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -55;
+					var maxWifiSignal = -38;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -2810,7 +2860,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.743355347975395,-74.17882919311523);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -71;
+					var maxWifiSignal = -45;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -3060,7 +3110,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74322529020578,-74.17865753173828);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -58;
+					var maxWifiSignal = -53;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -3410,7 +3460,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74309523218185,-74.17814254760742);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -27;
+					var maxWifiSignal = -24;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -3436,6 +3486,81 @@ function bound(value, opt_min, opt_max) {
 					//add circle
 					var color = '#06DF31';
 					var maxWifiSignal = -34;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74309523218185,-74.17694091796875);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -72;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74309523218185,-74.17625427246094);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -49;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74309523218185,-74.17608261108398);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -69;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -3660,7 +3785,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.7429651739036,-74.17865753173828);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -39;
+					var maxWifiSignal = -31;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -3685,7 +3810,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.7429651739036,-74.17848587036133);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -37;
+					var maxWifiSignal = -31;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -3932,6 +4057,31 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.7429651739036,-74.1745376586914);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -76;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.7429651739036,-74.17402267456055);
 					//add circle
 					var color = '#06DF31';
@@ -3986,6 +4136,31 @@ function bound(value, opt_min, opt_max) {
 					//add circle
 					var color = '#06DF31';
 					var maxWifiSignal = -80;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74283511537101,-74.1800308227539);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -81;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -4785,7 +4960,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74270505658412,-74.17642593383789);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -82;
+					var maxWifiSignal = -70;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -5182,6 +5357,31 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74257499754292,-74.1796875);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -75;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74257499754292,-74.1793441772461);
 					//add circle
 					var color = '#06DF31';
@@ -5260,7 +5460,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74257499754292,-74.17882919311523);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -79;
+					var maxWifiSignal = -75;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -5732,10 +5932,35 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.742444938247374,-74.1796875);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -78;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.742444938247374,-74.17951583862305);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -81;
+					var maxWifiSignal = -68;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -5935,7 +6160,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.742444938247374,-74.17797088623047);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -51;
+					var maxWifiSignal = -46;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -5960,7 +6185,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.742444938247374,-74.17779922485352);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -48;
+					var maxWifiSignal = -44;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -6282,6 +6507,31 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74231487869751,-74.17985916137695);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -76;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74231487869751,-74.1796875);
 					//add circle
 					var color = '#06DF31';
@@ -6435,7 +6685,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74231487869751,-74.17865753173828);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -51;
+					var maxWifiSignal = -42;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -6607,6 +6857,31 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74231487869751,-74.1771125793457);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -79;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.742184818893364,-74.18123245239258);
 					//add circle
 					var color = '#06DF31';
@@ -6660,7 +6935,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.742184818893364,-74.18071746826172);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -77;
+					var maxWifiSignal = -74;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -7310,7 +7585,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74205475883487,-74.17900085449219);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -75;
+					var maxWifiSignal = -67;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -7511,6 +7786,31 @@ function bound(value, opt_min, opt_max) {
 					//add circle
 					var color = '#06DF31';
 					var maxWifiSignal = -60;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.741924698522055,-74.18088912963867);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -83;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -7757,6 +8057,31 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.741924698522055,-74.17865753173828);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -69;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.741924698522055,-74.17848587036133);
 					//add circle
 					var color = '#06DF31';
@@ -7785,7 +8110,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.741924698522055,-74.17831420898438);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -61;
+					var maxWifiSignal = -53;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -7936,6 +8261,31 @@ function bound(value, opt_min, opt_max) {
 					//add circle
 					var color = '#06DF31';
 					var maxWifiSignal = -40;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.741924698522055,-74.1767692565918);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -75;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -8160,7 +8510,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.741794637954946,-74.1796875);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -67;
+					var maxWifiSignal = -47;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -8360,7 +8710,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.741794637954946,-74.17831420898438);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -71;
+					var maxWifiSignal = -53;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -8385,7 +8735,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.741794637954946,-74.17814254760742);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -54;
+					var maxWifiSignal = -51;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -8635,7 +8985,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.741664577133506,-74.1796875);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -46;
+					var maxWifiSignal = -42;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -8660,7 +9010,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.741664577133506,-74.17951583862305);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -65;
+					var maxWifiSignal = -40;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -8735,7 +9085,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.741664577133506,-74.17882919311523);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -49;
+					var maxWifiSignal = -45;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -8861,6 +9211,31 @@ function bound(value, opt_min, opt_max) {
 					//add circle
 					var color = '#06DF31';
 					var maxWifiSignal = -72;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.741664577133506,-74.17659759521484);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -84;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -9060,7 +9435,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74153451605774,-74.1796875);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -66;
+					var maxWifiSignal = -42;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -9160,7 +9535,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74153451605774,-74.17900085449219);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -49;
+					var maxWifiSignal = -46;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -9560,7 +9935,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74140445472766,-74.1796875);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -51;
+					var maxWifiSignal = -47;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -9635,7 +10010,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74140445472766,-74.17917251586914);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -77;
+					var maxWifiSignal = -74;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -9685,7 +10060,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74140445472766,-74.17882919311523);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -81;
+					var maxWifiSignal = -67;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -10135,7 +10510,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74127439314326,-74.17882919311523);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -67;
+					var maxWifiSignal = -62;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -10560,7 +10935,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74114433130455,-74.17900085449219);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -71;
+					var maxWifiSignal = -65;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -10635,7 +11010,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74114433130455,-74.17848587036133);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -71;
+					var maxWifiSignal = -57;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -10660,7 +11035,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74114433130455,-74.17831420898438);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -64;
+					var maxWifiSignal = -60;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -10685,7 +11060,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74114433130455,-74.17814254760742);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -68;
+					var maxWifiSignal = -60;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -11235,7 +11610,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74088420686416,-74.1793441772461);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -70;
+					var maxWifiSignal = -69;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -11285,7 +11660,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74088420686416,-74.17900085449219);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -74;
+					var maxWifiSignal = -63;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -11607,6 +11982,31 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.740754144262496,-74.1796875);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -72;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.740754144262496,-74.17951583862305);
 					//add circle
 					var color = '#06DF31';
@@ -11835,7 +12235,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.740754144262496,-74.17762756347656);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -82;
+					var maxWifiSignal = -77;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -12032,6 +12432,56 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74062408140651,-74.17882919311523);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -75;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74062408140651,-74.17865753173828);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -76;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74062408140651,-74.17831420898438);
 					//add circle
 					var color = '#06DF31';
@@ -12060,7 +12510,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74062408140651,-74.17814254760742);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -84;
+					var maxWifiSignal = -75;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -12357,6 +12807,56 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74049401829621,-74.17814254760742);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -83;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74049401829621,-74.17797088623047);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -71;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74049401829621,-74.17762756347656);
 					//add circle
 					var color = '#06DF31';
@@ -12557,6 +13057,56 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74036395493162,-74.17779922485352);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -82;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74036395493162,-74.17556762695312);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -86;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74036395493162,-74.17470932006836);
 					//add circle
 					var color = '#06DF31';
@@ -12635,7 +13185,32 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.74023389131268,-74.1793441772461);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -63;
+					var maxWifiSignal = -62;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74023389131268,-74.17917251586914);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -84;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -12711,6 +13286,31 @@ function bound(value, opt_min, opt_max) {
 					//add circle
 					var color = '#06DF31';
 					var maxWifiSignal = -59;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74023389131268,-74.17762756347656);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -77;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -12860,7 +13460,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.73997376331186,-74.17797088623047);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -57;
+					var maxWifiSignal = -48;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -12886,6 +13486,31 @@ function bound(value, opt_min, opt_max) {
 					//add circle
 					var color = '#06DF31';
 					var maxWifiSignal = -87;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.73997376331186,-74.17762756347656);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -81;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -12935,7 +13560,7 @@ function bound(value, opt_min, opt_max) {
 					var loc = new google.maps.LatLng(40.739843698929995,-74.17814254760742);
 					//add circle
 					var color = '#06DF31';
-					var maxWifiSignal = -59;
+					var maxWifiSignal = -49;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -12961,6 +13586,31 @@ function bound(value, opt_min, opt_max) {
 					//add circle
 					var color = '#06DF31';
 					var maxWifiSignal = -58;
+					if(maxWifiSignal >= -35)
+						color = '#06DF31';//green
+					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
+						color = '#3EEFFC';//blue
+					else if(maxWifiSignal < -70)
+						color = '#F4FA3E';//yellow
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.739843698929995,-74.17779922485352);
+					//add circle
+					var color = '#06DF31';
+					var maxWifiSignal = -85;
 					if(maxWifiSignal >= -35)
 						color = '#06DF31';//green
 					else if(maxWifiSignal < -35 && maxWifiSignal >= -70)
@@ -13257,6 +13907,42 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74361546275168,-74.17625427246094);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74361546275168,-74.17608261108398);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.743355347975395,-74.18037414550781);
 					//add circle
 					var color = '#FE1212';//red
@@ -13276,6 +13962,24 @@ function bound(value, opt_min, opt_max) {
 					
 							
 					var loc = new google.maps.LatLng(40.743355347975395,-74.17539596557617);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74322529020578,-74.17625427246094);
 					//add circle
 					var color = '#FE1212';//red
 					var sqCircle;
@@ -13365,6 +14069,24 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.7429651739036,-74.18071746826172);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.7429651739036,-74.18020248413086);
 					//add circle
 					var color = '#FE1212';//red
@@ -13437,7 +14159,43 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.7429651739036,-74.1738510131836);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74283511537101,-74.18071746826172);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74283511537101,-74.17608261108398);
 					//add circle
 					var color = '#FE1212';//red
 					var sqCircle;
@@ -13473,7 +14231,61 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74257499754292,-74.17556762695312);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74257499754292,-74.17539596557617);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74257499754292,-74.1738510131836);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74257499754292,-74.17350769042969);
 					//add circle
 					var color = '#FE1212';//red
 					var sqCircle;
@@ -13581,6 +14393,78 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.742444938247374,-74.17470932006836);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.742444938247374,-74.17402267456055);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.742444938247374,-74.1738510131836);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.742444938247374,-74.17367935180664);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74231487869751,-74.18020248413086);
 					//add circle
 					var color = '#FE1212';//red
@@ -13618,6 +14502,114 @@ function bound(value, opt_min, opt_max) {
 					
 							
 					var loc = new google.maps.LatLng(40.74231487869751,-74.17470932006836);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74231487869751,-74.1745376586914);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74231487869751,-74.17436599731445);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74231487869751,-74.1741943359375);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74231487869751,-74.17402267456055);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74231487869751,-74.1738510131836);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74231487869751,-74.17367935180664);
 					//add circle
 					var color = '#FE1212';//red
 					var sqCircle;
@@ -13815,6 +14807,24 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.741794637954946,-74.1767692565918);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.741794637954946,-74.17591094970703);
 					//add circle
 					var color = '#FE1212';//red
@@ -13905,6 +14915,24 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74153451605774,-74.17694091796875);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74153451605774,-74.17402267456055);
 					//add circle
 					var color = '#FE1212';//red
@@ -13923,7 +14951,61 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
+					var loc = new google.maps.LatLng(40.74140445472766,-74.17694091796875);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
 					var loc = new google.maps.LatLng(40.74140445472766,-74.17642593383789);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74140445472766,-74.17522430419922);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74127439314326,-74.17522430419922);
 					//add circle
 					var color = '#FE1212';//red
 					var sqCircle;
@@ -13978,6 +15060,24 @@ function bound(value, opt_min, opt_max) {
 					
 							
 					var loc = new google.maps.LatLng(40.74114433130455,-74.17728424072266);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74101426921151,-74.17917251586914);
 					//add circle
 					var color = '#FE1212';//red
 					var sqCircle;
@@ -14157,42 +15257,6 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
-					var loc = new google.maps.LatLng(40.74062408140651,-74.17882919311523);
-					//add circle
-					var color = '#FE1212';//red
-					var sqCircle;
-					 var sqOptions = {
-				      //strokeColor: color,
-				      strokeOpacity: 0,
-				      strokeWeight: 0,
-				      fillColor: color,
-				      fillOpacity: 0.35,
-				      map: map,
-				      center: loc,
-				      radius: 10
-				    };
-				    // Add the circle for this city to the map.
-				    sqCircle = new google.maps.Circle(sqOptions);
-					
-							
-					var loc = new google.maps.LatLng(40.74062408140651,-74.17865753173828);
-					//add circle
-					var color = '#FE1212';//red
-					var sqCircle;
-					 var sqOptions = {
-				      //strokeColor: color,
-				      strokeOpacity: 0,
-				      strokeWeight: 0,
-				      fillColor: color,
-				      fillOpacity: 0.35,
-				      map: map,
-				      center: loc,
-				      radius: 10
-				    };
-				    // Add the circle for this city to the map.
-				    sqCircle = new google.maps.Circle(sqOptions);
-					
-							
 					var loc = new google.maps.LatLng(40.74062408140651,-74.17848587036133);
 					//add circle
 					var color = '#FE1212';//red
@@ -14337,42 +15401,6 @@ function bound(value, opt_min, opt_max) {
 				    sqCircle = new google.maps.Circle(sqOptions);
 					
 							
-					var loc = new google.maps.LatLng(40.74049401829621,-74.17814254760742);
-					//add circle
-					var color = '#FE1212';//red
-					var sqCircle;
-					 var sqOptions = {
-				      //strokeColor: color,
-				      strokeOpacity: 0,
-				      strokeWeight: 0,
-				      fillColor: color,
-				      fillOpacity: 0.35,
-				      map: map,
-				      center: loc,
-				      radius: 10
-				    };
-				    // Add the circle for this city to the map.
-				    sqCircle = new google.maps.Circle(sqOptions);
-					
-							
-					var loc = new google.maps.LatLng(40.74049401829621,-74.17797088623047);
-					//add circle
-					var color = '#FE1212';//red
-					var sqCircle;
-					 var sqOptions = {
-				      //strokeColor: color,
-				      strokeOpacity: 0,
-				      strokeWeight: 0,
-				      fillColor: color,
-				      fillOpacity: 0.35,
-				      map: map,
-				      center: loc,
-				      radius: 10
-				    };
-				    // Add the circle for this city to the map.
-				    sqCircle = new google.maps.Circle(sqOptions);
-					
-							
 					var loc = new google.maps.LatLng(40.74049401829621,-74.17779922485352);
 					//add circle
 					var color = '#FE1212';//red
@@ -14392,6 +15420,24 @@ function bound(value, opt_min, opt_max) {
 					
 							
 					var loc = new google.maps.LatLng(40.74049401829621,-74.17659759521484);
+					//add circle
+					var color = '#FE1212';//red
+					var sqCircle;
+					 var sqOptions = {
+				      //strokeColor: color,
+				      strokeOpacity: 0,
+				      strokeWeight: 0,
+				      fillColor: color,
+				      fillOpacity: 0.35,
+				      map: map,
+				      center: loc,
+				      radius: 10
+				    };
+				    // Add the circle for this city to the map.
+				    sqCircle = new google.maps.Circle(sqOptions);
+					
+							
+					var loc = new google.maps.LatLng(40.74049401829621,-74.17573928833008);
 					//add circle
 					var color = '#FE1212';//red
 					var sqCircle;
@@ -14464,24 +15510,6 @@ function bound(value, opt_min, opt_max) {
 					
 							
 					var loc = new google.maps.LatLng(40.74036395493162,-74.17797088623047);
-					//add circle
-					var color = '#FE1212';//red
-					var sqCircle;
-					 var sqOptions = {
-				      //strokeColor: color,
-				      strokeOpacity: 0,
-				      strokeWeight: 0,
-				      fillColor: color,
-				      fillOpacity: 0.35,
-				      map: map,
-				      center: loc,
-				      radius: 10
-				    };
-				    // Add the circle for this city to the map.
-				    sqCircle = new google.maps.Circle(sqOptions);
-					
-							
-					var loc = new google.maps.LatLng(40.74036395493162,-74.17779922485352);
 					//add circle
 					var color = '#FE1212';//red
 					var sqCircle;
@@ -14788,24 +15816,6 @@ function bound(value, opt_min, opt_max) {
 					
 							
 					var loc = new google.maps.LatLng(40.739843698929995,-74.17865753173828);
-					//add circle
-					var color = '#FE1212';//red
-					var sqCircle;
-					 var sqOptions = {
-				      //strokeColor: color,
-				      strokeOpacity: 0,
-				      strokeWeight: 0,
-				      fillColor: color,
-				      fillOpacity: 0.35,
-				      map: map,
-				      center: loc,
-				      radius: 10
-				    };
-				    // Add the circle for this city to the map.
-				    sqCircle = new google.maps.Circle(sqOptions);
-					
-							
-					var loc = new google.maps.LatLng(40.739843698929995,-74.17779922485352);
 					//add circle
 					var color = '#FE1212';//red
 					var sqCircle;
