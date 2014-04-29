@@ -7,6 +7,14 @@ create table App.Player_Aliens (player_alien_id integer PRIMARY KEY, shot_alien_
 create table App.Bullets (bullet_id integer PRIMARY KEY, bullet_count integer,  square_id integer, gps_lat double, gps_lng double);
 create table App.Sentinels (sentinel_id integer PRIMARY KEY, user_email varchar(255), user_meid varchar(255), gps_lat double, gps_lng double);
 
+C:\Users\Sups\Documents\McSense_validation\user_groups.csv
+
+create table App.Mcsense_Readings (reading_id integer PRIMARY KEY, user_id integer, square_id integer, gps_lat double, gps_lng double,  BSSID varchar(255), SSID varchar(255), Capabilities varchar(255), Frequency integer, SignalLevel integer);
+
+ALTER TABLE APP.Mcsense_Readings ADD CREATED_TIME TIMESTAMP;
+
+select * from APP.Mcsense_Readings
+
 ALTER TABLE APP.Sensor_Readings ADD CREATED_TIME TIMESTAMP;
 
 ALTER TABLE APP.Sensor_Readings ADD altitude integer;
@@ -149,7 +157,17 @@ INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN',500);
 INSERT INTO APP.SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN_TABLE',0);
 
 Select * from App.Users
-select distinct square_id, altitude from APP.Sensor_Readings where altitude < 0 and square_id > 0;
+
+Select sum(aliens_killed) from App.Users
+order by score
+
+select distinct square_id, altitude from APP.Sensor_Readings where altitude <> 0 and square_id > 0;
+select distinct square_id from APP.Sensor_Readings where altitude > 20 and square_id > 0;
+
+--find number of squares covered in upper floors
+
+select * from APP.AREA A where A.sqaure_id in (select distinct S.square_id from APP.Sensor_Readings S where S.altitude > 20 and S.square_id > 0)
+                                              and A.floor_num > 0;
 
 select * from APP.Sensor_Readings where altitude <> 0 and square_id > 0 and user_id = 2286757 and created_time > '2014-04-12 12:00:00';
 
@@ -163,6 +181,8 @@ select * from APP.AREA where floor_num > 0 and TILE_X = 616449 and TILE_Y = 7882
 update App.AREA 
 set SQUARE_DESC = 'Student Mall / Parking Deck'
 where SQUARE_DESC = 'Guttenberg Information Technologies Center'
+
+select count(*) from App.ALIENS where shot_count
 
 select * from APP.AREA where GPS_LAT is NULL;
 select count(*) from APP.AREA where COVERED_IND = 'Y'
