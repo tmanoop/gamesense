@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import com.plays.model.Alien;
 import com.plays.model.Area;
+import com.plays.model.McsenseReading;
 import com.plays.model.SensorReading;
 import com.plays.model.Sentinel;
 import com.plays.model.User;
@@ -63,4 +64,10 @@ public interface AlienServicesLocal {
 	Alien findAvailableAlienByShotCnt(int shotCount);
 
 	Area findAreaByXYFloor(double tileX, double tileY, int floor);
+
+	List<McsenseReading> allMcsenseReadingsBetweenIDs(long start, long end);
+
+	McsenseReading addMcsenseReading(McsenseReading rv);
+
+	List<WiFiMap> findMcsenseNJITCovSquares();
 }
