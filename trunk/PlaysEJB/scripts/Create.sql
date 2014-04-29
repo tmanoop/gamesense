@@ -9,6 +9,8 @@ create table App.Sentinels (sentinel_id integer PRIMARY KEY, user_email varchar(
 
 C:\Users\Sups\Documents\McSense_validation\user_groups.csv
 
+CALL SYSCS_UTIL.SYSCS_IMPORT_TABLE (null,'APP.Mcsense_Readings','C:\Users\E0197060\Downloads\mcsense_wifi.csv',';',null,null,0);
+
 create table App.Mcsense_Readings (reading_id integer PRIMARY KEY, user_id integer, square_id integer, gps_lat double, gps_lng double,  BSSID varchar(255), SSID varchar(255), Capabilities varchar(255), Frequency integer, SignalLevel integer);
 
 ALTER TABLE APP.Mcsense_Readings ADD CREATED_TIME TIMESTAMP;
