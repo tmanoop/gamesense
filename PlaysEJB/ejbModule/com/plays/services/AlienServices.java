@@ -94,7 +94,7 @@ public class AlienServices implements AlienServicesLocal {
     	
     	String sqlScript = "select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.SENSOR_READINGS " 
 							+" where (SSID like ('%NJIT%') or SSID like ('%njit%')) "
-								+" and square_id >= 0 "
+								+" and square_id >= 0 and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N') "
 								+" group by square_id "
 								+" order by square_id ";
 		Query q = dataServicesLocal.getEM().createNativeQuery(sqlScript);
@@ -122,7 +122,7 @@ public class AlienServices implements AlienServicesLocal {
     	//Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNJITCovSquares");
     	
     	String sqlScript = "select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.MCSENSE_READINGS " 
-							+" where SSID = 'njit' "
+							+" where SSID = 'njit' and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N') "
 								+" and square_id >= 0 "
 								+" group by square_id "
 								+" order by square_id ";
@@ -150,11 +150,39 @@ public class AlienServices implements AlienServicesLocal {
     	
 //    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNoNJITCovSquares");
     	String sqlScript = "select square_id from APP.SENSOR_READINGS " 
-								+" where square_id > 0 "
+								+" where square_id > 0 and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N') "
 								+" group by square_id "
 								+" EXCEPT "
 								+" select square_id as avg_signal_level from APP.SENSOR_READINGS " 
 								+" where (SSID like ('%NJIT%') or SSID like ('%njit%')) "
+								+" 	and square_id >= 0 and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N') "
+								+" 	group by square_id ";
+    	Query q = dataServicesLocal.getEM().createNativeQuery(sqlScript);
+    	
+    	List<Integer> results = (List<Integer>)q.getResultList();
+    	
+    	for (Integer result : results) {
+    	    Integer squareId = result;
+    	    Area area = findAreaByID(squareId);
+    	    WiFiMap wiFiMap = new WiFiMap();
+    	    wiFiMap.setArea(area);
+    	    wiFiMapList.add(wiFiMap);
+    	}
+    	
+		return wiFiMapList;
+    }
+    
+    @Override
+    public List<WiFiMap> findNoMcsenseNJITCovSquares(){
+    	List<WiFiMap> wiFiMapList = new ArrayList<WiFiMap>();
+    	
+//    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNoNJITCovSquares");
+    	String sqlScript = "select square_id from APP.MCSENSE_READINGS " 
+								+" where square_id > 0 and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N') "
+								+" group by square_id "
+								+" EXCEPT "
+								+" select square_id as avg_signal_level from APP.MCSENSE_READINGS " 
+								+" where SSID = 'njit' and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N') "
 								+" 	and square_id >= 0 "
 								+" 	group by square_id ";
     	Query q = dataServicesLocal.getEM().createNativeQuery(sqlScript);

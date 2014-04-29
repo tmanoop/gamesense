@@ -70,4 +70,6 @@ public interface AlienServicesLocal {
 	McsenseReading addMcsenseReading(McsenseReading rv);
 
 	List<WiFiMap> findMcsenseNJITCovSquares();
+
+	List<WiFiMap> findNoMcsenseNJITCovSquares();
 }
