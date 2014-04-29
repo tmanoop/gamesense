@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import com.plays.model.Alien;
 import com.plays.model.Area;
+import com.plays.model.McsenseReading;
 import com.plays.model.SensorReading;
 import com.plays.model.Sentinel;
 import com.plays.model.User;
@@ -63,6 +64,14 @@ public class AlienServices implements AlienServicesLocal {
     }
     
     @Override
+    public List<McsenseReading> allMcsenseReadingsBetweenIDs(long start, long end){
+    	List<McsenseReading> pList = null;
+    	Query q = dataServicesLocal.getEM().createNamedQuery("McsenseReading.findById").setParameter("start", start).setParameter("end", end);
+    	pList = (List<McsenseReading>) q.getResultList();
+		return pList;
+    }
+    
+    @Override
     public long allSensorReadingsCount(){
     	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.count");
     	List<Long> count = (List<Long>) q.getResultList();
@@ -85,6 +94,35 @@ public class AlienServices implements AlienServicesLocal {
     	
     	String sqlScript = "select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.SENSOR_READINGS " 
 							+" where (SSID like ('%NJIT%') or SSID like ('%njit%')) "
+								+" and square_id >= 0 "
+								+" group by square_id "
+								+" order by square_id ";
+		Query q = dataServicesLocal.getEM().createNativeQuery(sqlScript);
+//    	q.getResultList();
+    	
+    	List<Object[]> results = q.getResultList();
+    	
+    	for (Object[] result : results) {
+    	    int squareId = (Integer) result[0];
+    	    Area area = findAreaByID(squareId);
+    	    int maxSignalLevel = ((Number) result[1]).intValue();
+    	    WiFiMap wiFiMap = new WiFiMap();
+    	    wiFiMap.setArea(area);
+    	    wiFiMap.setMaxSignalLevel(maxSignalLevel);
+    	    wiFiMapList.add(wiFiMap);
+    	}
+    	
+		return wiFiMapList;
+    }
+    
+    @Override
+    public List<WiFiMap> findMcsenseNJITCovSquares(){
+    	List<WiFiMap> wiFiMapList = new ArrayList<WiFiMap>();
+    	
+    	//Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNJITCovSquares");
+    	
+    	String sqlScript = "select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.MCSENSE_READINGS " 
+							+" where SSID = 'njit' "
 								+" and square_id >= 0 "
 								+" group by square_id "
 								+" order by square_id ";
@@ -317,6 +355,18 @@ public class AlienServices implements AlienServicesLocal {
 	
 	@Override
 	public SensorReading addSensorReading(SensorReading rv) {
+		try {
+			
+			dataServicesLocal.merge(rv);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rv;
+	}
+	
+	@Override
+	public McsenseReading addMcsenseReading(McsenseReading rv) {
 		try {
 			
 			dataServicesLocal.merge(rv);
