@@ -238,7 +238,7 @@ public class ControlServlet extends HttpServlet {
 		} else if(submit!=null && submit.equals("LoadMcSenseSquareIDs")){
 			//long count = alienServicesLocal.allSensorReadingsCount();
 //			System.out.println("SeansorReadings Size: "+count);
-			long end = 22399;
+			long end = 60873;
 			long start = 0;
 			long batch = 10000;
 			while(start<=end){
