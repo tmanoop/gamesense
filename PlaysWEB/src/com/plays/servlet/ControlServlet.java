@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.plays.model.Alien;
 import com.plays.model.Area;
+import com.plays.model.McsenseReading;
 import com.plays.model.SensorReading;
 import com.plays.services.AlienServicesLocal;
 import com.plays.services.GameStrategyServicesLocal;
@@ -225,6 +226,36 @@ public class ControlServlet extends HttpServlet {
 						//System.out.println("Reading outside NJIT");
 						sensorReading.setSquareId(-1);
 						alienServicesLocal.addSensorReading(sensorReading);
+					}
+					
+				}
+				
+				start = start + batch+1;
+			}
+			
+			
+			
+		} else if(submit!=null && submit.equals("LoadMcSenseSquareIDs")){
+			//long count = alienServicesLocal.allSensorReadingsCount();
+//			System.out.println("SeansorReadings Size: "+count);
+			long end = 22399;
+			long start = 0;
+			long batch = 10000;
+			while(start<=end){
+				List<McsenseReading> sensorReadingList1 = alienServicesLocal.allMcsenseReadingsBetweenIDs(start, start+batch);
+				System.out.println(start);
+				for(McsenseReading sensorReading : sensorReadingList1){
+					GoogleMapsProjection2 gmap2 = new GoogleMapsProjection2();
+					Point point = gmap2.fromLatLngToPoint(sensorReading.getGpsLat(), sensorReading.getGpsLng(), GoogleMapsProjection2.ZOOM);
+					Area area = alienServicesLocal.findAreaByXY(point.x, point.y);
+					if(area!=null){
+						//System.out.println("Reading at square: "+area.getSqaureId());
+						sensorReading.setSquareId(area.getSqaureId());
+						alienServicesLocal.addMcsenseReading(sensorReading);
+					} else {
+						//System.out.println("Reading outside NJIT");
+						sensorReading.setSquareId(-1);
+						alienServicesLocal.addMcsenseReading(sensorReading);
 					}
 					
 				}
