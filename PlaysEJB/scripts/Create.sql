@@ -15,7 +15,7 @@ create table App.Mcsense_Readings (reading_id integer PRIMARY KEY, user_id integ
 
 ALTER TABLE APP.Mcsense_Readings ADD CREATED_TIME TIMESTAMP;
 
-select * from APP.Mcsense_Readings
+select count(*) from APP.Mcsense_Readings where square_id = 0;
 
 ALTER TABLE APP.Sensor_Readings ADD CREATED_TIME TIMESTAMP;
 
@@ -24,6 +24,13 @@ ALTER TABLE APP.Sensor_Readings ADD altitude integer;
 ALTER TABLE APP.Aliens ADD user_id integer;
 
 ALTER TABLE APP.Area ALTER square_desc SET DATA TYPE varchar(200);
+
+ALTER TABLE APP.Area ADD rutgers_ind varchar(10);
+
+update APP.area
+set rutgers_ind = 'N'
+where tile_x = 1
+and tile_y = 1
 
 drop table App.Area;
 drop table App.Users;
@@ -102,9 +109,25 @@ select square_id, max(SIGNALLEVEL) from APP.SENSOR_READINGS
 select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.SENSOR_READINGS 
 		where (SSID like ('%NJIT%') or SSID like ('%njit%'))
 			and square_id >= 0
+			and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N')
+			and created_time between '2014-04-01 00:00:00' and '2014-04-15 00:00:00'
 			group by square_id
 			order by square_id;
-		
+			
+-- below query to get max signal of each square having NJIT signal from mcsense data
+select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.MCSENSE_READINGS 
+		where SSID = 'njit'
+			and square_id >= 0
+			and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N')
+			and created_time between '2012-04-02 00:00:00' and '2012-04-16 00:00:00'
+			group by square_id
+			order by square_id;
+
+select max(created_time), min(created_time) from APP.MCSENSE_READINGS where created_time between  '2012-04-02 00:00:00' and '2012-04-16 00:00:00'
+-- Total number of squares at floor 0 are 868 
+select count(*) from APP.AREA a where a.rutgers_ind = 'N' and floor_num = 0
+			
+			select * from APP.AREA where rutgers_ind = 'N' and tile_x = 616470 and tile_y = 788258
 -- no NJIT WiFI reading - red -- TODO verify the query to subtract
 select square_id from APP.SENSOR_READINGS 
 	where square_id > 0
