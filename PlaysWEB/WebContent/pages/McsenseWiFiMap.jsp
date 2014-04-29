@@ -281,7 +281,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <p align="left">Campus is mapped with NJIT WiFi coverage as part of <a href="http://web.njit.edu/~mt57/mcsense/">McSense</a> project.
  <i> For more details on the project contact: mt57@njit.edu.</i>
 
-<table style="width:975px">
+<table style="width:1300px">
 <tr>
   <th bgcolor = '#06DF31'>GREEN areas with STRONG signal strength</th>
   <th bgcolor = '#3EEFFC'>BLUE areas with MEDIUM signal strength</th> 
