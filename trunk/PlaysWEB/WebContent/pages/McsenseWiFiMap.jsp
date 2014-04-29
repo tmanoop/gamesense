@@ -184,7 +184,7 @@ function bound(value, opt_min, opt_max) {
 	  	<%
 			List<WiFiMap> noWiFiMapList = new ArrayList<WiFiMap>();	  		
 	  	 
-	  	noWiFiMapList = alienServicesLocal.findNoNJITCovSquares();
+	  	noWiFiMapList = alienServicesLocal.findNoMcsenseNJITCovSquares();
 			for(WiFiMap wiFiMap : noWiFiMapList){
 				Area area = wiFiMap.getArea();
 				double lat = 0.0;
@@ -252,13 +252,13 @@ function initialize() {
   //viewAliens(map,bound);
   //viewAreas();
   viewWiFiMap(map,bound);
-  //viewNoWiFiMap(map,bound);
+  viewNoWiFiMap(map,bound);
   google.maps.event.addListener(map, 'zoom_changed', function() {
       if (map.getZoom() == 21) {
     	  //viewAliens(map,bound);
     	  //viewAreas(); 
     	  viewWiFiMap(map,bound);
-    	  //viewNoWiFiMap(map,bound);
+    	  viewNoWiFiMap(map,bound);
       }
       else {
           //hideMarkers();
@@ -286,9 +286,12 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <th bgcolor = '#06DF31'>GREEN areas with STRONG signal strength</th>
   <th bgcolor = '#3EEFFC'>BLUE areas with MEDIUM signal strength</th> 
   <th bgcolor = '#F4FA3E'>YELLOW areas with LOW signal strength</th>
+ <th bgcolor = '#FE1212'>RED areas detected with no NJIT WiFi</th>
 </tr>
 
 </table>
+<br>
+<i>Note: Areas with no data are not colored.</i>
 <br>
     <div id="map-canvas"></div>
   </body>
