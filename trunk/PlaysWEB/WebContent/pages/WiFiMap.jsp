@@ -8,7 +8,7 @@
 </head>
 <body>
 <%  
-response.sendRedirect("WiFiMap.html");
+response.sendRedirect("GameWiFiMap.html");
     %>  
 </body>
 </html>
