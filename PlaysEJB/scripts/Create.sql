@@ -110,7 +110,7 @@ select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.SENSOR_READINGS
 		where (SSID like ('%NJIT%') or SSID like ('%njit%'))
 			and square_id >= 0
 			and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N')
-			and created_time between '2014-04-01 00:00:00' and '2014-04-15 00:00:00'
+			and created_time between '2014-04-01 00:00:00' and '2014-04-29 00:00:00'
 			group by square_id
 			order by square_id;
 			
@@ -123,7 +123,21 @@ select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.MCSENSE_READINGS
 			group by square_id
 			order by square_id;
 
-select max(created_time), min(created_time) from APP.MCSENSE_READINGS where created_time between  '2012-04-02 00:00:00' and '2012-04-16 00:00:00'
+--results for MASS 14 paper
+-- get number of squares covered grouped by date
+	
+select A.date_part, count(*) from (
+select DATE(created_time) as date_part, square_id from APP.MCSENSE_READINGS 
+		where SSID = 'njit'
+			and square_id >= 0
+			and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N')
+) A
+group by A.date_part
+	
+select DATE(created_time) from APP.MCSENSE_READINGS 
+		where SSID = 'njit'
+			and square_id >= 0
+			and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N')
 -- Total number of squares at floor 0 are 868 
 select count(*) from APP.AREA a where a.rutgers_ind = 'N' and floor_num = 0
 			
