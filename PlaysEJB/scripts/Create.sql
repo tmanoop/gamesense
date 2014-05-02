@@ -55,6 +55,8 @@ delete from App.Aliens;
 delete from App.Sensor_Readings;
 delete from App.Users;
 select * from App.Users;
+select * from App.Users where status_level = '1' and score>0;
+select status_level, count(*) from App.Users group by status_level;
 select * from App.Aliens where shot_count=2;
 
 select square_id, count(*) from App.Aliens group by square_id
