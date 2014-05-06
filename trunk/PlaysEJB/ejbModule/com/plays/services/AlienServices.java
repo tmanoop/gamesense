@@ -95,7 +95,7 @@ public class AlienServices implements AlienServicesLocal {
     	String sqlScript = "select square_id, max(SIGNALLEVEL) as avg_signal_level from APP.SENSOR_READINGS " 
 							+" where (SSID like ('%NJIT%') or SSID like ('%njit%')) "
 								+" and square_id >= 0 and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N') "
-								+" and created_time between '2014-04-01 00:00:00' and '2014-04-15 00:00:00' "
+								//+" and created_time between '2014-04-01 00:00:00' and '2014-04-15 00:00:00' "
 								+" group by square_id "
 								+" order by square_id ";
 		Query q = dataServicesLocal.getEM().createNativeQuery(sqlScript);
@@ -153,13 +153,13 @@ public class AlienServices implements AlienServicesLocal {
 //    	Query q = dataServicesLocal.getEM().createNamedQuery("SensorReading.findNoNJITCovSquares");
     	String sqlScript = "select square_id from APP.SENSOR_READINGS " 
 								+" where square_id > 0 and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N') "
-								+" and created_time between '2014-04-01 00:00:00' and '2014-04-15 00:00:00' "
+								//+" and created_time between '2014-04-01 00:00:00' and '2014-04-15 00:00:00' "
 								+" group by square_id "
 								+" EXCEPT "
 								+" select square_id as avg_signal_level from APP.SENSOR_READINGS " 
 								+" where (SSID like ('%NJIT%') or SSID like ('%njit%')) "
 								+" 	and square_id >= 0 and square_id in (select a.sqaure_id from APP.AREA a where a.rutgers_ind = 'N') "
-								+"  and created_time between '2014-04-01 00:00:00' and '2014-04-15 00:00:00' "
+								//+"  and created_time between '2014-04-01 00:00:00' and '2014-04-15 00:00:00' "
 								+" 	group by square_id ";
     	Query q = dataServicesLocal.getEM().createNativeQuery(sqlScript);
     	
